@@ -16,7 +16,7 @@
           {
             "group": "Getting started",
             "pages": [
-              "getting-started/profile",
+              "getting-started/introduction",
               "getting-started/concepts",
               "getting-started/download"
             ]
@@ -128,26 +128,12 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:info@getarca.app"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
+    ]
   },
   "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "cursor"]
   },
   "footer": {
     "socials": {

@@ -1,80 +1,63 @@
 ---
-title: "Concepts"
-description: "Start building awesome documentation in minutes"
+title: "Core concepts"
+description: "Learn how Arca structures work so you can organize tasks and collaborate effectively."
+icon: "lightbulb"
 ---
 
-## Get started in three steps
+Arca uses a few simple building blocks to organize everything. Understanding them helps you set up your workspace in a way that matches how your team actually works.
 
-Get your documentation site running locally and make your first customization.
+## Workspaces
 
-### Step 1: Set up your local environment
+A workspace is the top-level container for your team's work; it holds all tasks, lists, folders, views, members, and settings.
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+Use separate workspaces for distinct teams or organizations. Most teams start with one workspace and add more only when they need a clean separation (for example, a separate workspace for a client, project, or a different business unit).
 
-### Step 2: Deploy your changes
+## Folders and lists
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+Folders and lists are how you organize tasks inside a workspace.
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+- **Folders** group related lists together (for example, a "Marketing" folder might contain lists for "Campaigns", "Content", and "Events").
+- **Lists** hold tasks and represent a specific workstream, project, or team. Every list must belong to a folder.
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+<Tip>
+  Start simple: create a folder for each project and add lists inside it to
+  break the work into phases or categories.
+</Tip>
 
-### Step 3: Go live
+## Tasks
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+Tasks are the core unit of work in Arca. Each task represents one piece of work and can hold everything related to it:
 
-## Next steps
+- A title and rich description
+- Status (which stage of your workflow it's in)
+- Priority (Urgent, High, Medium, Low)
+- Assignees (who owns it)
+- Start and due dates
+- Labels (custom tags)
+- Subtasks (smaller steps within the task)
+- Dependencies (other tasks this task is blocked by or related to)
+- Comments, reactions, and file attachments
 
-Now that you have your docs running, explore these key features:
+Keeping all of this on the task means your team never has to dig through email or chat to find context.
 
-<CardGroup cols={2}>
+## Views
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+Views are saved layouts that let you look at tasks in different ways, filtered, sorted, and formatted for a specific purpose.
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+- **Table:** a spreadsheet-style grid with columns for every field. Great for triaging and bulk updates.
+- **Board:** drag-and-drop cards grouped by status. Great for sprint boards and visualizing workflow stages.
+- **Calendar:** tasks plotted on a calendar by due date. Great for deadline planning.
+- **Timeline:** tasks shown as bars across a time axis. Great for project scheduling and seeing overlaps.
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+Create a saved view once, and it's available as a tab you can return to any time, with filters, sort, and layout all preserved.
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
+## Dashboards
 
-</CardGroup>
+Dashboards show you the big picture. Instead of opening individual lists to understand how work is going, a dashboard surfaces key metrics (task completion, workload by assignee, tasks by status) in a single view.
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+Use dashboards in planning sessions, retrospectives, and check-ins to understand whether work is on track and where bottlenecks are forming.
+
+<Info>
+  Dashboards are workspace-specific and available to anyone with workspace
+  access.
+</Info>

@@ -1,7 +1,7 @@
 ---
 name: "Docs Agent"
 description: "Agent that helps maintain and update documentation for the Arca project."
-model: Raptor mini (Preview) (copilot)
+model: Claude Sonnet 4.6 (copilot)
 tools: [vscode, execute, read, agent, edit, search, web, 'context7/*', 'everything/*', 'fetch/*', 'memory/*', 'sequentialthinking/*', 'time/*', browser, 'mintlify-mcp/*', vscode.mermaid-chat-features/renderMermaidDiagram, todo]
 ---
 
