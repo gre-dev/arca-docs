@@ -15,27 +15,73 @@
         "groups": [
           {
             "group": "Getting started",
-            "pages": ["index", "quickstart", "development"]
-          },
-          {
-            "group": "Customization",
-            "pages": ["essentials/settings", "essentials/navigation"]
-          },
-          {
-            "group": "Writing content",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "getting-started/profile",
+              "getting-started/concepts",
+              "getting-started/download"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Account",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "account/profile",
+              "account/notifications",
+              "account/preferences"
+            ]
+          },
+          {
+            "group": "Tasks",
+            "pages": [
+              "tasks/create",
+              "tasks/edit",
+              "tasks/assign",
+              "tasks/select",
+              "tasks/subtasks",
+              "tasks/editor",
+              "tasks/attachments",
+              "tasks/comments-and-reactions",
+              "tasks/dependencies"
+            ]
+          },
+          {
+            "group": "List and board views",
+            "pages": ["views/view-options"]
+          },
+          {
+            "group": "Views",
+            "pages": [
+              "views/overview",
+              "views/create",
+              "views/sorting-views",
+              "views/table",
+              "views/calendar",
+              "views/timeline"
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": ["dashboards/dashboards", "dashboards/insights"]
+          },
+          {
+            "group": "Administration",
+            "pages": [
+              "administration/workspaces",
+              "administration/labels",
+              "administration/statuses",
+              "administration/folders",
+              "administration/billing",
+              "administration/members-and-roles",
+              "administration/invite-members",
+              "administration/import",
+              "administration/export"
+            ]
+          },
+          {
+            "group": "General features",
+            "pages": [
+              "general-features/search",
+              "general-features/sidebar-customization",
+              "general-features/keyboard-shortcuts"
             ]
           }
         ]
