@@ -4,11 +4,7 @@ description: "Visualize your work as a timeline to plan phases, spot overlaps, a
 icon: "chart-gantt"
 ---
 
-<Info>
-  Timeline view is available on the **Starter** and **Business** plans.
-</Info>
-
-Timeline view displays tasks as horizontal bars along a time axis, so you can see how work is scheduled, how phases overlap, and whether your team is over- or under-loaded at any point in the project.
+Timeline view displays tasks as horizontal bars along a time axis, so you can see how work is scheduled, how phases overlap, and whether your team is over-loaded or under-loaded at any point in the project.
 
 ## When to use timeline view
 
@@ -21,26 +17,34 @@ Timeline view displays tasks as horizontal bars along a time axis, so you can se
 
 <Steps>
   <Step title="Create or open a view">
-    Go to **Views** and create a new view, or open an existing one.
+    Go to **Views** and create a new view, or open an existing one. Select
+    **Timeline** as the view type.
   </Step>
-  <Step title="Select Timeline as the layout">
-    Choose **Timeline** from the view type options.
+  <Step title="Make sure tasks have both a start date and a due date">
+    Tasks without both dates are excluded from the timeline. Open any task and
+    set its start and due dates before expecting it to appear.
   </Step>
-  <Step title="Ensure tasks have start and due dates">
-    Tasks with both a start and due date appear as bars. Tasks without dates
-    won't show up.
-  </Step>
-  <Step title="Use zoom controls">
-    Switch between day, week, and month breakdowns to zoom in or out.
+  <Step title="Switch between week and month">
+    Use the period selector in the top-right to toggle between **Week** (a
+    focused 7-day view) and **Month** (the full month, horizontally scrollable).
   </Step>
 </Steps>
+
+## Google Calendar integration
+
+If you connect your Google Calendar account, your Google Calendar events appear as bars on the timeline alongside your Arca tasks. This lets you see meetings and scheduled work in the same place and spot conflicts at a glance.
+
+To connect, go to **Settings → Integrations → Google Calendar** and follow the authorization steps. Once connected, events are shown automatically in every timeline view.
 
 ## Adjust task dates on the timeline
 
 - Drag a task bar left or right to shift its entire date range.
 - Drag the left or right edge of a bar to change just the start or due date.
 
-<Tip>
-  Give every in-progress task a start date; it's the simplest way to populate
-  the timeline and start spotting scheduling conflicts.
-</Tip>
+## Display settings
+
+The sliders icon in the top-right opens a settings menu with three options:
+
+- **Task Color**: color task bars by their status color, by priority color, or use no color at all.
+- **Display**: choose between **Show assignees** (avatar shown inside each bar) or **Title only**.
+- **Show Completed**: show or hide tasks that have reached a completed status.

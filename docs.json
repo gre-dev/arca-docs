@@ -26,7 +26,8 @@
             "pages": [
               "account/profile",
               "account/notifications",
-              "account/preferences"
+              "account/preferences",
+              "account/points"
             ]
           },
           {
@@ -40,19 +41,19 @@
               "tasks/editor",
               "tasks/attachments",
               "tasks/comments-and-reactions",
-              "tasks/dependencies"
+              "tasks/dependencies",
+              "tasks/move-and-duplicate"
             ]
           },
           {
-            "group": "List and board views",
-            "pages": ["views/view-options"]
+            "group": "Lists",
+            "pages": ["lists/list-settings"]
           },
           {
             "group": "Views",
             "pages": [
               "views/overview",
               "views/create",
-              "views/sorting-views",
               "views/table",
               "views/calendar",
               "views/timeline"
