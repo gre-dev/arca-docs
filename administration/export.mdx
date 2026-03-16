@@ -1,31 +1,40 @@
 ---
 title: "Export"
-description: "Export your workspace data to a CSV file for backups, reporting, or migration."
+description: "Export your tasks to a CSV file for backups, reporting, or migration."
 icon: "file-export"
 ---
 
-Exporting creates a snapshot of your workspace data in a standard CSV format that you can open in a spreadsheet, share with stakeholders, or import into another tool.
+Exporting generates a CSV file containing all tasks from the workspaces you select. You can open it in a spreadsheet, share it with stakeholders, or import it into another tool.
 
 ## Export your workspace
 
 <Steps>
   <Step title="Open Settings">
-    Go to **Settings > Import / export** in the sidebar.
+    Go to **Settings > Import / export** in the sidebar and scroll to the Export section.
   </Step>
-  <Step title="Choose the export option">
-    Click the export button to generate the CSV file.
+  <Step title="Select workspaces">
+    Check the workspaces you want to include in the export. Only workspaces where you are the owner or admin appear in this list.
   </Step>
   <Step title="Download the file">
-    Download the CSV to your computer.
+    Click **Export** to generate and download the CSV file to your computer.
   </Step>
 </Steps>
 
+## What the export includes
+
+The CSV contains all tasks from the selected workspaces, with these columns: task ID, title, description, workspace, folder, list, status, priority, assignees, labels, due date, start date, created date, updated date, and task dependency relationships (related to, blocking, blocked by, and subtask of).
+
 ## When to export
 
-- **Regular backups:** keep a periodic snapshot of your workspace state
+- **Regular backups:** keep a periodic snapshot of your tasks
 - **Reporting:** pull task data into a spreadsheet for custom analysis or stakeholder reports
-- **Migration:** move your work to another tool or archive a completed project
-- **Before deleting:** always export before deleting a workspace or list
+- **Migration:** move your tasks to another tool or archive a completed project
+- **Before deleting:** always export before deleting a workspace
+
+<Warning>
+  You can only export once every 7 days. Plan ahead if you need a fresh export
+  before making large changes.
+</Warning>
 
 <Tip>
   Export before making large structural changes to your workspace, so you have a

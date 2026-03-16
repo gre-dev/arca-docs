@@ -16,7 +16,7 @@ If your tasks live in a spreadsheet or another tool, you can import them into Ar
     Click the import option and select your CSV file. It must have a header row.
   </Step>
   <Step title="Map columns to Arca fields">
-    Match your CSV columns to Arca fields: title, list, status, due date, priority, assignees, and labels.
+    Match your CSV columns to Arca fields: title, list, folder, description, status, priority, due date, start date, assignees, and labels. Arca auto-detects common column names from other tools.
   </Step>
   <Step title="Preview and confirm">
     Review a preview of how the data will look, then confirm to start the import.
@@ -25,11 +25,18 @@ If your tasks live in a spreadsheet or another tool, you can import them into Ar
 
 ## CSV tips
 
-- Use `YYYY-MM-DD` or `MM/DD/YYYY` format for dates.
+- **Title** is the only required column — all other fields are optional.
+- Use `YYYY-MM-DD` or `MM/DD/YYYY` format for dates (applies to both due date and start date).
 - Separate multiple assignees or labels with commas.
-- If a list or status in the CSV doesn't exist yet, Arca can create it during import.
+- If a list, folder, status, or label in the CSV doesn't exist yet, Arca creates it automatically during import.
+- Priority accepts text values: `urgent`, `high`, `medium`, `low`.
+- Arca automatically recognizes common column names from tools like Notion, Linear, ClickUp, Trello, and others.
 
 <Tip>
   Clean your CSV before importing: remove duplicates, fix date formats, and make
   sure every row has a title. This prevents errors mid-import.
 </Tip>
+
+<Danger>
+  Completed tasks are not imported. If you want to keep completed tasks, change their status to an active one before exporting your CSV.
+</Danger>

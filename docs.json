@@ -61,7 +61,7 @@
           },
           {
             "group": "Analytics",
-            "pages": ["dashboards/dashboards", "dashboards/insights"]
+            "pages": ["analytics/dashboards", "analytics/insights"]
           },
           {
             "group": "Administration",
@@ -82,7 +82,8 @@
             "pages": [
               "general-features/search",
               "general-features/sidebar-customization",
-              "general-features/keyboard-shortcuts"
+              "general-features/keyboard-shortcuts",
+              "general-features/member-profiles"
             ]
           }
         ]
