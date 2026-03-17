@@ -42,8 +42,13 @@
               "tasks/attachments",
               "tasks/comments-and-reactions",
               "tasks/dependencies",
-              "tasks/move-and-duplicate"
+              "tasks/move-and-duplicate",
+              "tasks/recurring-tasks"
             ]
+          },
+          {
+            "group": "AI features",
+            "pages": ["ai-features/editor-actions"]
           },
           {
             "group": "Lists",
