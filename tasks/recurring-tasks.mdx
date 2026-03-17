@@ -1,0 +1,158 @@
+---
+title: "Recurring tasks"
+description: "Automatically repeat tasks on a schedule or when a task is completed."
+icon: "repeat"
+---
+
+Recurring tasks let you create a task once and have Arca automatically generate new occurrences on a schedule you define. Use them for anything that repeats, weekly standups, monthly reviews, quarterly reports, and more.
+
+## Set up recurrence when creating a task
+
+You can add a recurrence schedule directly from the **Create Task** dialog.
+
+<Steps>
+  <Step title="Open the Create Task dialog">
+    Click **New Task** from a list.
+  </Step>
+  <Step title="Find the recurrence option">
+    In the task creation form, look for the recurrence field. Click it to expand
+    the recurrence picker.
+  </Step>
+  <Step title="Configure the schedule">
+    Set the frequency, interval, and any additional options (see [Recurrence
+    options](#recurrence-options) below).
+  </Step>
+  <Step title="Create the task">
+    Click **Create**. Arca saves a recurring template and immediately generates
+    the first upcoming occurrence.
+  </Step>
+</Steps>
+
+## Add recurrence to an existing task
+
+You can turn any existing task into a recurring task directly from the task list using the right-click context menu.
+
+<Steps>
+  <Step title="Right-click the task">
+    In any list or board view, right-click the task card to open the context menu.
+  </Step>
+  <Step title="Open the Repeat submenu">
+    Hover over **Repeat** to expand the submenu.
+  </Step>
+  <Step title="Choose a preset or custom schedule">
+    Select one of the quick presets, or choose **Custom...** to open the full recurrence picker and configure the exact schedule you need.
+
+    | Quick preset | Schedule |
+    |---|---|
+    | **Daily** | Every day |
+    | **Every weekday** | Monday through Friday |
+    | **Weekly** | Once a week |
+    | **Every 2 weeks** | Once every two weeks |
+    | **Monthly** | Once a month |
+    | **Custom...** | Opens the full recurrence picker |
+
+  </Step>
+</Steps>
+
+---
+
+## Recurrence options
+
+### Frequency and interval
+
+Choose how often the task should repeat:
+
+| Frequency   | Example                             |
+| ----------- | ----------------------------------- |
+| **Daily**   | Every 1 day, every 2 days, etc.     |
+| **Weekly**  | Every 1 week, every 2 weeks, etc.   |
+| **Monthly** | Every 1 month, every 3 months, etc. |
+| **Yearly**  | Every 1 year                        |
+
+Use the **interval field** to control the gap between occurrences. For example, `Every 2 Weeks` repeats once every two weeks.
+
+### Day of week (weekly only)
+
+When you choose **Weekly**, you can pick specific days of the week for the task to repeat on. You can select multiple days. For example, Monday and Wednesday for a mid-week check-in.
+
+### End date
+
+An end date is required for every recurring task. Set it in the recurrence picker to control when the series stops. After the end date, no new occurrences are generated.
+
+### Trigger on completion
+
+Enable this option to create the **next occurrence when you complete the current one** rather than on a fixed calendar schedule.
+
+This is useful for tasks where the interval should start from when you finished the last one. For example, "Follow up with client 7 days after the last call."
+
+<Note>
+  When **Trigger on completion** is enabled, the next occurrence is created as
+  soon as you mark the current task complete. The recurrence frequency and
+  interval still control how far in the future the new task is due.
+</Note>
+
+---
+
+## How recurring tasks appear
+
+Each occurrence of a recurring task appears as a regular task in your lists and views. You can identify recurring tasks by the **repeat icon** shown on the task card.
+
+When you open a recurring task, the **Task Details** panel shows the recurrence schedule (e.g., "every week on Monday").
+
+<Tip>
+  Each occurrence inherits the title, description, priority, assignees, labels,
+  and subtasks from the original template. You can edit individual occurrences
+  without affecting the rest of the series.
+</Tip>
+
+---
+
+## Edit a recurring task
+
+When you edit a recurring task, Arca asks you which occurrences to apply the change to.
+
+<Tabs>
+  <Tab title="This occurrence">
+    Only the current instance is changed. All other past and future occurrences remain unchanged.
+
+    Choose this when you need a one-time exception to the usual schedule or content.
+
+  </Tab>
+  <Tab title="This and following">
+    The current instance and all future occurrences are updated. Earlier instances remain unchanged.
+
+    Choose this when you're making a lasting change going forward but want to keep the historical record intact.
+
+  </Tab>
+  <Tab title="All occurrences">
+    Every instance in the series is updated, including past occurrences.
+
+    Choose this when you want the change to apply everywhere. For example, correcting a typo in the task title.
+
+  </Tab>
+</Tabs>
+
+---
+
+## Skip an occurrence
+
+If you don't need a particular occurrence but still want the series to continue, you can skip it.
+
+Open the task, scroll to the **Recurring** section in the **Task Details** panel, and click **Skip this occurrence**. The current instance is dismissed and the next scheduled occurrence appears as expected.
+
+---
+
+## Remove recurrence
+
+To stop a task from repeating, click the **remove** (×) icon next to the **Recurring** label in the **Task Details** panel. Arca asks you which occurrences to remove.
+
+| Option                 | What happens                                                                |
+| ---------------------- | --------------------------------------------------------------------------- |
+| **This occurrence**    | Removes just this instance from the series. The series continues as normal. |
+| **This and following** | Deletes this and all future occurrences. Earlier instances are kept.        |
+| **All occurrences**    | Deletes every instance in the series, including past ones.                  |
+
+<Warning>
+  Deleting **This and following** or **All occurrences** cannot be undone. Make
+  sure you've selected the right scope before confirming.
+</Warning>
