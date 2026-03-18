@@ -75,6 +75,7 @@
               "administration/labels",
               "administration/statuses",
               "administration/folders",
+              "administration/automations",
               "administration/billing",
               "administration/members-and-roles",
               "administration/invite-members",

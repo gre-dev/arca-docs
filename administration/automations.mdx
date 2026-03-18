@@ -1,0 +1,96 @@
+---
+title: "Automations"
+description: "Create rules that automatically act on tasks when specific events occur, so your team spends less time on repetitive updates."
+icon: "bolt"
+---
+
+Automations let you define when Arca should take action automatically. Each automation watches for a specific trigger event, optionally filters it by conditions, then runs one or more actions. Automations run instantly in the background the moment the trigger fires.
+
+## Getting started
+
+Go to **Settings > Automations** to see all automations in your workspace. From here you can create, enable or disable, edit, and delete automations.
+
+<Note>Only workspace **Owners** and **Admins** can create, edit, or delete automations. Members and Viewrs can view the automations list but cannot make changes.</Note>
+
+## Creating an automation
+
+<Steps>
+  <Step title="Open the automations page">
+    Go to **Settings > Automations** and click **New automation**.
+  </Step>
+  <Step title="Name your automation">
+    Give your automation a descriptive name so it's easy to identify in the list later, for example _Close resolved bugs_ or _Assign new tasks to team lead_.
+  </Step>
+  <Step title="Choose a trigger">
+    Select the event that should start the automation. Each trigger can have optional filters to narrow down exactly when it fires. For example, you can trigger only when a status changes to a specific value, or only when a task is moved to a specific list.
+  </Step>
+  <Step title="Add conditions (optional)">
+    Conditions let you restrict which tasks the automation applies to. All conditions must be satisfied for the automation to continue. For example, you can limit the automation to tasks in a specific folder, or only tasks with a certain priority.
+  </Step>
+  <Step title="Add actions">
+    Add one or more actions for Arca to perform when the trigger fires and all conditions are met. Actions are executed in order.
+  </Step>
+  <Step title="Save the automation">
+    Click **Save**. The automation is enabled immediately and will start running the next time its trigger fires.
+  </Step>
+</Steps>
+
+## Triggers
+
+A trigger is the event that starts the automation.
+
+| Trigger | Description | Optional filters |
+|---|---|---|
+| **Task created** | Fires when a new task is created in the workspace | — |
+| **Status changed** | Fires when a task's status changes | Filter by the status it changed _from_ and/or the status it changed _to_ |
+| **Priority changed** | Fires when a task's priority changes | Filter by the priority it changed _from_ and/or the priority it changed _to_ |
+| **Assignee added** | Fires when a user is assigned to a task | Filter to a specific assignee |
+| **Label added** | Fires when a label is added to a task | Filter to a specific label |
+| **Due date set** | Fires when a due date is added to a task | — |
+| **Moved to list** | Fires when a task is moved to a different list | Filter to a specific destination list |
+
+## Conditions
+
+Conditions narrow down which tasks the automation applies to. You can add any combination of the following:
+
+- **Folder**: the task must be in one of the selected folders
+- **List**: the task must be in one of the selected lists
+- **Assignee**: the task must be assigned to one of the selected members
+- **Priority**: the task must have the selected priority
+- **Status**: the task must have one of the selected statuses
+- **Label**: the task must have one of the selected labels
+
+<Note>
+  Conditions use **AND between categories** and **OR within a category**:
+
+  - If you select multiple values in the same category (e.g. two statuses), the task matches if it has **any one** of them.
+  - If you add conditions from different categories (e.g. a status and a priority), the task must satisfy **all of them**.
+
+  For example: Status is _In Progress_ or _Done_ **AND** Priority is _High_ the task must be high priority and have either of those statuses.
+</Note>
+
+## Actions
+
+Actions are the changes Arca makes to a task when the automation runs. You can add multiple actions to a single automation (subject to your plan's action limit).
+
+| Action | Description |
+|---|---|
+| **Set status** | Changes the task's status to the selected value |
+| **Set priority** | Changes the task's priority to the selected value |
+| **Add assignee** | Assigns a specific workspace member to the task |
+| **Remove assignee** | Removes a specific workspace member from the task, or choose **All assignees** to remove everyone |
+| **Add label** | Adds the selected label to the task |
+| **Remove label** | Removes the selected label from the task |
+| **Move to list** | Moves the task to the selected list |
+
+## Managing automations
+
+Each automation card on the **Settings > Automations** page shows the automation name, its trigger, and how many times it has run.
+
+- **Enable or disable**: Use the toggle on any automation card to turn it on or off without deleting it. A disabled automation will not run until re-enabled.
+- **Edit**: Click the edit icon on any automation card to open it and make changes.
+- **Delete**: Click the delete icon to permanently remove an automation. This cannot be undone.
+
+## Automation history
+
+The run count on each automation card shows how many times the automation has executed successfully. When an automation runs, the action is also recorded as an activity entry in the affected task's activity feed, so you can trace exactly what changed and when.
