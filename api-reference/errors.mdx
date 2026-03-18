@@ -1,0 +1,81 @@
+---
+title: "Errors"
+icon: "triangle-exclamation"
+description: "Error responses returned by the Arca API."
+---
+
+All error responses from the Arca API return JSON with a single `error` field describing the problem:
+
+```json
+{ "error": "A description of the problem" }
+```
+
+## HTTP status codes
+
+| Status | Name | When it occurs |
+|---|---|---|
+| `400` | Bad request | A required field is missing, a field is the wrong type, a value is out of the allowed range, or a date is in an invalid format. |
+| `401` | Unauthorized | The API key is missing, does not start with `arca_`, is not recognised, or has expired. |
+| `403` | Forbidden | Your API key lacks the required scope for this endpoint, or your workspace role does not permit the action (e.g. a viewer attempting to create a task). |
+| `404` | Not found | The requested resource does not exist, or it exists in a workspace you are not a member of. |
+| `500` | Internal server error | An unexpected error occurred on the server. |
+
+## 400: Bad request
+
+Common causes and the exact error messages returned:
+
+| Error message | Cause |
+|---|---|
+| `"workspace_id is required"` | `workspace_id` is missing or not a valid numeric string. |
+| `"name is required"` | `name` is missing or blank after trimming whitespace. |
+| `"title is required"` | `title` is missing or blank. |
+| `"title cannot be empty"` | A PATCH request set `title` to an empty string. |
+| `"folder_id is required"` | `folder_id` is missing when creating a list via the API. |
+| `"list_id is required"` | `list_id` is missing when creating a task via the API. |
+| `"status_id must be a valid numeric ID"` | `status_id` is not a valid integer. |
+| `"list_id must be a valid numeric ID"` | `list_id` is not a valid integer. |
+| `"Invalid priority. Must be one of: urgent, high, medium, low, none"` | `priority` is not one of the allowed values. |
+| `"Invalid due_date format. Use ISO 8601 UTC, e.g. 2026-03-18T17:00:00"` | `due_date` could not be parsed as a valid date. |
+| `"Invalid start_date format. Use ISO 8601 UTC, e.g. 2026-03-18T17:00:00"` | `start_date` could not be parsed as a valid date. |
+| `"content is required"` | Comment `content` is missing or blank. |
+| `"Invalid workspace ID"` | The `:id` path parameter in a workspace endpoint is not a valid integer. |
+| `"Invalid folder ID"` | The `:id` path parameter in a folder endpoint is not a valid integer. |
+| `"Invalid list ID"` | The `:id` path parameter in a list endpoint is not a valid integer. |
+| `"Invalid task ID"` | The `:id` path parameter in a task or comment endpoint is not a valid integer. |
+
+## 401: Unauthorized
+
+| Error message | Cause |
+|---|---|
+| `"API key required"` | No `Authorization: Bearer arca_...` header or `X-API-Key` header was sent, or the format was wrong. |
+| `"Invalid API key"` | The key was provided but does not match any active key in the database. |
+| `"API key has expired"` | The key has passed its expiration date. Create a new key in **Settings → API Keys**. |
+
+## 403: Forbidden
+
+| Error message | Cause |
+|---|---|
+| `"Scope 'X' is required for this endpoint"` | Your API key was not granted the scope needed for this request. |
+| `"Viewers cannot create folders"` | Your workspace role is `viewer`. |
+| `"Viewers cannot edit folders"` | Your workspace role is `viewer`. |
+| `"Only owners and admins can delete folders"` | Your workspace role is `member` or `viewer`. |
+| `"Viewers cannot create lists"` | Your workspace role is `viewer`. |
+| `"Viewers cannot edit lists"` | Your workspace role is `viewer`. |
+| `"Only owners and admins can delete lists"` | Your workspace role is `member` or `viewer`. |
+| `"Viewers cannot create tasks"` | Your workspace role is `viewer`. |
+| `"Viewers cannot edit tasks"` | Your workspace role is `viewer`. |
+| `"Viewers cannot delete tasks"` | Your workspace role is `viewer`. |
+| `"Viewers cannot comment"` | Your workspace role is `viewer`. |
+| `"Access denied"` | You are not a member of the workspace the resource belongs to. |
+
+## 404: Not found
+
+| Error message | Cause |
+|---|---|
+| `"User not found"` | Returned by `GET /api/v1/me` if the user record no longer exists. |
+| `"Workspace not found"` | The workspace does not exist or you are not a member. |
+| `"Folder not found"` | The folder does not exist, or it belongs to a workspace you are not a member of. |
+| `"List not found"` | The list does not exist, or the given `folder_id` does not belong to the specified workspace. |
+| `"Task not found"` | The task does not exist. |
+| `"Status not found in this workspace"` | The `status_id` provided exists but belongs to a different workspace. |
+| `"List not found in this workspace"` | The `list_id` provided exists but belongs to a different workspace. |

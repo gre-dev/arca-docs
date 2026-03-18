@@ -1,0 +1,79 @@
+---
+title: "List workspace members"
+api: "GET /api/v1/workspaces/{id}/members"
+description: "Returns all members of a workspace, ordered by join date (oldest first)."
+---
+
+<Info>Requires the `workspaces:read` scope. You must be a member of the workspace.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric workspace ID.
+</ParamField>
+
+## Response
+
+Returns an array of member objects.
+
+<ResponseField name="id" type="number" required>
+  User ID.
+</ResponseField>
+
+<ResponseField name="email" type="string | null">
+  Email address. **Only returned if you are the workspace owner.** `null` for all other roles.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Display name.
+</ResponseField>
+
+<ResponseField name="avatar_url" type="string | null">
+  Profile picture URL. `null` if none is set.
+</ResponseField>
+
+<ResponseField name="role" type="string" required>
+  Workspace role: `owner`, `admin`, `member`, or `viewer`.
+</ResponseField>
+
+<ResponseField name="joined_at" type="string" required>
+  UTC ISO-8601 timestamp of when the user joined the workspace.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+[
+  {
+    "id": 1,
+    "email": "alice@example.com",
+    "name": "Alice",
+    "avatar_url": null,
+    "role": "owner",
+    "joined_at": "2026-01-05T10:00:00.000Z"
+  },
+  {
+    "id": 7,
+    "email": null,
+    "name": "Bob",
+    "avatar_url": "https://cdn.example.com/avatars/bob.png",
+    "role": "member",
+    "joined_at": "2026-02-01T08:30:00.000Z"
+  }
+]
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'workspaces:read' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Workspace not found"
+}
+```
+</ResponseExample>

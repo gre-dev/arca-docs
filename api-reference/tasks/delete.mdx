@@ -1,0 +1,41 @@
+---
+title: "Delete task"
+api: "DELETE /api/v1/tasks/{id}"
+description: "Permanently deletes a task."
+---
+
+<Warning>
+  This action is irreversible.
+</Warning>
+
+<Info>Requires the `tasks:write` scope. Viewers cannot delete tasks.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric task ID.
+</ParamField>
+
+## Response
+
+Returns `204 No Content` with an empty body on success.
+
+<ResponseExample>
+```204 No Content
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'tasks:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Task not found"
+}
+```
+</ResponseExample>

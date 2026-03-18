@@ -1,0 +1,151 @@
+---
+title: "Create task"
+api: "POST /api/v1/tasks"
+description: "Creates a new task in a workspace."
+---
+
+<Info>Requires the `tasks:write` scope. Viewers cannot create tasks.</Info>
+
+## Request body
+
+<ParamField body="workspace_id" type="string" required>
+  Numeric ID of the workspace to create the task in.
+</ParamField>
+
+<ParamField body="list_id" type="string" required>
+  Numeric ID of the list to place the task in. The list must exist in the same workspace.
+</ParamField>
+
+<ParamField body="title" type="string" required>
+  Task title. Whitespace is trimmed. HTML is sanitized.
+</ParamField>
+
+<ParamField body="description" type="string">
+  Optional task description. Accepts an HTML string. HTML is sanitized.
+</ParamField>
+
+<ParamField body="priority" type="string" default="none">
+  Task priority. Must be one of `urgent`, `high`, `medium`, `low`, or `none`. Defaults to `none` if omitted.
+</ParamField>
+
+<ParamField body="status_id" type="string">
+  Numeric ID of the workspace status to apply. Must belong to the same workspace. If omitted, the task is assigned the first status in the workspace with the `pending` category.
+</ParamField>
+
+<ParamField body="due_date" type="string">
+  Due date in ISO 8601 UTC format (e.g., `"2026-03-25T17:00:00Z"`). A string without a timezone suffix is treated as UTC.
+</ParamField>
+
+<ParamField body="start_date" type="string">
+  Start date in ISO 8601 UTC format.
+</ParamField>
+
+## Response
+
+Returns the created task. The `identifier` is a workspace-scoped sequential number auto-incremented from the last task in the workspace. `assignees` is always an empty array on creation, use the Arca app to assign users.
+
+<ResponseField name="id" type="number" required>
+  New task identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this task belongs to.
+</ResponseField>
+
+<ResponseField name="list_id" type="number" required>
+  List this task belongs to.
+</ResponseField>
+
+<ResponseField name="title" type="string" required>
+  Task title.
+</ResponseField>
+
+<ResponseField name="description" type="string | null">
+  Task description. `null` if not provided.
+</ResponseField>
+
+<ResponseField name="priority" type="string" required>
+  Task priority.
+</ResponseField>
+
+<ResponseField name="identifier" type="number" required>
+  Auto-assigned workspace-scoped sequential task number.
+</ResponseField>
+
+<ResponseField name="due_date" type="string | null">
+  UTC ISO-8601 due date. `null` if not set.
+</ResponseField>
+
+<ResponseField name="start_date" type="string | null">
+  UTC ISO-8601 start date. `null` if not set.
+</ResponseField>
+
+<ResponseField name="creator_id" type="number" required>
+  User ID of the API key owner (the creator).
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseField name="status" type="object | null">
+  Assigned status object. `null` if no status exists in the workspace.
+
+  <Expandable title="Status fields">
+    <ResponseField name="id" type="number" required>Status identifier.</ResponseField>
+    <ResponseField name="name" type="string" required>Status label.</ResponseField>
+    <ResponseField name="icon" type="string | null">Icon.</ResponseField>
+    <ResponseField name="color" type="string | null">Color.</ResponseField>
+    <ResponseField name="category" type="string" required>One of `pending`, `active`, `done`, or `cancelled`.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="assignees" type="array" required>
+  Always `[]` for newly created tasks.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 110,
+  "workspace_id": 3,
+  "list_id": 20,
+  "title": "Write unit tests",
+  "description": "<p>Cover all service layer methods.</p>",
+  "priority": "high",
+  "identifier": 14,
+  "due_date": "2026-03-30T17:00:00.000Z",
+  "start_date": null,
+  "creator_id": 1,
+  "created_at": "2026-03-18T18:00:00.000Z",
+  "status": {
+    "id": 1,
+    "name": "To Do",
+    "icon": "todo",
+    "color": "gray",
+    "category": "pending"
+  },
+  "assignees": []
+}
+```
+```json 400
+{
+  "error": "list_id is required"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'tasks:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "List not found in this workspace"
+}
+```
+</ResponseExample>

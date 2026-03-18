@@ -1,0 +1,90 @@
+---
+title: "Update folder"
+api: "PATCH /api/v1/folders/{id}"
+description: "Updates one or more properties of a folder. Only the fields you include are changed."
+---
+
+<Info>Requires the `folders:write` scope. Viewers cannot edit folders.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric folder ID.
+</ParamField>
+
+## Request body
+
+All fields are optional. Send only the fields you want to update.
+
+<ParamField body="name" type="string">
+  New folder name. Whitespace is trimmed. HTML is sanitized.
+</ParamField>
+
+<ParamField body="icon" type="string">
+  Icon identifier slug.
+</ParamField>
+
+<ParamField body="color" type="string">
+  Folder color.
+</ParamField>
+
+## Response
+
+Returns the full updated folder object.
+
+<ResponseField name="id" type="number" required>
+  Folder identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this folder belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Folder name.
+</ResponseField>
+
+<ResponseField name="icon" type="string | null">
+  Icon.
+</ResponseField>
+
+<ResponseField name="color" type="string | null">
+  Color.
+</ResponseField>
+
+<ResponseField name="position" type="number" required>
+  Sort position (unchanged by this endpoint).
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "id": 15,
+  "workspace_id": 3,
+  "name": "Design & UX",
+  "icon": "folder-2",
+  "color": "pink",
+  "position": 3,
+  "created_at": "2026-03-18T10:00:00.000Z"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'folders:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Folder not found"
+}
+```
+</ResponseExample>

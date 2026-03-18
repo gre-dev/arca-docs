@@ -1,0 +1,20 @@
+---
+title: "Rate limits"
+icon: "gauge"
+description: "Request rate limits for the Arca API."
+---
+
+The v1 API endpoints do not enforce a fixed request rate limit. You can make requests as frequently as your use case requires.
+
+<Note>
+  This may change in future versions of the API. If rate limits are introduced, endpoints will return `429 Too Many Requests` with a descriptive error message.
+</Note>
+
+## Practical guidance
+
+Even without a hard limit, keep the following in mind:
+
+- **Avoid tight polling loops.** If you need near-real-time updates, prefer event-driven patterns (e.g. trigger on user action) over polling every few seconds.
+- **Use pagination.** The task list endpoint (`GET /api/v1/workspaces/:id/tasks`) returns a maximum of 100 tasks per page. Fetch only the pages you need rather than loading all tasks at once.
+- **Batch writes when possible.** If you are importing data, send requests sequentially rather than in parallel bursts to avoid overloading a self-hosted server.
+

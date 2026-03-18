@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
-  "name": "Mint Starter Kit",
+  "name": "Arca Documentation",
   "colors": {
     "primary": "#3A72F2",
     "light": "#3A72F2",
@@ -98,16 +98,59 @@
         "tab": "API reference",
         "groups": [
           {
-            "group": "API documentation",
-            "pages": ["api-reference/introduction"]
+            "group": "Overview",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/authentication",
+              "api-reference/rate-limits",
+              "api-reference/errors"
+            ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "User",
+            "pages": ["api-reference/user/me"]
+          },
+          {
+            "group": "Workspaces",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/workspaces/list",
+              "api-reference/workspaces/get",
+              "api-reference/workspaces/members"
+            ]
+          },
+          {
+            "group": "Folders",
+            "pages": [
+              "api-reference/folders/list",
+              "api-reference/folders/create",
+              "api-reference/folders/update",
+              "api-reference/folders/delete"
+            ]
+          },
+          {
+            "group": "Lists",
+            "pages": [
+              "api-reference/lists/list",
+              "api-reference/lists/create",
+              "api-reference/lists/update",
+              "api-reference/lists/delete"
+            ]
+          },
+          {
+            "group": "Tasks",
+            "pages": [
+              "api-reference/tasks/list",
+              "api-reference/tasks/get",
+              "api-reference/tasks/create",
+              "api-reference/tasks/update",
+              "api-reference/tasks/delete"
+            ]
+          },
+          {
+            "group": "Comments",
+            "pages": [
+              "api-reference/comments/list",
+              "api-reference/comments/create"
             ]
           }
         ]
@@ -139,6 +182,39 @@
         "href": "mailto:info@getarca.app"
       }
     ]
+  },
+  "api": {
+    "examples": {
+      "languages": [
+        "bash",
+        "javascript",
+        "typescript",
+        "node",
+        "python",
+        "go",
+        "php",
+        "rust",
+        "dart",
+        "ruby",
+        "java",
+        "swift",
+        "csharp",
+        "c",
+        "c++",
+        "dotnet",
+        "kotlin"
+      ]
+    },
+    "playground": {
+      "display": "interactive",
+      "proxy": false
+    },
+    "mdx": {
+      "server": "https://api.getarca.app",
+      "auth": {
+        "method": "bearer"
+      }
+    }
   },
   "contextual": {
     "options": ["copy", "view", "chatgpt", "claude", "perplexity", "cursor"]

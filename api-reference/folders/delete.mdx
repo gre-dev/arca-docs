@@ -1,0 +1,41 @@
+---
+title: "Delete folder"
+api: "DELETE /api/v1/folders/{id}"
+description: "Permanently deletes a folder and all lists and tasks inside it."
+---
+
+<Warning>
+  This action is irreversible. Deleting a folder cascades to all lists and tasks inside it.
+</Warning>
+
+<Info>Requires the `folders:write` scope.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric folder ID.
+</ParamField>
+
+## Response
+
+Returns `204 No Content` with an empty body on success.
+
+<ResponseExample>
+```204 No Content
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'folders:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Folder not found"
+}
+```
+</ResponseExample>

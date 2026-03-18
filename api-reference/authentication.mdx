@@ -1,0 +1,71 @@
+---
+title: "Authentication"
+icon: "key"
+description: "How to authenticate requests to the Arca API."
+---
+
+All requests to the Arca API must be authenticated with an API key. There is no session-based or OAuth authentication for the API.
+
+## Creating an API key
+
+Open the Arca app and go to **Settings → API Keys**. Click **New API key**, give it a label, choose the scopes it needs, and optionally set an expiration date. The key is shown **once**, copy it immediately.
+
+## API key format
+
+Every key starts with the `arca_` prefix followed by 64 random hex characters:
+
+```
+arca_4f3a1b9e2c8d76f05e3a1b9e2c8d76f05e3a1b9e2c8d76f05e3a1b9e2c8d76f0
+```
+
+## Passing the key
+
+Include the key in every request using one of these two headers, not both.
+
+### Authorization header (recommended)
+
+```http
+Authorization: Bearer arca_your_key_here
+```
+
+### X-API-Key header
+
+```http
+X-API-Key: arca_your_key_here
+```
+
+<Note>
+  The `Authorization` header must use the `Bearer` prefix and the key must start with `arca_`, otherwise the server will not recognise it and will return `401`.
+</Note>
+
+## Expiration
+
+API keys can be created with or without an expiration date. If an expiration date is set and the current time is past it, every request with that key returns:
+
+```json
+{ "error": "API key has expired" }
+```
+
+You can set a new expiration or create a replacement key in **Settings → API Keys**.
+
+## Scopes
+
+Each API key is granted a set of scopes at creation time. Scopes cannot be changed after the key is created, create a new key if you need different scopes.
+
+A request made with a key that lacks the required scope returns `403 Forbidden`:
+
+```json
+{ "error": "Scope 'tasks:write' is required for this endpoint" }
+```
+
+## Security best practices
+
+<Warning>
+  API keys carry full access within their granted scopes. Treat them like passwords.
+</Warning>
+
+- **Never commit keys to source control.** Use environment variables or a secrets manager.
+- **Grant only the scopes you need.** A key used for read-only reporting does not need any `*:write` scopes.
+- **Set an expiration date** for keys used in short-lived scripts or CI pipelines.
+- **Rotate keys regularly.** You can revoke a key in **Settings → API Keys** at any time.
+- The server only stores an encrypted version of the key, the raw value is never stored. If you lose it, you must create a new key.

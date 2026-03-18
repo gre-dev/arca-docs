@@ -1,0 +1,97 @@
+---
+title: "List comments"
+api: "GET /api/v1/tasks/{id}/comments"
+description: "Returns all comments on a task, ordered by creation date (oldest first)."
+---
+
+<Info>Requires the `comments:read` scope. You must be a member of the task's workspace.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric task ID.
+</ParamField>
+
+## Response
+
+Returns an array of comment objects.
+
+<ResponseField name="id" type="number" required>
+  Comment identifier.
+</ResponseField>
+
+<ResponseField name="task_id" type="number" required>
+  ID of the task this comment belongs to.
+</ResponseField>
+
+<ResponseField name="user_id" type="number" required>
+  ID of the user who wrote the comment.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Display name of the comment author.
+</ResponseField>
+
+<ResponseField name="avatar_url" type="string | null">
+  Profile picture URL of the comment author. `null` if none is set.
+</ResponseField>
+
+<ResponseField name="content" type="string" required>
+  Comment content as an HTML string.
+</ResponseField>
+
+<ResponseField name="parent_comment_id" type="number | null">
+  ID of the parent comment if this is a reply. `null` for top-level comments.
+</ResponseField>
+
+<ResponseField name="resolved" type="boolean" required>
+  Whether the comment has been marked as resolved.
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+[
+  {
+    "id": 170,
+    "task_id": 101,
+    "user_id": 1,
+    "name": "Alice",
+    "avatar_url": null,
+    "content": "<p>This is blocked by the auth service ticket.</p>",
+    "parent_comment_id": null,
+    "resolved": false,
+    "created_at": "2026-03-18T18:34:49.000Z"
+  },
+  {
+    "id": 171,
+    "task_id": 101,
+    "user_id": 7,
+    "name": "Bob",
+    "avatar_url": "https://cdn.example.com/avatars/bob.png",
+    "content": "<p>Fixed in #42, marking as resolved.</p>",
+    "parent_comment_id": null,
+    "resolved": true,
+    "created_at": "2026-03-18T19:10:00.000Z"
+  }
+]
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'comments:read' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Task not found"
+}
+```
+</ResponseExample>

@@ -1,0 +1,95 @@
+---
+title: "Create comment"
+api: "POST /api/v1/tasks/{id}/comments"
+description: "Posts a new top-level comment on a task."
+---
+
+<Info>Requires the `comments:write` scope. Viewers cannot post comments.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric task ID.
+</ParamField>
+
+## Request body
+
+<ParamField body="content" type="string" required>
+  Comment text. HTML tags are sanitized, only safe inline elements are kept. Whitespace-only content is rejected with `400`.
+</ParamField>
+
+## Response
+
+Returns the created comment. `resolved` is always `false` for a new comment.
+
+<ResponseField name="id" type="number" required>
+  New comment identifier.
+</ResponseField>
+
+<ResponseField name="task_id" type="number" required>
+  ID of the task this comment belongs to.
+</ResponseField>
+
+<ResponseField name="user_id" type="number" required>
+  ID of the API key owner (the commenter).
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Display name of the commenter.
+</ResponseField>
+
+<ResponseField name="avatar_url" type="string | null">
+  Profile picture URL of the commenter.
+</ResponseField>
+
+<ResponseField name="content" type="string" required>
+  Sanitized comment content.
+</ResponseField>
+
+<ResponseField name="parent_comment_id" type="null" required>
+  Always `null`. Threading is not supported via the API.
+</ResponseField>
+
+<ResponseField name="resolved" type="boolean" required>
+  Always `false` for newly created comments.
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 172,
+  "task_id": 101,
+  "user_id": 1,
+  "name": "Alice",
+  "avatar_url": null,
+  "content": "Deploying to staging tonight.",
+  "parent_comment_id": null,
+  "resolved": false,
+  "created_at": "2026-03-18T20:00:00.000Z"
+}
+```
+```json 400
+{
+  "error": "content is required"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'comments:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Task not found"
+}
+```
+</ResponseExample>

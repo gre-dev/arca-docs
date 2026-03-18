@@ -1,33 +1,75 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "Introduction"
+icon: "circle-info"
+description: "Build integrations with Arca using the REST API."
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+The Arca REST API lets you read and write workspace data (tasks, lists, folders, members, and comments) from any external application or script.
 
-## Welcome
+## Base URL
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+All endpoints are available under:
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+```
+https://api.getarca.app/api/v1
+```
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+Every request must include a valid API key. You can pass it one of two ways:
+
+**`Authorization` header (recommended)**
+```http
+Authorization: Bearer arca_your_key_here
+```
+
+**`X-API-Key` header**
+```http
+X-API-Key: arca_your_key_here
+```
+
+All API keys start with the `arca_` prefix. Create and manage keys in the Arca app under **Settings → API Keys**.
+
+<Warning>
+  API keys are secrets. Never embed them in client-side code or public repositories.
+</Warning>
+
+If the key is missing, invalid, or expired, the API returns `401 Unauthorized`.
+
+## Scopes
+
+Each API key is granted a specific set of scopes. A request is rejected with `403 Forbidden` if the key lacks the required scope for the endpoint.
+
+## Role restrictions
+
+API operations are additionally constrained by your workspace role:
+
+- **Viewers** can use read scopes (`tasks:read`, `folders:read`, etc.) but cannot create, edit, or delete any resources.
+- **Members** can create and edit resources but cannot delete folders or lists.
+- **Admins and owners** have full access, including deleting folders and lists.
+
+## Timestamps
+
+All timestamps in responses are **UTC ISO-8601** strings, for example:
+
+```
+2026-03-18T18:34:49.000Z
+```
+
+When sending date values in request bodies (`due_date`, `start_date`), use ISO 8601 UTC format. A string without a timezone suffix (e.g., `2026-03-18T17:00:00`) is treated as UTC.
+
+## Errors
+
+All error responses return JSON with a single `error` field:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{ "error": "A description of the problem" }
 ```
+
+| Status | Meaning |
+|---|---|
+| `400` | Bad request, missing or invalid parameter |
+| `401` | Unauthorized, API key is missing, invalid, or expired |
+| `403` | Forbidden, your workspace role prohibits this action, or your key lacks the required scope |
+| `404` | Not found, the resource does not exist or is not accessible to you |
+| `500` | Internal server error |

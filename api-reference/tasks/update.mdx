@@ -1,0 +1,129 @@
+---
+title: "Update task"
+api: "PATCH /api/v1/tasks/{id}"
+description: "Updates one or more fields of a task. Only the fields you include are changed."
+---
+
+<Info>Requires the `tasks:write` scope. Viewers cannot edit tasks.</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric task ID.
+</ParamField>
+
+## Request body
+
+All fields are optional. Send only the fields you want to update.
+
+<ParamField body="title" type="string">
+  New task title. Cannot be set to an empty string. Whitespace is trimmed. HTML is sanitized.
+</ParamField>
+
+<ParamField body="description" type="string">
+  Task description as an HTML string.
+</ParamField>
+
+<ParamField body="priority" type="string">
+  Task priority. Must be one of `urgent`, `high`, `medium`, `low`, or `none`.
+</ParamField>
+
+<ParamField body="status_id" type="string">
+  Numeric ID of a workspace status to apply. The status must belong to the same workspace.
+</ParamField>
+
+<ParamField body="list_id" type="string">
+  Numeric ID of a list to move the task into. The list must belong to the same workspace.
+</ParamField>
+
+<ParamField body="due_date" type="string">
+  Due date in ISO 8601 UTC format (e.g., `"2026-03-30T17:00:00Z"`).
+</ParamField>
+
+<ParamField body="start_date" type="string">
+  Start date in ISO 8601 UTC format.
+</ParamField>
+
+## Response
+
+Returns the full updated task including its current assignees.
+
+<ResponseField name="id" type="number" required>Task identifier.</ResponseField>
+<ResponseField name="workspace_id" type="number" required>Workspace this task belongs to.</ResponseField>
+<ResponseField name="list_id" type="number | null">List this task belongs to.</ResponseField>
+<ResponseField name="title" type="string" required>Task title.</ResponseField>
+<ResponseField name="description" type="string | null">Task description.</ResponseField>
+<ResponseField name="priority" type="string" required>Task priority.</ResponseField>
+<ResponseField name="identifier" type="number" required>Workspace-scoped sequential task number.</ResponseField>
+<ResponseField name="due_date" type="string | null">UTC ISO-8601 due date.</ResponseField>
+<ResponseField name="start_date" type="string | null">UTC ISO-8601 start date.</ResponseField>
+<ResponseField name="creator_id" type="number" required>User ID of the task creator.</ResponseField>
+<ResponseField name="created_at" type="string" required>UTC ISO-8601 creation timestamp.</ResponseField>
+
+<ResponseField name="status" type="object | null">
+  Current task status.
+
+  <Expandable title="Status fields">
+    <ResponseField name="id" type="number" required>Status identifier.</ResponseField>
+    <ResponseField name="name" type="string" required>Status label.</ResponseField>
+    <ResponseField name="icon" type="string | null">Icon.</ResponseField>
+    <ResponseField name="color" type="string | null">Color.</ResponseField>
+    <ResponseField name="category" type="string" required>One of `pending`, `active`, `done`, or `cancelled`.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="assignees" type="array" required>
+  Current assignees. Empty array if unassigned.
+
+  <Expandable title="Assignee fields">
+    <ResponseField name="id" type="number" required>User ID.</ResponseField>
+    <ResponseField name="name" type="string" required>Display name.</ResponseField>
+    <ResponseField name="avatar_url" type="string | null">Profile picture URL.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "id": 110,
+  "workspace_id": 3,
+  "list_id": 20,
+  "title": "Write unit tests",
+  "description": "<p>Cover all service layer methods.</p>",
+  "priority": "urgent",
+  "identifier": 14,
+  "due_date": "2026-03-22T09:00:00.000Z",
+  "start_date": null,
+  "creator_id": 1,
+  "created_at": "2026-03-18T18:00:00.000Z",
+  "status": {
+    "id": 1,
+    "name": "To Do",
+    "icon": "todo",
+    "color": "gray",
+    "category": "pending"
+  },
+  "assignees": []
+}
+```
+```json 400
+{
+  "error": "Invalid priority. Must be one of: urgent, high, medium, low, none"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'tasks:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Task not found"
+}
+```
+</ResponseExample>

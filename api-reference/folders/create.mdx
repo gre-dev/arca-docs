@@ -1,0 +1,91 @@
+---
+title: "Create folder"
+api: "POST /api/v1/folders"
+description: "Creates a new folder in a workspace."
+---
+
+<Info>Requires the `folders:write` scope. Viewers cannot create folders.</Info>
+
+## Request body
+
+<ParamField body="workspace_id" type="string" required>
+  Numeric ID of the workspace to create the folder in.
+</ParamField>
+
+<ParamField body="name" type="string" required>
+  Folder name. Leading and trailing whitespace is trimmed. HTML is sanitized.
+</ParamField>
+
+<ParamField body="icon" type="string">
+  Optional icon identifier slug (e.g., `"folder-1"`, `"folder-2"`, `"chart"`).
+</ParamField>
+
+<ParamField body="color" type="string">
+  Optional color label. Defaults to `"blue"` if not provided.
+</ParamField>
+
+## Response
+
+Returns the created folder. The `position` is automatically assigned as one greater than the current maximum position in the workspace.
+
+<ResponseField name="id" type="number" required>
+  New folder identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this folder belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Folder name.
+</ResponseField>
+
+<ResponseField name="icon" type="string | null">
+  Icon. `null` if not provided.
+</ResponseField>
+
+<ResponseField name="color" type="string | null">
+  Color. Defaults to `"blue"`.
+</ResponseField>
+
+<ResponseField name="position" type="number" required>
+  Auto-assigned sort position.
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 15,
+  "workspace_id": 3,
+  "name": "Design",
+  "icon": "folder-2",
+  "color": "purple",
+  "position": 3,
+  "created_at": "2026-03-18T10:00:00.000Z"
+}
+```
+```json 400
+{
+  "error": "name is required"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'folders:write' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Workspace not found"
+}
+```
+</ResponseExample>

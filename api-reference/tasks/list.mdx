@@ -1,0 +1,173 @@
+---
+title: "List tasks"
+api: "GET /api/v1/workspaces/{id}/tasks"
+description: "Returns a paginated list of top-level tasks in a workspace, ordered by creation date (newest first)."
+---
+
+<Info>Requires the `tasks:read` scope. You must be a member of the workspace.</Info>
+
+<Note>
+  This endpoint returns **top-level tasks only**. Subtasks are excluded from the results.
+</Note>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric workspace ID.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="list_id" type="string">
+  Filter results to a specific list. If omitted, tasks from all lists are returned.
+</ParamField>
+
+<ParamField query="page" type="number" default="1">
+  Page number (1-based).
+</ParamField>
+
+<ParamField query="limit" type="number" default="50">
+  Number of tasks per page. Minimum `1`, maximum `100`.
+</ParamField>
+
+## Response
+
+<ResponseField name="data" type="array" required>
+  Array of task objects.
+
+  <Expandable title="Task object fields">
+    <ResponseField name="id" type="number" required>
+      Task identifier.
+    </ResponseField>
+
+    <ResponseField name="workspace_id" type="number" required>
+      Workspace this task belongs to.
+    </ResponseField>
+
+    <ResponseField name="list_id" type="number | null">
+      List this task belongs to. `null` if the task is not in a list.
+    </ResponseField>
+
+    <ResponseField name="title" type="string" required>
+      Task title.
+    </ResponseField>
+
+    <ResponseField name="priority" type="string" required>
+      Task priority. One of `urgent`, `high`, `medium`, `low`, or `none`.
+    </ResponseField>
+
+    <ResponseField name="identifier" type="number" required>
+      Workspace-scoped sequential task number (e.g., `1`, `2`, `3`).
+    </ResponseField>
+
+    <ResponseField name="due_date" type="string | null">
+      UTC ISO-8601 due date. `null` if not set.
+    </ResponseField>
+
+    <ResponseField name="start_date" type="string | null">
+      UTC ISO-8601 start date. `null` if not set.
+    </ResponseField>
+
+    <ResponseField name="creator_id" type="number" required>
+      User ID of the person who created the task.
+    </ResponseField>
+
+    <ResponseField name="created_at" type="string" required>
+      UTC ISO-8601 creation timestamp.
+    </ResponseField>
+
+    <ResponseField name="status" type="object | null">
+      Current task status. `null` if no status is assigned.
+
+      <Expandable title="Status fields">
+        <ResponseField name="id" type="number" required>Status identifier.</ResponseField>
+        <ResponseField name="name" type="string" required>Status label (e.g., `"In Progress"`).</ResponseField>
+        <ResponseField name="icon" type="string | null">Icon associated with the status.</ResponseField>
+        <ResponseField name="color" type="string | null">Color associated with the status.</ResponseField>
+        <ResponseField name="category" type="string" required>
+          Status category. One of `pending`, `active`, `done`, or `cancelled`.
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="assignees" type="array" required>
+      Array of users assigned to the task. Empty array if unassigned.
+
+      <Expandable title="Assignee fields">
+        <ResponseField name="id" type="number" required>User ID.</ResponseField>
+        <ResponseField name="name" type="string" required>Display name.</ResponseField>
+        <ResponseField name="avatar_url" type="string | null">Profile picture URL.</ResponseField>
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="page" type="number" required>
+  Current page number.
+</ResponseField>
+
+<ResponseField name="limit" type="number" required>
+  Number of tasks per page used for this response.
+</ResponseField>
+
+<ResponseField name="total" type="number" required>
+  Total number of matching tasks across all pages.
+</ResponseField>
+
+<ResponseField name="total_pages" type="number" required>
+  Total number of pages.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": 101,
+      "workspace_id": 3,
+      "list_id": 20,
+      "title": "Set up CI pipeline",
+      "priority": "high",
+      "identifier": 5,
+      "due_date": "2026-03-25T00:00:00.000Z",
+      "start_date": null,
+      "creator_id": 1,
+      "created_at": "2026-03-10T14:22:00.000Z",
+      "status": {
+        "id": 2,
+        "name": "In Progress",
+        "icon": "in-progress",
+        "color": "blue",
+        "category": "active"
+      },
+      "assignees": [
+        {
+          "id": 7,
+          "name": "Bob",
+          "avatar_url": "https://cdn.example.com/avatars/bob.png"
+        }
+      ]
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 1,
+  "total_pages": 1
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'tasks:read' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Workspace not found"
+}
+```
+</ResponseExample>
