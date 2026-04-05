@@ -80,7 +80,8 @@
               "administration/members-and-roles",
               "administration/invite-members",
               "administration/import",
-              "administration/export"
+              "administration/export",
+              "administration/webhooks"
             ]
           },
           {

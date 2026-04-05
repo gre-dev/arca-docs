@@ -1,0 +1,908 @@
+---
+title: "Webhooks"
+description: "Receive real-time HTTPS notifications when events happen in your workspaces."
+icon: "webhook"
+---
+
+Webhooks let you connect Arca to external systems by sending an HTTPS POST request to a URL you control whenever something changes, a task is created, a status changes, a list is updated, and more.
+
+## Create a webhook
+
+1. Go to **Settings → Webhooks**.
+2. Click **Create your first webhook** or **Add new webhook**.
+3. Fill in the form:
+   - **Label**: a name to help you identify this webhook.
+   - **Endpoint URL**: the URL Arca will POST to. Must use `https`.
+   - **Events**: select one or more events to subscribe to (see [Events](#events) below).
+   - **Workspaces**: if you own more than one workspace, choose which ones this webhook applies to. All your workspaces are selected by default.
+   - **Auth token**: optionally generate a secret token so your server can verify requests come from Arca.
+4. Click **Create webhook**.
+
+Before the webhook is saved, Arca sends a `POST` request to your endpoint with the header `X-Arca-Event: ping` and this JSON body:
+
+```json
+{
+  "event": "ping",
+  "timestamp": "2026-04-05T12:00:00.000Z",
+  "workspaceId": null,
+  "before": null,
+  "after": null,
+  "data": {}
+}
+```
+
+Your server must respond with a `2xx` status code within 10 seconds, otherwise the webhook is not created. Make sure your endpoint is publicly accessible and ready to accept POST requests before submitting.
+
+If you enabled the auth token option, the token is shown **once** immediately after creation. Copy it and store it securely, Arca never shows it again. If you lose it, delete the webhook and create a new one.
+
+## Events
+
+Every webhook subscribes to one or more event types. Arca sends a delivery only when a subscribed event occurs in one of the webhook's selected workspaces.
+
+### Task events
+
+| Event | Triggered when |
+|---|---|
+| `task.created` | A new task is created |
+| `task.deleted` | A task is deleted |
+| `task.status.changed` | A task's status is changed |
+| `task.priority.changed` | A task's priority is changed |
+| `task.assignees.changed` | Assignees are added or removed |
+| `task.start_date.changed` | The start date is changed |
+| `task.due_date.changed` | The due date is changed |
+| `task.labels.changed` | Labels are added or removed |
+
+### Folder events
+
+| Event | Triggered when |
+|---|---|
+| `folder.created` | A new folder is created |
+| `folder.updated` | A folder is renamed or edited |
+| `folder.deleted` | A folder is deleted |
+| `folder.moved` | A folder is reordered |
+
+### List events
+
+| Event | Triggered when |
+|---|---|
+| `list.created` | A new list is created |
+| `list.updated` | A list is renamed or edited |
+| `list.deleted` | A list is deleted |
+
+## Payload
+
+Arca sends a JSON payload as the POST body:
+
+```json
+{
+  "event": "task.status.changed",
+  "timestamp": "2026-04-05T12:34:56.789Z",
+  "workspace": {
+    "id": 42,
+    "name": "Acme Corp",
+    "slug": "acme-corp",
+    "avatarUrl": "https://cdn.getarca.app/workspaces/42/avatar.png"
+  },
+  "user": {
+    "id": 7,
+    "name": "Alice",
+    "avatarUrl": null
+  },
+  "before": {
+    "id": 101,
+    "title": "Fix login bug",
+    "status": { "id": 1, "name": "Todo", "color": "gray", "category": "pending" },
+    "priority": "high",
+    "assignees": [{ "id": 7, "name": "Alice", "avatarUrl": null }]
+  },
+  "after": {
+    "id": 101,
+    "title": "Fix login bug",
+    "status": { "id": 3, "name": "Done", "color": "green", "category": "completed" },
+    "priority": "high",
+    "assignees": [{ "id": 7, "name": "Alice", "avatarUrl": null }]
+  }
+}
+```
+
+| Field | Description |
+|---|---|
+| `event` | The event type string (e.g. `task.status.changed`) |
+| `timestamp` | UTC ISO-8601 timestamp of when the event was dispatched |
+| `workspace.id` | Numeric ID of the workspace where the event occurred |
+| `workspace.name` | Display name of the workspace |
+| `workspace.slug` | URL slug of the workspace |
+| `workspace.avatarUrl` | Workspace avatar URL, or `null` if none is set |
+| `user` | The user who triggered the event, or `null` when triggered by an automated system |
+| `user.id` | Numeric ID of the actor |
+| `user.name` | Display name of the actor |
+| `user.avatarUrl` | Actor avatar URL, or `null` if none is set |
+| `before` | State before the change. `null` for `*.created` events |
+| `after` | Current state of the entity. `null` for `*.deleted` events |
+| `after.assignees` | Array of `{ id, name, avatarUrl }` objects. Present on all `task.*` events |
+
+## Request headers
+
+Arca includes the following headers with every delivery:
+
+| Header | Value |
+|---|---|
+| `Content-Type` | `application/json` |
+| `User-Agent` | `Arca-Webhooks/1.0` |
+| `X-Arca-Event` | The event type (e.g. `task.created`) |
+| `Authorization` | `Bearer whs_…`, only present if you enabled an auth token |
+
+## Webhook Payloads
+
+The tabs below show the complete JSON body delivered to your endpoint for each event type.
+
+### Task events
+
+<Tabs>
+  <Tab title="task.created">
+    ```json
+    {
+      "event": "task.created",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": null,
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "priority": "high",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "color": "blue",
+          "category": "started"
+        },
+        "list": {
+          "id": 7,
+          "name": "Sprint 1",
+          "icon": "rocket",
+          "color": "green"
+        },
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": [
+          { "id": 2, "name": "Bug", "color": "red" }
+        ],
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="task.deleted">
+    ```json
+    {
+      "event": "task.deleted",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "priority": "high",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "list": {
+          "id": 7,
+          "name": "Sprint 1",
+          "icon": "rocket",
+          "color": "green"
+        },
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": [
+          { "id": 2, "name": "Bug", "color": "red" }
+        ],
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      },
+      "after": null
+    }
+    ```
+  </Tab>
+  <Tab title="task.status.changed">
+    ```json
+    {
+      "event": "task.status.changed",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 1,
+          "name": "Todo",
+          "icon": "circle",
+          "color": "gray",
+          "category": "pending",
+          "position": 1
+        },
+        "priority": "high",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": [
+          { "id": 2, "name": "Bug", "color": "red" }
+        ]
+      },
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": [
+          { "id": 2, "name": "Bug", "color": "red" }
+        ]
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="task.priority.changed">
+    ```json
+    {
+      "event": "task.priority.changed",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "low",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      },
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="task.assignees.changed">
+    ```json
+    {
+      "event": "task.assignees.changed",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": null,
+        "startDate": null,
+        "assignees": [],
+        "labels": []
+      },
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": null,
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="task.due_date.changed">
+    ```json
+    {
+      "event": "task.due_date.changed",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": null,
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      },
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="task.start_date.changed">
+    ```json
+    {
+      "event": "task.start_date.changed",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      },
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": "2026-04-10T00:00:00.000Z",
+        "startDate": "2026-04-01T00:00:00.000Z",
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="task.labels.changed">
+    ```json
+    {
+      "event": "task.labels.changed",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": null,
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": []
+      },
+      "after": {
+        "id": 42,
+        "identifier": 5,
+        "title": "Fix the login bug",
+        "status": {
+          "id": 3,
+          "name": "In Progress",
+          "icon": "clock",
+          "color": "blue",
+          "category": "started",
+          "position": 2
+        },
+        "priority": "high",
+        "dueDate": null,
+        "startDate": null,
+        "assignees": [
+          { "id": 1, "name": "Alice", "avatarUrl": null }
+        ],
+        "labels": [
+          { "id": 2, "name": "Bug", "color": "red" }
+        ]
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Folder events
+
+<Tabs>
+  <Tab title="folder.created">
+    ```json
+    {
+      "event": "folder.created",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": null,
+      "after": {
+        "id": 12,
+        "name": "Design",
+        "icon": "folder",
+        "color": "blue",
+        "position": 0,
+        "workspace": {
+          "id": 42,
+          "name": "Acme Corp",
+          "slug": "acme-corp",
+          "avatarUrl": null
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="folder.updated">
+    ```json
+    {
+      "event": "folder.updated",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 12,
+        "name": "Design",
+        "icon": "folder",
+        "color": "blue",
+        "position": 0,
+        "workspace": {
+          "id": 42,
+          "name": "Acme Corp",
+          "slug": "acme-corp",
+          "avatarUrl": null
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      },
+      "after": {
+        "id": 12,
+        "name": "UX & Design",
+        "icon": "folder",
+        "color": "purple",
+        "position": 0,
+        "workspace": {
+          "id": 42,
+          "name": "Acme Corp",
+          "slug": "acme-corp",
+          "avatarUrl": null
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="folder.deleted">
+    ```json
+    {
+      "event": "folder.deleted",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 12,
+        "name": "Design",
+        "icon": "folder",
+        "color": "blue",
+        "position": 0,
+        "workspace": {
+          "id": 42,
+          "name": "Acme Corp",
+          "slug": "acme-corp",
+          "avatarUrl": null
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      },
+      "after": null
+    }
+    ```
+  </Tab>
+  <Tab title="folder.moved">
+    The top-level `workspace` and `before.workspace` reflect the **source** workspace. `after.workspace` reflects the **destination** workspace.
+
+    ```json
+    {
+      "event": "folder.moved",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 12,
+        "name": "Design",
+        "icon": "folder",
+        "color": "blue",
+        "position": 0,
+        "workspace": {
+          "id": 42,
+          "name": "Acme Corp",
+          "slug": "acme-corp",
+          "avatarUrl": null
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      },
+      "after": {
+        "id": 12,
+        "name": "Design",
+        "icon": "folder",
+        "color": "blue",
+        "position": 3,
+        "workspace": {
+          "id": 99,
+          "name": "Side Project",
+          "slug": "side-project",
+          "avatarUrl": null
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### List events
+
+<Tabs>
+  <Tab title="list.created">
+    ```json
+    {
+      "event": "list.created",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": null,
+      "after": {
+        "id": 8,
+        "name": "Backlog",
+        "icon": "list",
+        "color": "gray",
+        "position": 0,
+        "folder": {
+          "id": 12,
+          "name": "Design",
+          "icon": "folder",
+          "color": "blue"
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="list.updated">
+    ```json
+    {
+      "event": "list.updated",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 8,
+        "name": "Backlog",
+        "icon": "list",
+        "color": "gray",
+        "position": 0,
+        "folder": {
+          "id": 12,
+          "name": "Design",
+          "icon": "folder",
+          "color": "blue"
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      },
+      "after": {
+        "id": 8,
+        "name": "Sprint 1",
+        "icon": "rocket",
+        "color": "green",
+        "position": 0,
+        "folder": {
+          "id": 12,
+          "name": "Design",
+          "icon": "folder",
+          "color": "blue"
+        },
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="list.deleted">
+    ```json
+    {
+      "event": "list.deleted",
+      "timestamp": "2026-04-05T12:00:00.000Z",
+      "workspace": {
+        "id": 42,
+        "name": "Acme Corp",
+        "slug": "acme-corp",
+        "avatarUrl": null
+      },
+      "user": {
+        "id": 1,
+        "name": "Alice",
+        "avatarUrl": null
+      },
+      "before": {
+        "id": 8,
+        "name": "Backlog",
+        "icon": "list",
+        "color": "gray",
+        "position": 0,
+        "folder": null,
+        "createdAt": "2026-04-05T12:00:00.000Z"
+      },
+      "after": null
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Verifying deliveries
+
+If you configured an auth token, every request from Arca includes:
+
+```http
+Authorization: Bearer whs_4f3a1b9e...
+```
+
+Compare this value against the token you saved at creation time. Reject requests where it doesn't match.
+
+<Warning>
+  The auth token is shown only once, at the moment you create the webhook. Store it immediately in a secure location such as an environment variable or a secrets manager.
+</Warning>
+
+## Delivery behaviour
+
+- Arca expects your endpoint to respond with a `2xx` status code within **10 seconds**.
+- Deliveries are **fire-and-forget**, Arca does not retry failed deliveries.
+- Each failed delivery increments a failure counter. After **6 consecutive failures**, Arca automatically disables the webhook and sends you an email notification.
+
+## Re-enabling a disabled webhook
+
+When a webhook is disabled (manually or automatically), a **Disabled** badge appears on its card in **Settings → Webhooks**. Toggle the switch to re-enable it. Re-enabling resets the failure counter to zero.
+
+## Delete a webhook
+
+Click the delete button on a webhook card in **Settings → Webhooks** and confirm the prompt. Deletion is immediate and cannot be undone. Any in-flight delivery at the time of deletion will still be attempted.
