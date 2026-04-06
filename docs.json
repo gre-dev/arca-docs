@@ -88,6 +88,7 @@
             "group": "General features",
             "pages": [
               "general-features/search",
+              "general-features/planned",
               "general-features/sidebar-customization",
               "general-features/keyboard-shortcuts",
               "general-features/member-profiles"
