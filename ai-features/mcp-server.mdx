@@ -1,0 +1,286 @@
+---
+title: "MCP Server for AI Assistants"
+description: "Connect your AI assistant to Arca using the Model Context Protocol (MCP) server"
+icon: "robot"
+---
+
+The Arca MCP server enables AI assistants like Claude Desktop, Cline, and other MCP-compatible tools to access your Arca workspaces, tasks, lists, and folders directly. This allows you to manage your projects using natural language commands through your preferred AI assistant.
+
+## What is MCP?
+
+[Model Context Protocol (MCP)](https://modelcontextprotocol.io) is an open standard developed by Anthropic that allows AI assistants to securely connect to external data sources and tools. The Arca MCP server implements this protocol to bridge your AI assistant with your Arca account.
+
+## What can you do with the MCP server?
+
+Once connected, your AI assistant can:
+
+- **List and search** workspaces, tasks, lists, and folders
+- **Create new tasks** with titles, descriptions, due dates, and priorities
+- **Update existing tasks** - change status, priority, assignees, dates
+- **Organize work** - create and manage lists and folders
+- **Add context** - post comments on tasks
+- **Delete items** - remove tasks, lists, or folders when needed
+
+All actions are performed using your Arca API key, ensuring everything is tracked and attributed to your account.
+
+---
+
+## Installation
+
+The MCP server is distributed via npm and can be installed instantly using `npx`:
+
+```bash
+npx arca-mcp
+```
+
+<Note>
+  No manual installation is needed! The `npx` command automatically downloads
+  and runs the latest version.
+</Note>
+
+---
+
+## Get your API key
+
+Before configuring the MCP server, you need an Arca API key.
+
+<Steps>
+  <Step title="Open Arca Settings">
+    Click your avatar in the bottom-left sidebar, then select **Settings**.
+  </Step>
+  <Step title="Navigate to API Keys">
+    In the settings sidebar, click **API Keys** under the Developer section.
+  </Step>
+  <Step title="Create a new key">
+    Click **Create API Key**, give it a descriptive name (e.g., "Claude
+    Desktop"), choose all permissions needed, and click **Create**.
+  </Step>
+  <Step title="Copy your key">
+    Copy the generated API key. It starts with `arca_` and you won't be able to
+    see it again once you close the dialog.
+  </Step>
+</Steps>
+
+<Warning>
+  Keep your API key secure! Anyone with this key can access your Arca
+  workspaces. Never share it publicly or commit it to version control.
+</Warning>
+
+---
+
+## Configuration
+
+### Claude Desktop
+
+Claude Desktop has native MCP support. To connect it to Arca:
+
+<Steps>
+  <Step title="Locate the config file">
+    Open your Claude Desktop configuration file:
+    
+    **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+    
+    **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+    
+    **Linux**: `~/.config/Claude/claude_desktop_config.json`
+  </Step>
+  
+  <Step title="Add the Arca MCP server">
+    Add the following configuration to the `mcpServers` section:
+    
+    ```json
+    {
+      "mcpServers": {
+        "arca": {
+          "command": "npx",
+          "args": ["-y", "arca-mcp"],
+          "env": {
+            "ARCA_API_KEY": "arca_your_api_key_here"
+          }
+        }
+      }
+    }
+    ```
+    
+    Replace `arca_your_api_key_here` with your actual API key from the previous step.
+  </Step>
+  
+  <Step title="Restart Claude Desktop">
+    Quit Claude Desktop completely and reopen it. The MCP server will be loaded automatically.
+  </Step>
+  
+  <Step title="Verify the connection">
+    In Claude Desktop, click the 🔌 plug icon in the bottom-right corner. You should see "arca" listed with a green indicator showing it's connected.
+  </Step>
+</Steps>
+
+### Cline (VS Code Extension)
+
+[Cline](https://github.com/cline/cline) is an AI coding assistant that runs in VS Code and supports MCP.
+
+<Steps>
+  <Step title="Open Cline settings">
+    In VS Code, open the Cline extension settings (usually via the gear icon in
+    the Cline panel).
+  </Step>
+
+<Step title="Add MCP server">
+  Navigate to the MCP Servers section and add a new server with: - **Name**:
+  `arca` - **Command**: `npx` - **Args**: `["-y", "arca-mcp"]` - **Environment
+  Variables**: `ARCA_API_KEY=arca_your_api_key_here`
+</Step>
+
+  <Step title="Reload Cline">
+    Restart the Cline extension or reload VS Code. The Arca MCP server will be
+    available in your next chat.
+  </Step>
+</Steps>
+
+### Other MCP-compatible clients
+
+Any tool that supports the Model Context Protocol can connect to the Arca MCP server. The general pattern is:
+
+1. **Command**: `npx`
+2. **Arguments**: `["-y", "arca-mcp"]`
+3. **Environment variable**: `ARCA_API_KEY` with your API key
+
+Refer to your AI assistant's documentation for specific MCP configuration instructions.
+
+---
+
+## Example commands
+
+Once connected, you can use natural language to interact with Arca:
+
+<AccordionGroup>
+  <Accordion title="List workspaces">
+    **You**: "Show me all my Arca workspaces" **Assistant**: Lists all
+    workspaces with their IDs, names, slugs, and member counts
+  </Accordion>
+
+<Accordion title="Create a task">
+  **You**: "Create a task in my workspace called 'Fix login bug' with high
+  priority and due date next Friday" **Assistant**: Creates the task with the
+  specified details and returns the task ID
+</Accordion>
+
+<Accordion title="Update task status">
+  **You**: "Mark task #125 as completed" **Assistant**: Updates the task status
+  and confirms the change
+</Accordion>
+
+<Accordion title="Search tasks">
+  **You**: "Show me all high-priority tasks in workspace 1 that are assigned to
+  me" **Assistant**: Filters and displays matching tasks
+</Accordion>
+
+<Accordion title="Add a comment">
+  **You**: "Add a comment to task #89 saying 'Reviewed and approved'"
+  **Assistant**: Posts the comment and confirms
+</Accordion>
+
+  <Accordion title="Organize with lists">
+    **You**: "Create a new list called 'Q2 Goals' in my Marketing workspace"
+    **Assistant**: Creates the list and returns its ID
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Available tools
+
+The MCP server provides 20 tools for interacting with Arca:
+
+| Tool              | Description                                       |
+| ----------------- | ------------------------------------------------- |
+| `list_workspaces` | List all workspaces you have access to            |
+| `get_workspace`   | Get details of a specific workspace               |
+| `list_tasks`      | List tasks in a workspace (with optional filters) |
+| `get_task`        | Get full details of a specific task               |
+| `create_task`     | Create a new task                                 |
+| `update_task`     | Update an existing task                           |
+| `delete_task`     | Delete a task                                     |
+| `list_lists`      | List all lists in a workspace                     |
+| `create_list`     | Create a new list                                 |
+| `update_list`     | Update an existing list                           |
+| `delete_list`     | Delete a list                                     |
+| `list_folders`    | List all folders in a workspace                   |
+| `create_folder`   | Create a new folder                               |
+| `update_folder`   | Update an existing folder                         |
+| `delete_folder`   | Delete a folder                                   |
+| `list_comments`   | List all comments on a task                       |
+| `create_comment`  | Add a comment to a task                           |
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="MCP server shows as disconnected">
+    **Possible causes:** - Invalid API key - verify it starts with `arca_` and
+    is copied correctly - Network connectivity issues - check your internet
+    connection - Outdated npm cache - run `npx clear-npx-cache` and try again
+    **Solution**: Double-check your API key in the config file and restart your
+    AI assistant.
+  </Accordion>
+
+<Accordion title="'No workspaces found' error">
+  **Possible causes:** - API key belongs to a user without workspace access -
+  API key was revoked or expired **Solution**: Verify your API key is still
+  valid in Arca Settings → API Keys. Generate a new key if needed.
+</Accordion>
+
+<Accordion title="Permission denied errors">
+  **Possible causes:** - Trying to modify a workspace where you don't have edit
+  permissions - Attempting to delete items without proper role **Solution**:
+  Check your workspace role. Viewers can only read data, while Members and
+  Admins can create and modify tasks.
+</Accordion>
+
+<Accordion title="Config file not found">
+  **Claude Desktop:** - Make sure you're editing the correct config file path
+  for your OS - Create the file if it doesn't exist - Ensure it's valid JSON
+  (use a JSON validator) **Solution**: Create the directory if missing:
+
+```bash
+  # macOS/Linux mkdir -p ~/Library/Application\ Support/Claude # Windows
+  PowerShell New-Item -ItemType Directory -Force -Path "$env:APPDATA\Claude"
+```
+
+</Accordion>
+
+  <Accordion title="'npx: command not found'">
+    **Cause:** Node.js is not installed or not in your PATH. **Solution:**
+    Install Node.js from [nodejs.org](https://nodejs.org). Version 16 or higher
+    is required.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Security & privacy
+
+- All API requests are made directly from your machine to Arca's servers
+- Your API key is stored locally in your AI assistant's config file
+- The MCP server never stores or transmits your data to third parties
+- API keys can be revoked anytime from Arca Settings → API Keys
+
+---
+
+## Updates
+
+The MCP server is automatically updated when you use `npx arca-mcp`. To ensure you have the latest features and bug fixes, restart your AI assistant periodically.
+
+You can check the current version:
+
+```bash
+npm view arca-mcp version
+```
+
+---
+
+## Need help?
+
+- **GitHub Issues**: [github.com/gredevelopment/arca-mcp](https://github.com/gredevelopment/arca-mcp)
+- **API Documentation**: [docs.getarca.app/api-reference](/api-reference)
+- **MCP Specification**: [modelcontextprotocol.io](https://modelcontextprotocol.io)
