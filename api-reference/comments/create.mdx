@@ -4,7 +4,11 @@ api: "POST /api/v1/tasks/{id}/comments"
 description: "Posts a new top-level comment on a task."
 ---
 
-<Info>Requires the `comments:write` scope. Viewers cannot post comments.</Info>
+<Info>
+  Requires the `comments:write` scope. Viewers cannot post comments.
+  Access-restricted members receive `403` if the task belongs to a list outside
+  their permitted scope.
+</Info>
 
 ## Path parameters
 
@@ -15,7 +19,8 @@ description: "Posts a new top-level comment on a task."
 ## Request body
 
 <ParamField body="content" type="string" required>
-  Comment text. HTML tags are sanitized, only safe inline elements are kept. Whitespace-only content is rejected with `400`.
+  Comment text. HTML tags are sanitized, only safe inline elements are kept.
+  Whitespace-only content is rejected with `400`.
 </ParamField>
 
 ## Response

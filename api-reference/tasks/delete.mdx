@@ -4,11 +4,13 @@ api: "DELETE /api/v1/tasks/{id}"
 description: "Permanently deletes a task."
 ---
 
-<Warning>
-  This action is irreversible.
-</Warning>
+<Warning>This action is irreversible.</Warning>
 
-<Info>Requires the `tasks:write` scope. Viewers cannot delete tasks.</Info>
+<Info>
+  Requires the `tasks:write` scope. Viewers cannot delete tasks.
+  Access-restricted members receive `403` if the task belongs to a list outside
+  their permitted scope.
+</Info>
 
 ## Path parameters
 

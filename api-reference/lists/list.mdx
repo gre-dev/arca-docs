@@ -4,7 +4,11 @@ api: "GET /api/v1/workspaces/{id}/lists"
 description: "Returns all lists in a workspace, ordered by position then name."
 ---
 
-<Info>Requires the `lists:read` scope. You must be a member of the workspace.</Info>
+<Info>
+  Requires the `lists:read` scope. You must be a member of the workspace.
+  Access-restricted members only receive lists within their permitted folders or
+  explicitly granted lists.
+</Info>
 
 ## Path parameters
 
@@ -33,7 +37,8 @@ Returns an array of list objects.
 </ResponseField>
 
 <ResponseField name="icon" type="string | null">
-  Icon identifier slug (e.g., `"folder-1"`, `"chart"`, `"code"`). `null` if not set.
+  Icon identifier slug (e.g., `"folder-1"`, `"chart"`, `"code"`). `null` if not
+  set.
 </ResponseField>
 
 <ResponseField name="color" type="string | null">

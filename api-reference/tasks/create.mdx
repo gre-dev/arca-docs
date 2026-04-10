@@ -4,7 +4,11 @@ api: "POST /api/v1/tasks"
 description: "Creates a new task in a workspace."
 ---
 
-<Info>Requires the `tasks:write` scope. Viewers cannot create tasks.</Info>
+<Info>
+  Requires the `tasks:write` scope. Viewers cannot create tasks.
+  Access-restricted members receive `403` if the target `list_id` is outside
+  their permitted scope.
+</Info>
 
 ## Request body
 
@@ -13,7 +17,8 @@ description: "Creates a new task in a workspace."
 </ParamField>
 
 <ParamField body="list_id" type="string" required>
-  Numeric ID of the list to place the task in. The list must exist in the same workspace.
+  Numeric ID of the list to place the task in. The list must exist in the same
+  workspace.
 </ParamField>
 
 <ParamField body="title" type="string" required>
@@ -25,15 +30,19 @@ description: "Creates a new task in a workspace."
 </ParamField>
 
 <ParamField body="priority" type="string" default="none">
-  Task priority. Must be one of `urgent`, `high`, `medium`, `low`, or `none`. Defaults to `none` if omitted.
+  Task priority. Must be one of `urgent`, `high`, `medium`, `low`, or `none`.
+  Defaults to `none` if omitted.
 </ParamField>
 
 <ParamField body="status_id" type="string">
-  Numeric ID of the workspace status to apply. Must belong to the same workspace. If omitted, the task is assigned the first status in the workspace with the `pending` category.
+  Numeric ID of the workspace status to apply. Must belong to the same
+  workspace. If omitted, the task is assigned the first status in the workspace
+  with the `pending` category.
 </ParamField>
 
 <ParamField body="due_date" type="string">
-  Due date in ISO 8601 UTC format (e.g., `"2026-03-25T17:00:00Z"`). A string without a timezone suffix is treated as UTC.
+  Due date in ISO 8601 UTC format (e.g., `"2026-03-25T17:00:00Z"`). A string
+  without a timezone suffix is treated as UTC.
 </ParamField>
 
 <ParamField body="start_date" type="string">

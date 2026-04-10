@@ -4,10 +4,15 @@ api: "GET /api/v1/workspaces/{id}/tasks"
 description: "Returns a paginated list of top-level tasks in a workspace, ordered by creation date (newest first)."
 ---
 
-<Info>Requires the `tasks:read` scope. You must be a member of the workspace.</Info>
+<Info>
+  Requires the `tasks:read` scope. You must be a member of the workspace.
+  Access-restricted members only receive tasks in their permitted lists. Passing
+  a `list_id` for an inaccessible list returns `403`.
+</Info>
 
 <Note>
-  This endpoint returns **top-level tasks only**. Subtasks are excluded from the results.
+  This endpoint returns **top-level tasks only**. Subtasks are excluded from the
+  results.
 </Note>
 
 ## Path parameters
@@ -19,7 +24,8 @@ description: "Returns a paginated list of top-level tasks in a workspace, ordere
 ## Query parameters
 
 <ParamField query="list_id" type="string">
-  Filter results to a specific list. If omitted, tasks from all lists are returned.
+  Filter results to a specific list. If omitted, tasks from all lists are
+  returned.
 </ParamField>
 
 <ParamField query="page" type="number" default="1">
@@ -99,6 +105,7 @@ description: "Returns a paginated list of top-level tasks in a workspace, ordere
         <ResponseField name="avatar_url" type="string | null">Profile picture URL.</ResponseField>
       </Expandable>
     </ResponseField>
+
   </Expandable>
 </ResponseField>
 

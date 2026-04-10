@@ -13,7 +13,7 @@ Workspaces have members with different roles that control access and permissions
 | **Owner**  | Full access, including billing, member management, and deleting the workspace |
 | **Admin**  | Invite members, manage settings, labels, statuses, and all workspace content  |
 | **Member** | Create and edit tasks and other workspace content                             |
-| **Viewer** | View tasks only, cannot create or edit anything                              |
+| **Viewer** | View tasks only, cannot create or edit anything                               |
 
 ## Add members
 
@@ -26,4 +26,17 @@ Workspaces have members with different roles that control access and permissions
 
 Only workspace owners can remove members. Open **Settings > Members** and click the remove icon next to the member you want to remove. The owner cannot be removed.
 
-<Tip>Use the Viewer role for clients or stakeholders who need visibility but shouldn't make changes to tasks.</Tip>
+## Access-restricted members
+
+Workspace owners and admins can restrict a member to a specific subset of folders and lists, regardless of their workspace role. When access restriction is enabled for a member:
+
+- They can only see folders and lists explicitly granted to them.
+- Tasks in non-granted lists are hidden from their view.
+- Attempting to access a task, create a task in, or comment on a task inside an inaccessible list returns a `403` error via the API.
+
+Access restrictions apply on top of the member's role, a restricted **Member** can still create and edit tasks, but only within the lists they can access.
+
+<Tip>
+  Use the Viewer role for clients or stakeholders who need visibility but
+  shouldn't make changes to tasks.
+</Tip>

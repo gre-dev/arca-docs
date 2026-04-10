@@ -4,7 +4,11 @@ api: "PATCH /api/v1/tasks/{id}"
 description: "Updates one or more fields of a task. Only the fields you include are changed."
 ---
 
-<Info>Requires the `tasks:write` scope. Viewers cannot edit tasks.</Info>
+<Info>
+  Requires the `tasks:write` scope. Viewers cannot edit tasks. Access-restricted
+  members receive `403` if the task belongs to, or is being moved to, a list
+  outside their permitted scope.
+</Info>
 
 ## Path parameters
 
@@ -17,7 +21,8 @@ description: "Updates one or more fields of a task. Only the fields you include 
 All fields are optional. Send only the fields you want to update.
 
 <ParamField body="title" type="string">
-  New task title. Cannot be set to an empty string. Whitespace is trimmed. HTML is sanitized.
+  New task title. Cannot be set to an empty string. Whitespace is trimmed. HTML
+  is sanitized.
 </ParamField>
 
 <ParamField body="description" type="string">
@@ -29,11 +34,13 @@ All fields are optional. Send only the fields you want to update.
 </ParamField>
 
 <ParamField body="status_id" type="string">
-  Numeric ID of a workspace status to apply. The status must belong to the same workspace.
+  Numeric ID of a workspace status to apply. The status must belong to the same
+  workspace.
 </ParamField>
 
 <ParamField body="list_id" type="string">
-  Numeric ID of a list to move the task into. The list must belong to the same workspace.
+  Numeric ID of a list to move the task into. The list must belong to the same
+  workspace.
 </ParamField>
 
 <ParamField body="due_date" type="string">
@@ -48,17 +55,39 @@ All fields are optional. Send only the fields you want to update.
 
 Returns the full updated task including its current assignees.
 
-<ResponseField name="id" type="number" required>Task identifier.</ResponseField>
-<ResponseField name="workspace_id" type="number" required>Workspace this task belongs to.</ResponseField>
-<ResponseField name="list_id" type="number | null">List this task belongs to.</ResponseField>
-<ResponseField name="title" type="string" required>Task title.</ResponseField>
-<ResponseField name="description" type="string | null">Task description.</ResponseField>
-<ResponseField name="priority" type="string" required>Task priority.</ResponseField>
-<ResponseField name="identifier" type="number" required>Workspace-scoped sequential task number.</ResponseField>
-<ResponseField name="due_date" type="string | null">UTC ISO-8601 due date.</ResponseField>
-<ResponseField name="start_date" type="string | null">UTC ISO-8601 start date.</ResponseField>
-<ResponseField name="creator_id" type="number" required>User ID of the task creator.</ResponseField>
-<ResponseField name="created_at" type="string" required>UTC ISO-8601 creation timestamp.</ResponseField>
+<ResponseField name="id" type="number" required>
+  Task identifier.
+</ResponseField>
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this task belongs to.
+</ResponseField>
+<ResponseField name="list_id" type="number | null">
+  List this task belongs to.
+</ResponseField>
+<ResponseField name="title" type="string" required>
+  Task title.
+</ResponseField>
+<ResponseField name="description" type="string | null">
+  Task description.
+</ResponseField>
+<ResponseField name="priority" type="string" required>
+  Task priority.
+</ResponseField>
+<ResponseField name="identifier" type="number" required>
+  Workspace-scoped sequential task number.
+</ResponseField>
+<ResponseField name="due_date" type="string | null">
+  UTC ISO-8601 due date.
+</ResponseField>
+<ResponseField name="start_date" type="string | null">
+  UTC ISO-8601 start date.
+</ResponseField>
+<ResponseField name="creator_id" type="number" required>
+  User ID of the task creator.
+</ResponseField>
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
 
 <ResponseField name="status" type="object | null">
   Current task status.

@@ -19,11 +19,13 @@ https://api.getarca.app/api/v1
 Every request must include a valid API key. You can pass it one of two ways:
 
 **`Authorization` header (recommended)**
+
 ```http
 Authorization: Bearer arca_your_key_here
 ```
 
 **`X-API-Key` header**
+
 ```http
 X-API-Key: arca_your_key_here
 ```
@@ -31,7 +33,8 @@ X-API-Key: arca_your_key_here
 All API keys start with the `arca_` prefix. Create and manage keys in the Arca app under **Settings → API Keys**.
 
 <Warning>
-  API keys are secrets. Never embed them in client-side code or public repositories.
+  API keys are secrets. Never embed them in client-side code or public
+  repositories.
 </Warning>
 
 If the key is missing, invalid, or expired, the API returns `401 Unauthorized`.
@@ -47,6 +50,8 @@ API operations are additionally constrained by your workspace role:
 - **Viewers** can use read scopes (`tasks:read`, `folders:read`, etc.) but cannot create, edit, or delete any resources.
 - **Members** can create and edit resources but cannot delete folders or lists.
 - **Admins and owners** have full access, including deleting folders and lists.
+
+Additionally, workspace admins and owners can apply **access restrictions** to individual members, limiting them to specific folders and lists. Restricted members receive filtered results on list endpoints, and `403 Forbidden` when accessing, creating, updating, or deleting resources in folders or lists outside their permitted scope.
 
 ## Timestamps
 
@@ -66,10 +71,10 @@ All error responses return JSON with a single `error` field:
 { "error": "A description of the problem" }
 ```
 
-| Status | Meaning |
-|---|---|
-| `400` | Bad request, missing or invalid parameter |
-| `401` | Unauthorized, API key is missing, invalid, or expired |
-| `403` | Forbidden, your workspace role prohibits this action, or your key lacks the required scope |
-| `404` | Not found, the resource does not exist or is not accessible to you |
-| `500` | Internal server error |
+| Status | Meaning                                                                                    |
+| ------ | ------------------------------------------------------------------------------------------ |
+| `400`  | Bad request, missing or invalid parameter                                                  |
+| `401`  | Unauthorized, API key is missing, invalid, or expired                                      |
+| `403`  | Forbidden, your workspace role prohibits this action, or your key lacks the required scope |
+| `404`  | Not found, the resource does not exist or is not accessible to you                         |
+| `500`  | Internal server error                                                                      |

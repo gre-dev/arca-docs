@@ -4,7 +4,11 @@ api: "GET /api/v1/workspaces/{id}/folders"
 description: "Returns all folders in a workspace, ordered by position then name."
 ---
 
-<Info>Requires the `folders:read` scope. You must be a member of the workspace.</Info>
+<Info>
+  Requires the `folders:read` scope. You must be a member of the workspace.
+  Access-restricted members only receive folders they have been explicitly
+  granted access to.
+</Info>
 
 ## Path parameters
 
@@ -29,7 +33,8 @@ Returns an array of folder objects.
 </ResponseField>
 
 <ResponseField name="icon" type="string | null">
-  Icon identifier slug (e.g., `"folder-1"`, `"folder-2"`, `"library"`). `null` if not set.
+  Icon identifier slug (e.g., `"folder-1"`, `"folder-2"`, `"library"`). `null`
+  if not set.
 </ResponseField>
 
 <ResponseField name="color" type="string | null">

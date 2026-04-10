@@ -4,7 +4,11 @@ api: "GET /api/v1/tasks/{id}/comments"
 description: "Returns all comments on a task, ordered by creation date (oldest first)."
 ---
 
-<Info>Requires the `comments:read` scope. You must be a member of the task's workspace.</Info>
+<Info>
+  Requires the `comments:read` scope. You must be a member of the task's
+  workspace. Access-restricted members receive `403` if the task belongs to a
+  list outside their permitted scope.
+</Info>
 
 ## Path parameters
 
