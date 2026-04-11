@@ -1,0 +1,41 @@
+---
+title: "Delete label"
+api: "DELETE /api/v1/labels/{id}"
+description: "Permanently deletes a label from a workspace."
+---
+
+<Warning>This action is irreversible.</Warning>
+
+<Info>
+  Requires the `workspaces:write` scope. Only workspace owners and admins can delete labels.
+</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric label ID.
+</ParamField>
+
+## Response
+
+Returns `204 No Content` with an empty body on success.
+
+<ResponseExample>
+```204 No Content
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Only owners and admins can delete labels"
+}
+```
+```json 404
+{
+  "error": "Label not found"
+}
+```
+</ResponseExample>

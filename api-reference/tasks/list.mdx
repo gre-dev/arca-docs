@@ -11,8 +11,8 @@ description: "Returns a paginated list of top-level tasks in a workspace, ordere
 </Info>
 
 <Note>
-  This endpoint returns **top-level tasks only**. Subtasks are excluded from the
-  results.
+  This endpoint returns **top-level tasks only**. Each task includes its direct
+  subtasks inline in the `subtasks` array.
 </Note>
 
 ## Path parameters
@@ -106,6 +106,19 @@ description: "Returns a paginated list of top-level tasks in a workspace, ordere
       </Expandable>
     </ResponseField>
 
+    <ResponseField name="subtasks" type="array" required>
+      Direct subtasks of this task. Empty array if none.
+
+      <Expandable title="Subtask fields">
+        <ResponseField name="id" type="number" required>Subtask identifier.</ResponseField>
+        <ResponseField name="title" type="string" required>Subtask title.</ResponseField>
+        <ResponseField name="priority" type="string" required>Subtask priority.</ResponseField>
+        <ResponseField name="identifier" type="number" required>Workspace-scoped sequential task number.</ResponseField>
+        <ResponseField name="status" type="object | null">Current status of the subtask. Same shape as the parent task status.</ResponseField>
+        <ResponseField name="assignees" type="array" required>Users assigned to the subtask. Same shape as the parent task assignees.</ResponseField>
+      </Expandable>
+    </ResponseField>
+
   </Expandable>
 </ResponseField>
 
@@ -152,6 +165,22 @@ description: "Returns a paginated list of top-level tasks in a workspace, ordere
           "id": 7,
           "name": "Bob",
           "avatar_url": "https://cdn.example.com/avatars/bob.png"
+        }
+      ],
+      "subtasks": [
+        {
+          "id": 102,
+          "title": "Write unit tests",
+          "priority": "medium",
+          "identifier": 6,
+          "status": {
+            "id": 1,
+            "name": "Backlog",
+            "icon": null,
+            "color": "gray",
+            "category": "pending"
+          },
+          "assignees": []
         }
       ]
     }

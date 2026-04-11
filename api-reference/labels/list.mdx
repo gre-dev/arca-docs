@@ -1,0 +1,75 @@
+---
+title: "List labels"
+api: "GET /api/v1/workspaces/{id}/labels"
+description: "Returns all labels defined in a workspace, ordered alphabetically by name."
+---
+
+<Info>
+  Requires the `workspaces:read` scope. You must be a member of the workspace.
+</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric workspace ID.
+</ParamField>
+
+## Response
+
+Returns an array of label objects ordered by `name` ascending.
+
+<ResponseField name="id" type="number" required>
+  Label identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this label belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Label name.
+</ResponseField>
+
+<ResponseField name="color" type="string | null">
+  Color associated with the label.
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+[
+  {
+    "id": 1,
+    "workspace_id": 3,
+    "name": "Bug",
+    "color": "red",
+    "created_at": "2026-01-15T08:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "workspace_id": 3,
+    "name": "Feature",
+    "color": "blue",
+    "created_at": "2026-01-15T08:00:00.000Z"
+  }
+]
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'workspaces:read' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Workspace not found"
+}
+```
+</ResponseExample>

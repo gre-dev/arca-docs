@@ -1,0 +1,62 @@
+---
+title: "Delete status"
+api: "DELETE /api/v1/statuses/{id}"
+description: "Permanently deletes a status from a workspace."
+---
+
+<Warning>This action is irreversible.</Warning>
+
+<Info>
+  Requires the `workspaces:write` scope. Only workspace owners and admins can delete statuses.
+  You cannot delete the last remaining `completed` status in a workspace.
+</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric status ID.
+</ParamField>
+
+## Query parameters
+
+<ParamField query="reassign_to" type="string">
+  Numeric ID of a different status to reassign tasks to before deletion. **Required** if any
+  tasks are currently assigned this status, the request will return `400` with a `task_count`
+  field if you omit this when tasks exist.
+</ParamField>
+
+## Response
+
+Returns `204 No Content` with an empty body on success.
+
+<ResponseExample>
+```204 No Content
+```
+```json 400
+{
+  "error": "Status has tasks",
+  "message": "Provide a ?reassign_to=<statusId> to reassign tasks before deleting",
+  "task_count": 12
+}
+```
+```json 400
+{
+  "error": "At least one completed status must remain in the workspace"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Only owners and admins can delete statuses"
+}
+```
+```json 404
+{
+  "error": "Status not found"
+}
+```
+</ResponseExample>

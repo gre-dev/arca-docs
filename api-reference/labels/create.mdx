@@ -1,0 +1,79 @@
+---
+title: "Create label"
+api: "POST /api/v1/labels"
+description: "Creates a new label in a workspace."
+---
+
+<Info>
+  Requires the `workspaces:write` scope. Any workspace member can create labels.
+</Info>
+
+## Request body
+
+<ParamField body="workspace_id" type="string" required>
+  Numeric ID of the workspace to create the label in.
+</ParamField>
+
+<ParamField body="name" type="string" required>
+  Label name.
+</ParamField>
+
+<ParamField body="color" type="string" default="gray">
+  Optional color value. Defaults to `"gray"` if not provided.
+</ParamField>
+
+## Response
+
+Returns the created label.
+
+<ResponseField name="id" type="number" required>
+  New label identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this label belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Label name.
+</ResponseField>
+
+<ResponseField name="color" type="string | null">
+  Color value. Defaults to `"gray"`.
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 5,
+  "workspace_id": 3,
+  "name": "Technical Debt",
+  "color": "yellow",
+  "created_at": "2026-04-11T10:45:00.000Z"
+}
+```
+```json 400
+{
+  "error": "name is required"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'workspaces:write' is required for this endpoint"
+}
+```
+```json 409
+{
+  "error": "A label with this name already exists"
+}
+```
+</ResponseExample>

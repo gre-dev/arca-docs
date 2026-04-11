@@ -86,6 +86,19 @@ description: "Returns a single task with full details including its status, assi
   </Expandable>
 </ResponseField>
 
+<ResponseField name="subtasks" type="array" required>
+  Direct subtasks of this task. Empty array if the task has no subtasks.
+
+  <Expandable title="Subtask fields">
+    <ResponseField name="id" type="number" required>Subtask identifier.</ResponseField>
+    <ResponseField name="title" type="string" required>Subtask title.</ResponseField>
+    <ResponseField name="priority" type="string" required>Subtask priority. One of `urgent`, `high`, `medium`, `low`, or `none`.</ResponseField>
+    <ResponseField name="identifier" type="number" required>Workspace-scoped sequential task number.</ResponseField>
+    <ResponseField name="status" type="object | null">Current status of the subtask. `null` if no status is assigned. Same shape as the parent task `status` field.</ResponseField>
+    <ResponseField name="assignees" type="array" required>Users assigned to the subtask. Same shape as the parent task `assignees` array.</ResponseField>
+  </Expandable>
+</ResponseField>
+
 <ResponseField name="attachments" type="array" required>
   Confirmed file attachments on the task. Empty array if none.
 
@@ -134,6 +147,22 @@ description: "Returns a single task with full details including its status, assi
       "id": 7,
       "name": "Bob",
       "avatar_url": "https://cdn.example.com/avatars/bob.png"
+    }
+  ],
+  "subtasks": [
+    {
+      "id": 102,
+      "title": "Write unit tests",
+      "priority": "medium",
+      "identifier": 6,
+      "status": {
+        "id": 1,
+        "name": "Backlog",
+        "icon": null,
+        "color": "gray",
+        "category": "pending"
+      },
+      "assignees": []
     }
   ],
   "attachments": [

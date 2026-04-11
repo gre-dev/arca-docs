@@ -149,6 +149,24 @@
             ]
           },
           {
+            "group": "Statuses",
+            "pages": [
+              "api-reference/statuses/list",
+              "api-reference/statuses/create",
+              "api-reference/statuses/update",
+              "api-reference/statuses/delete"
+            ]
+          },
+          {
+            "group": "Labels",
+            "pages": [
+              "api-reference/labels/list",
+              "api-reference/labels/create",
+              "api-reference/labels/update",
+              "api-reference/labels/delete"
+            ]
+          },
+          {
             "group": "Comments",
             "pages": [
               "api-reference/comments/list",

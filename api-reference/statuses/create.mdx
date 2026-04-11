@@ -1,0 +1,102 @@
+---
+title: "Create status"
+api: "POST /api/v1/statuses"
+description: "Creates a new status in a workspace."
+---
+
+<Info>
+  Requires the `workspaces:write` scope. Only workspace owners and admins can create statuses.
+</Info>
+
+## Request body
+
+<ParamField body="workspace_id" type="string" required>
+  Numeric ID of the workspace to create the status in.
+</ParamField>
+
+<ParamField body="name" type="string" required>
+  Status label.
+</ParamField>
+
+<ParamField body="category" type="string" required>
+  Status category. Must be one of `pending`, `active`, `done`, `completed`, or `cancelled`.
+</ParamField>
+
+<ParamField body="icon" type="string">
+  Optional icon slug.
+</ParamField>
+
+<ParamField body="color" type="string" default="gray">
+  Optional color value. Defaults to `"gray"` if not provided.
+</ParamField>
+
+## Response
+
+Returns the created status. The `position` is automatically assigned as one greater than the current maximum position in the workspace.
+
+<ResponseField name="id" type="number" required>
+  New status identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this status belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Status label.
+</ResponseField>
+
+<ResponseField name="icon" type="string | null">
+  Icon slug. `null` if not provided.
+</ResponseField>
+
+<ResponseField name="color" type="string | null">
+  Color value. Defaults to `"gray"`.
+</ResponseField>
+
+<ResponseField name="category" type="string" required>
+  Status category.
+</ResponseField>
+
+<ResponseField name="position" type="number" required>
+  Auto-assigned sort position.
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "id": 4,
+  "workspace_id": 3,
+  "name": "In Review",
+  "icon": null,
+  "color": "orange",
+  "category": "active",
+  "position": 4,
+  "created_at": "2026-04-11T10:30:00.000Z"
+}
+```
+```json 400
+{
+  "error": "name is required"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Only owners and admins can create statuses"
+}
+```
+```json 409
+{
+  "error": "A status with this name already exists"
+}
+```
+</ResponseExample>

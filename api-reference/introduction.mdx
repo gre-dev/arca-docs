@@ -4,7 +4,7 @@ icon: "circle-info"
 description: "Build integrations with Arca using the REST API."
 ---
 
-The Arca REST API lets you read and write workspace data (tasks, lists, folders, members, and comments) from any external application or script.
+The Arca REST API lets you read and write workspace data (tasks, lists, folders, statuses, labels, members, and comments) from any external application or script.
 
 ## Base URL
 
@@ -42,6 +42,20 @@ If the key is missing, invalid, or expired, the API returns `401 Unauthorized`.
 ## Scopes
 
 Each API key is granted a specific set of scopes. A request is rejected with `403 Forbidden` if the key lacks the required scope for the endpoint.
+
+| Scope | Grants access to |
+|---|---|
+| `users:read` | Read your own profile (`/me`) |
+| `workspaces:read` | Read workspaces, members, statuses, and labels |
+| `workspaces:write` | Create, update, and delete statuses and labels |
+| `folders:read` | Read folders |
+| `folders:write` | Create, update, and delete folders |
+| `lists:read` | Read lists |
+| `lists:write` | Create, update, and delete lists |
+| `tasks:read` | Read tasks and subtasks |
+| `tasks:write` | Create, update, and delete tasks |
+| `comments:read` | Read task comments |
+| `comments:write` | Create task comments |
 
 ## Role restrictions
 

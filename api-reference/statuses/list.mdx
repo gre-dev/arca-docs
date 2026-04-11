@@ -1,0 +1,103 @@
+---
+title: "List statuses"
+api: "GET /api/v1/workspaces/{id}/statuses"
+description: "Returns all statuses defined in a workspace, ordered by position."
+---
+
+<Info>
+  Requires the `workspaces:read` scope. You must be a member of the workspace.
+</Info>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric workspace ID.
+</ParamField>
+
+## Response
+
+Returns an array of status objects ordered by `position` ascending.
+
+<ResponseField name="id" type="number" required>
+  Status identifier.
+</ResponseField>
+
+<ResponseField name="workspace_id" type="number" required>
+  Workspace this status belongs to.
+</ResponseField>
+
+<ResponseField name="name" type="string" required>
+  Status label (e.g., `"In Progress"`, `"Done"`).
+</ResponseField>
+
+<ResponseField name="icon" type="string | null">
+  Icon slug associated with the status.
+</ResponseField>
+
+<ResponseField name="color" type="string | null">
+  Color value associated with the status.
+</ResponseField>
+
+<ResponseField name="category" type="string" required>
+  Status category. One of `pending`, `active`, `done`, `completed`, or `cancelled`.
+</ResponseField>
+
+<ResponseField name="position" type="number" required>
+  Sort position (ascending order).
+</ResponseField>
+
+<ResponseField name="created_at" type="string" required>
+  UTC ISO-8601 creation timestamp.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+[
+  {
+    "id": 1,
+    "workspace_id": 3,
+    "name": "Backlog",
+    "icon": null,
+    "color": "gray",
+    "category": "pending",
+    "position": 1,
+    "created_at": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "workspace_id": 3,
+    "name": "In Progress",
+    "icon": "in-progress",
+    "color": "blue",
+    "category": "active",
+    "position": 2,
+    "created_at": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": 3,
+    "workspace_id": 3,
+    "name": "Done",
+    "icon": "check",
+    "color": "green",
+    "category": "completed",
+    "position": 3,
+    "created_at": "2026-01-01T00:00:00.000Z"
+  }
+]
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Scope 'workspaces:read' is required for this endpoint"
+}
+```
+```json 404
+{
+  "error": "Workspace not found"
+}
+```
+</ResponseExample>

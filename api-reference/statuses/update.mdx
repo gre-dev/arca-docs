@@ -1,0 +1,96 @@
+---
+title: "Update status"
+api: "PATCH /api/v1/statuses/{id}"
+description: "Updates one or more properties of a status. Only the fields you include are changed."
+---
+
+<Info>
+  Requires the `workspaces:write` scope. Only workspace owners and admins can update statuses.
+</Info>
+
+<Warning>
+  You cannot change the `category` of the **last remaining** `completed` status in a workspace. At least one completed status must always exist.
+</Warning>
+
+## Path parameters
+
+<ParamField path="id" type="string" required>
+  The numeric status ID.
+</ParamField>
+
+## Request body
+
+All fields are optional. Send only the fields you want to update.
+
+<ParamField body="name" type="string">
+  New status label.
+</ParamField>
+
+<ParamField body="category" type="string">
+  New status category. Must be one of `pending`, `active`, `done`, `completed`, or `cancelled`.
+</ParamField>
+
+<ParamField body="icon" type="string">
+  Icon slug.
+</ParamField>
+
+<ParamField body="color" type="string">
+  Color value.
+</ParamField>
+
+<ParamField body="position" type="number">
+  Sort position integer. Use this to reorder statuses.
+</ParamField>
+
+## Response
+
+Returns the full updated status object.
+
+<ResponseField name="id" type="number" required>Status identifier.</ResponseField>
+<ResponseField name="workspace_id" type="number" required>Workspace this status belongs to.</ResponseField>
+<ResponseField name="name" type="string" required>Status label.</ResponseField>
+<ResponseField name="icon" type="string | null">Icon slug.</ResponseField>
+<ResponseField name="color" type="string | null">Color value.</ResponseField>
+<ResponseField name="category" type="string" required>Status category.</ResponseField>
+<ResponseField name="position" type="number" required>Sort position.</ResponseField>
+<ResponseField name="created_at" type="string" required>UTC ISO-8601 creation timestamp.</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "id": 4,
+  "workspace_id": 3,
+  "name": "In Review",
+  "icon": "review",
+  "color": "orange",
+  "category": "active",
+  "position": 3,
+  "created_at": "2026-04-11T10:30:00.000Z"
+}
+```
+```json 400
+{
+  "error": "At least one completed status must remain in the workspace"
+}
+```
+```json 401
+{
+  "error": "Invalid API key"
+}
+```
+```json 403
+{
+  "error": "Only owners and admins can edit statuses"
+}
+```
+```json 404
+{
+  "error": "Status not found"
+}
+```
+```json 409
+{
+  "error": "A status with this name already exists"
+}
+```
+</ResponseExample>

@@ -19,8 +19,7 @@ description: "Posts a new top-level comment on a task."
 ## Request body
 
 <ParamField body="content" type="string" required>
-  Comment text. HTML tags are sanitized, only safe inline elements are kept.
-  Whitespace-only content is rejected with `400`.
+  Comment text. Accepts an HTML string. Whitespace-only content is rejected with `400`.
 </ParamField>
 
 ## Response
@@ -48,7 +47,7 @@ Returns the created comment. `resolved` is always `false` for a new comment.
 </ResponseField>
 
 <ResponseField name="content" type="string" required>
-  Sanitized comment content.
+  Comment content.
 </ResponseField>
 
 <ResponseField name="parent_comment_id" type="null" required>
