@@ -1,20 +1,42 @@
 ---
 title: "Rate limits"
 icon: "gauge"
-description: "Request rate limits for the Arca API."
+description: "Request rate limits enforced on the Arca API."
 ---
 
-The v1 API endpoints do not enforce a fixed request rate limit. You can make requests as frequently as your use case requires.
+The Arca API enforces rate limits to protect the service from abuse and ensure reliable performance for all integrations.
 
-<Note>
-  This may change in future versions of the API. If rate limits are introduced, endpoints will return `429 Too Many Requests` with a descriptive error message.
-</Note>
+## Limits
 
-## Practical guidance
+All endpoints share a single limit of **600 requests per minute**, tracked per API key. Each integration has its own independent quota.
 
-Even without a hard limit, keep the following in mind:
+## When a limit is exceeded
 
-- **Avoid tight polling loops.** If you need near-real-time updates, prefer event-driven patterns (e.g. trigger on user action) over polling every few seconds.
-- **Use pagination.** The task list endpoint (`GET /api/v1/workspaces/:id/tasks`) returns a maximum of 100 tasks per page. Fetch only the pages you need rather than loading all tasks at once.
-- **Batch writes when possible.** If you are importing data, send requests sequentially rather than in parallel bursts to avoid overloading a self-hosted server.
+When a rate limit is exceeded, the API returns `429 Too Many Requests` with a JSON body:
+
+```json
+{
+  "statusCode": 429,
+  "error": "Too Many Requests",
+  "retryAfter": 47
+}
+```
+
+`retryAfter` is the number of seconds to wait before retrying.
+
+The following headers are included on `429` responses:
+
+| Header | Description |
+|---|---|
+| `x-ratelimit-limit` | Maximum requests allowed in the window |
+| `x-ratelimit-remaining` | Requests remaining before the limit resets |
+| `x-ratelimit-reset` | Seconds until the window resets |
+| `retry-after` | Same as `retryAfter` in the response body |
+
+## Best practices
+
+- **Respect `retry-after`.** When you receive a 429, wait the indicated number of seconds before retrying.
+- **Avoid polling loops.** If you need near-real-time updates, prefer event-driven patterns over polling every few seconds.
+- **Use pagination.** The task list endpoint returns a maximum of 100 tasks per page. Fetch only the pages you need.
+- **Batch writes sequentially.** If importing data, send requests sequentially rather than in parallel bursts.
 
