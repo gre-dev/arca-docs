@@ -7,7 +7,8 @@ description: "Creates a new list inside a folder."
 <Info>Requires the `lists:write` scope. Viewers cannot create lists.</Info>
 
 <Note>
-  Lists created via the API must belong to a folder. The `folder_id` field is required.
+  Lists created via the API must belong to a folder. The `folder_id` field is
+  required.
 </Note>
 
 ## Request body
@@ -17,7 +18,9 @@ description: "Creates a new list inside a folder."
 </ParamField>
 
 <ParamField body="folder_id" type="string" required>
-  Numeric ID of the folder this list belongs to. The folder must exist in the same workspace. Unlike the Arca app, this field is required when creating a list via the API.
+  Numeric ID of the folder this list belongs to. The folder must exist in the
+  same workspace. Unlike the Arca app, this field is required when creating a
+  list via the API.
 </ParamField>
 
 <ParamField body="name" type="string" required>
@@ -44,7 +47,7 @@ Returns the created list. The `position` is automatically assigned as one greate
   Workspace this list belongs to.
 </ResponseField>
 
-<ResponseField name="folder_id" type="number" required>
+<ResponseField name="folder_id" type="number">
   Parent folder ID.
 </ResponseField>
 
