@@ -19,7 +19,7 @@ description: "Creates a new status in a workspace."
 </ParamField>
 
 <ParamField body="category" type="string" required>
-  Status category. Must be one of `pending`, `active`, `done`, `completed`, or `cancelled`.
+  Status category. Must be one of `pending`, `in_progress`, `completed`, or `cancelled`.
 </ParamField>
 
 <ParamField body="icon" type="string">
@@ -74,7 +74,7 @@ Returns the created status. The `position` is automatically assigned as one grea
   "name": "In Review",
   "icon": null,
   "color": "orange",
-  "category": "active",
+  "category": "in_progress",
   "position": 4,
   "created_at": "2026-04-11T10:30:00.000Z"
 }

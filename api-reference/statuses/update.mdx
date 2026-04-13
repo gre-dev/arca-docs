@@ -27,7 +27,7 @@ All fields are optional. Send only the fields you want to update.
 </ParamField>
 
 <ParamField body="category" type="string">
-  New status category. Must be one of `pending`, `active`, `done`, `completed`, or `cancelled`.
+  New status category. Must be one of `pending`, `in_progress`, `completed`, or `cancelled`.
 </ParamField>
 
 <ParamField body="icon" type="string">
@@ -63,7 +63,7 @@ Returns the full updated status object.
   "name": "In Review",
   "icon": "review",
   "color": "orange",
-  "category": "active",
+  "category": "in_progress",
   "position": 3,
   "created_at": "2026-04-11T10:30:00.000Z"
 }
