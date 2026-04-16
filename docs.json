@@ -104,7 +104,8 @@
             "pages": [
               "integrations/introduction",
               "integrations/slack",
-              "integrations/google-calendar"
+              "integrations/google-calendar",
+              "integrations/n8n"
             ]
           }
         ]
