@@ -97,6 +97,15 @@
         ]
       },
       {
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Integrations",
+            "pages": ["integrations/introduction", "integrations/slack"]
+          }
+        ]
+      },
+      {
         "tab": "API reference",
         "groups": [
           {

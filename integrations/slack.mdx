@@ -1,0 +1,101 @@
+---
+title: "Slack"
+description: "Get Arca notifications delivered directly to your Slack workspace."
+icon: "slack"
+---
+
+The Slack integration connects your Arca workspace to a Slack channel so your team receives real-time notifications whenever key task events happen, without leaving Slack.
+
+## Requirements
+
+You must be an **Admin** or **Owner** of the Arca workspace to connect and configure Slack. You also need permission to install apps in your Slack workspace, or you can ask a Slack admin to approve the installation.
+
+---
+
+## Connect Slack
+
+<Steps>
+  <Step title="Open Integrations settings">
+    In Arca, click your workspace name in the top-left, then go to **Settings → Integrations**.
+  </Step>
+  <Step title="Open the Slack integration">
+    Find the **Slack** card and click it.
+  </Step>
+  <Step title="Authorize the app">
+    Click **Connect**. This opens the Slack authorization page in your browser. Choose the Slack workspace you want to connect, then click **Allow**.
+  </Step>
+  <Step title="Choose a channel">
+    After authorization, you're taken back to the Slack settings page. Use the **Channel** dropdown to select the channel where notifications should be posted.
+
+    <Note>
+      Only channels the Arca bot has been invited to will appear in the list. Public channels are available automatically. For private channels, first run `/invite @Arca` inside that channel, then refresh the page in Arca to see the updated channel list.
+    </Note>
+  </Step>
+  <Step title="Select events">
+    Check the event types you want to receive notifications for (see [Notification events](#notification-events) below).
+  </Step>
+  <Step title="Save">
+    Click **Save configuration**. Arca will start posting notifications to the selected channel immediately.
+  </Step>
+</Steps>
+
+---
+
+## Notification events
+
+You choose which events trigger a Slack notification. Each message includes the event details and a **View task** button that opens the task directly in Arca.
+
+| Event | Triggered when |
+|---|---|
+| Task created | A new task is created in the workspace |
+| Status changed | A task's status is updated |
+| Assigned | A task is assigned to a team member |
+| Commented | A new comment is posted on a task |
+| Priority changed | A task's priority level is updated |
+| Due date changed | A task's due date is modified |
+
+---
+
+## Manage private channels
+
+Slack restricts bot access to private channels for security reasons. A private channel will not appear in the channel picker unless the Arca bot has been explicitly invited.
+
+To add a private channel:
+
+1. Open the private channel in Slack.
+2. Type `/invite @Arca` and send the message.
+3. Go back to **Settings → Integrations → Slack** in Arca (or refresh the page if already there) and click the channel dropdown. The channel will now appear.
+
+---
+
+## Disconnect Slack
+
+To remove the Slack integration from your workspace:
+
+1. Go to **Settings → Integrations → Slack**.
+2. Click **Disconnect**.
+3. Confirm the action.
+
+Disconnecting removes the bot from your workspace and stops all Slack notifications. Your configuration (selected channel and events) is also deleted and will need to be set up again if you reconnect.
+
+<Warning>
+  Only Admins and Owners can disconnect the Slack integration. Disconnecting affects the entire workspace, all members will stop receiving Slack notifications.
+</Warning>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I connected Slack but I'm not receiving any notifications">
+    Make sure you have selected at least one event type and clicked **Save configuration**, chosen a channel the Arca bot is a member of, and performed an action in Arca that matches an enabled event type.
+
+    If the bot was recently invited to the channel, try disconnecting and reconnecting the integration.
+  </Accordion>
+  <Accordion title="A channel I want to use is not showing in the dropdown">
+    The Arca bot can only see channels it has been invited to. For private channels, run `/invite @Arca` inside the channel first, then refresh the page in Arca and open the channel dropdown.
+  </Accordion>
+  <Accordion title="The Slack integration shows as connected but the status badge is gone after a page refresh">
+    Try disconnecting and reconnecting. If the issue persists, the bot token may have been revoked from the Slack side. Visit **Slack → Settings → Manage Apps** and check if Arca still has an active installation.
+  </Accordion>
+</AccordionGroup>
