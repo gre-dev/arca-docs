@@ -1,0 +1,106 @@
+---
+title: "Discord"
+description: "Get Arca task notifications delivered directly to your Discord server."
+icon: "discord"
+---
+
+The Discord integration connects your Arca workspace to a Discord channel so your team receives real-time notifications whenever key task events happen, without leaving Discord. Notifications are delivered as rich embeds with a **View task** button that opens the task directly in Arca.
+
+## Requirements
+
+You must be an **Admin** or **Owner** of the Arca workspace to connect and configure the Discord integration. You also need permission to add bots to your Discord server (the **Manage Server** permission), or ask a server admin to complete the setup.
+
+---
+
+## Connect Discord
+
+<Steps>
+  <Step title="Open Integrations settings">
+    In Arca, click your workspace name in the top-left, then go to **Settings → Integrations**.
+  </Step>
+  <Step title="Open the Discord integration">
+    Find the **Discord** card and click it.
+  </Step>
+  <Step title="Authorize the bot">
+    Click **Connect**. This opens the Discord authorization page in your browser. Select the server you want to add the Arca bot to, then click **Authorize**.
+  </Step>
+  <Step title="Choose a channel">
+    After authorization, you're taken back to the Discord settings page. Use the **Channel** dropdown to select the text channel where notifications should be posted.
+
+    <Note>
+      Only channels where the Arca bot has **Send Messages** permission will appear in the list. If a channel you expect to see is missing, check the channel's permissions in Discord server settings and make sure the Arca bot role has **Send Messages** allowed.
+    </Note>
+  </Step>
+  <Step title="Select events">
+    Check the event types you want to receive notifications for (see [Notification events](#notification-events) below).
+  </Step>
+  <Step title="Save">
+    Click **Save configuration**. Arca will start posting notifications to the selected channel immediately.
+  </Step>
+</Steps>
+
+---
+
+## Notification events
+
+You choose which events trigger a Discord notification. Each message is a rich embed that includes the event details and a **View task** button linking directly to the task in Arca.
+
+| Event | Triggered when |
+|---|---|
+| Status changes | A task's status is updated |
+| Task assignments | A task is assigned to a team member |
+| New comments | A new comment is posted on a task |
+| Priority changes | A task's priority level is updated |
+| Due date changes | A task's due date is modified |
+| Start date changes | A task's start date is modified |
+
+---
+
+## Private channels
+
+Discord restricts bot access to private channels. Adding the bot to a private channel grants **View Channel** only, you must explicitly allow **Send Messages** for the bot role.
+
+To use a private channel with Arca notifications:
+
+1. Open the private channel in Discord and add the Arca bot as a member.
+2. Right-click the channel and select **Edit Channel**.
+3. Go to the **Permissions** tab.
+4. Find the **Arca bot role** (or the bot's username) and set **Send Messages** to ✅ (green checkmark).
+5. Save changes, then go back to **Settings → Integrations → Discord** in Arca and select the channel from the dropdown.
+
+---
+
+## Disconnect Discord
+
+To remove the Discord integration from your workspace:
+
+1. Go to **Settings → Integrations → Discord**.
+2. Click **Disconnect**.
+3. Confirm the action.
+
+Disconnecting stops all Discord notifications. Your configuration (selected channel and events) is deleted and will need to be set up again if you reconnect.
+
+<Warning>
+  Only Admins and Owners can disconnect the Discord integration. Disconnecting affects the entire workspace, all members will stop receiving Discord notifications.
+</Warning>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I connected Discord but I'm not receiving any notifications">
+    Make sure you have:
+    - Selected at least one event type and clicked **Save configuration**
+    - Selected a channel where the Arca bot has **Send Messages** permission
+    - Performed an action in Arca that matches an enabled event type
+
+    If the issue persists, try disconnecting and reconnecting the integration.
+  </Accordion>
+  <Accordion title="A channel I want to use is not showing in the dropdown">
+    The channel must allow the Arca bot to send messages. Check the channel's permissions in Discord and confirm that the Arca bot role has **Send Messages** enabled. For private channels, also make sure the bot has been added as a member of the channel.
+  </Accordion>
+  <Accordion title="Notifications stopped after I changed channel permissions in Discord">
+    If you restricted the bot's **Send Messages** permission after setting up the integration, notifications will silently fail. Go to **Settings → Integrations → Discord**, re-select the channel, and save again. If the channel no longer appears in the dropdown, the bot has lost access, restore the permission in Discord first.
+  </Accordion>
+</AccordionGroup>
