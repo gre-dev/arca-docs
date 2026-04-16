@@ -1,0 +1,104 @@
+---
+title: "Google Calendar"
+description: "View your Google Calendar events alongside your tasks in Arca's Calendar and Timeline views."
+icon: "google"
+---
+
+The Google Calendar integration pulls events from your primary Google Calendar into Arca so you can see your meetings and personal schedule in the same place as your tasks. The connection is personal, each team member connects their own Google account, and your calendar events are only visible to you.
+
+## How it works
+
+Arca connects to your Google Calendar with read-only access. It syncs events from one month in the past to three months in the future and stores them in a local cache. From that point on, changes you make in Google Calendar (edits, deletions, new events) are reflected in Arca automatically through a real-time push notification from Google.
+
+Events appear in **purple** in the Calendar and Timeline views, making them easy to distinguish from your Arca tasks at a glance.
+
+<Note>
+  Arca only reads your calendar. Nothing is ever written back to Google Calendar from Arca.
+</Note>
+
+## Requirements
+
+You must have a Google account with an active Google Calendar. No special Google Workspace plan is required.
+
+---
+
+## Connect Google Calendar
+
+<Steps>
+  <Step title="Open Integrations settings">
+    In Arca, click your workspace name in the top-left, then go to **Settings → Integrations**.
+  </Step>
+  <Step title="Open the Google Calendar integration">
+    Find the **Google Calendar** card and click it.
+  </Step>
+  <Step title="Authorize access">
+    Click **Connect**. Your browser opens Google's authorization page. Sign in with the Google account whose calendar you want to connect, then click **Allow**.
+  </Step>
+  <Step title="Done">
+    You are redirected back to Arca. The integration page shows your connection date, confirming the sync is active. Your calendar events will appear in the Calendar and Timeline views within a few moments.
+  </Step>
+</Steps>
+
+---
+
+## Where events appear
+
+Synced events are visible in two views in Arca:
+
+**Calendar view**: events appear on their scheduled day in purple alongside your tasks. Click an event to see its details.
+
+**Timeline view**: events appear as purple bars spanning their duration, plotted on the same timeline as your tasks.
+
+---
+
+## What is synced
+
+Arca syncs events from your **primary Google Calendar only**. The following are included:
+
+- Standard meetings and events with a start and end time
+- All-day events
+
+The following are not included:
+
+- Google Tasks (to-do items created in Google Calendar)
+- Google Calendar birthday events
+- Events from secondary or shared calendars
+- Cancelled events
+
+Each event displays its title, date and time, description, location, a link to open it in Google Calendar, and a Google Meet link when one is present.
+
+---
+
+## Real-time updates
+
+After connecting, Arca registers a push notification channel with Google. When you change, add, or delete an event in Google Calendar, Google notifies Arca and a fresh sync runs automatically. The updated events appear in Arca within seconds.
+
+This works in the background without any action needed on your part.
+
+---
+
+## Disconnect Google Calendar
+
+To remove the integration:
+
+1. Go to **Settings → Integrations → Google Calendar**.
+2. Click **Disconnect**.
+3. Confirm the action.
+
+Disconnecting revokes Arca's access, removes all cached calendar events from your account, and stops the real-time sync. Your calendar data in Arca is deleted immediately. This only affects your own account and has no impact on other team members.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I connected but I don't see any events in the Calendar or Timeline views">
+    Events only appear in the Calendar and Timeline views, not in task lists. Make sure you are looking at the correct view. It can also take a few moments after connecting for the initial sync to complete. Try refreshing the page (use **Cmd+R** on Mac or **Ctrl+R** on Windows if you are using the desktop app).
+  </Accordion>
+  <Accordion title="My calendar events are out of date">
+    Arca syncs events within a window of one month in the past to three months in the future. Events outside that range will not appear. If recent changes are not showing up, try disconnecting and reconnecting to trigger a fresh sync.
+  </Accordion>
+  <Accordion title="I only see some of my events">
+    Arca syncs your primary calendar only. Events from secondary calendars, shared calendars, or Google Tasks are not included.
+  </Accordion>
+</AccordionGroup>

@@ -101,7 +101,11 @@
         "groups": [
           {
             "group": "Integrations",
-            "pages": ["integrations/introduction", "integrations/slack"]
+            "pages": [
+              "integrations/introduction",
+              "integrations/slack",
+              "integrations/google-calendar"
+            ]
           }
         ]
       },
