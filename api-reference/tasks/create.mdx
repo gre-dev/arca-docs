@@ -44,9 +44,16 @@ description: "Creates a new task in a workspace."
   Start date in ISO 8601 UTC format.
 </ParamField>
 
+<ParamField body="assignee_ids" type="array">
+  Optional array of numeric user IDs to assign to the task. All IDs must be
+  members of the workspace derived from `list_id`. Invalid or non-member IDs are
+  silently ignored. Use `GET /api/v1/workspaces/:id/members` to resolve user IDs
+  before calling this endpoint.
+</ParamField>
+
 ## Response
 
-Returns the created task. The `identifier` is a workspace-scoped sequential number auto-incremented from the last task in the workspace. `assignees` is always an empty array on creation, use the Arca app to assign users.
+Returns the created task. The `identifier` is a workspace-scoped sequential number auto-incremented from the last task in the workspace.
 
 <ResponseField name="id" type="number" required>
   New task identifier.
@@ -105,7 +112,8 @@ Returns the created task. The `identifier` is a workspace-scoped sequential numb
 </ResponseField>
 
 <ResponseField name="assignees" type="array" required>
-  Always `[]` for newly created tasks.
+  Array of assigned users. Each entry contains `id`, `name`, and `avatar_url`.
+  Empty array if no `assignee_ids` were provided.
 </ResponseField>
 
 <ResponseExample>
@@ -129,7 +137,9 @@ Returns the created task. The `identifier` is a workspace-scoped sequential numb
     "color": "gray",
     "category": "pending"
   },
-  "assignees": []
+  "assignees": [
+    { "id": 7, "name": "Jane Smith", "avatar_url": null }
+  ]
 }
 ```
 ```json 400
