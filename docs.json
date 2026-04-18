@@ -103,6 +103,7 @@
             "group": "Integrations",
             "pages": [
               "integrations/introduction",
+              "integrations/github",
               "integrations/google-calendar",
               "integrations/slack",
               "integrations/discord",
