@@ -50,6 +50,13 @@ All fields are optional. Send only the fields you want to update.
   Start date in ISO 8601 UTC format.
 </ParamField>
 
+<ParamField body="assignee_ids" type="array">
+  Array of numeric user IDs to assign to the task. Replaces the current
+  assignees entirely. Pass an empty array to remove all assignees. Omit this
+  field to leave the current assignees unchanged. All IDs must be members of the
+  same workspace; non-member IDs are silently ignored.
+</ParamField>
+
 ## Response
 
 Returns the full updated task including its current assignees.
@@ -131,7 +138,13 @@ Returns the full updated task including its current assignees.
     "color": "gray",
     "category": "pending"
   },
-  "assignees": []
+  "assignees": [
+    {
+      "id": 7,
+      "name": "Alice",
+      "avatar_url": null
+    }
+  ]
 }
 ```
 ```json 400
