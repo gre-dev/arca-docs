@@ -107,6 +107,7 @@
               "integrations/google-calendar",
               "integrations/slack",
               "integrations/discord",
+              "integrations/telegram",
               "integrations/n8n",
               "integrations/more"
             ]

@@ -1,0 +1,116 @@
+---
+title: "Telegram"
+description: "Receive personal Arca task notifications directly in your Telegram chat."
+icon: "telegram"
+---
+
+The Telegram integration sends task notifications to a Telegram chat of your choice. Unlike other integrations, Telegram is configured per user, each person connects their own bot, so notifications go directly to you rather than a shared channel.
+
+Each notification includes a **View task** link that opens the task directly in Arca.
+
+<Note>
+  The Telegram integration is personal. Every team member who wants Telegram notifications must set it up individually under their own account settings. There are no workspace-level Telegram settings.
+</Note>
+
+---
+
+## How it works
+
+You create a dedicated Telegram bot using Telegram's official @BotFather tool. Arca uses that bot's token to send messages to a chat you choose, such as a private conversation with the bot or a group chat.
+
+---
+
+## Connect Telegram
+
+<Steps>
+  <Step title="Create a bot with @BotFather">
+    Open Telegram and search for **@BotFather**. Start a conversation, then send the command `/newbot`. Follow the prompts to give your bot a name and username. @BotFather will reply with a **bot token**, copy it and keep it ready.
+  </Step>
+  <Step title="Send a message to your new bot">
+    Find your new bot in Telegram (search for the username you just created) and send it any message, or tap **Start**. This step is required so Arca can detect your chat when you verify the token.
+  </Step>
+  <Step title="Open Integrations settings in Arca">
+    In Arca, go to **Settings → Integrations → Telegram**.
+  </Step>
+  <Step title="Paste your bot token and verify">
+    Paste the bot token you copied from @BotFather into the token field, then click **Verify**. Arca will contact the bot and retrieve the chats available to it.
+
+    <Note>
+      If verification fails, make sure you sent a message to the bot first (step 2). The bot cannot detect a chat until you've initiated contact with it.
+    </Note>
+  </Step>
+  <Step title="Select a chat">
+    Use the **Chat** dropdown to choose where notifications should be delivered. Any chat where your bot is active and has received a message will appear here.
+  </Step>
+  <Step title="Choose notification events">
+    Select the event types you want to receive notifications for. See [Notification events](#notification-events) below for the full list.
+  </Step>
+  <Step title="Connect">
+    Click **Connect Telegram**. Arca will save your configuration and begin sending notifications to the selected chat.
+  </Step>
+</Steps>
+
+---
+
+## Notification events
+
+You choose which events trigger a Telegram message. Each message includes the event details and a **View task** link that opens the task directly in Arca.
+
+| Event | Triggered when |
+|---|---|
+| Status changes | A task's status is updated |
+| Task assignments | You are assigned to a task |
+| New comments | A new comment is posted on a task you're subscribed to |
+| Mentions | You are @mentioned in a comment |
+| Priority changes | A task's priority level is updated |
+| Due date changes | A task's due date is modified |
+| Start date changes | A task's start date is modified |
+| Due date reminders | A task you're subscribed to is approaching its due date |
+| Start date reminders | A task you're subscribed to is approaching its start date |
+
+---
+
+## Update your notification settings
+
+To change which events trigger a notification after you've connected:
+
+1. Go to **Settings → Integrations → Telegram**.
+2. Check or uncheck the event types you want.
+3. Click **Save** to apply your changes.
+
+---
+
+## Disconnect Telegram
+
+To remove your Telegram integration:
+
+1. Go to **Settings → Integrations → Telegram**.
+2. Click **Disconnect**.
+3. Confirm the action.
+
+Disconnecting removes your bot token and chat settings. All Telegram notifications stop immediately. You can reconnect at any time by repeating the setup steps above.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Verification failed, Arca could not find any chats">
+    Make sure you sent your bot at least one message in Telegram before clicking **Verify**. Telegram only allows a bot to see a chat after the user has initiated contact. Send any message to your bot, then try verifying again.
+  </Accordion>
+  <Accordion title="I connected successfully but notifications are not arriving">
+    Check the following:
+
+    - Make sure at least one event type is selected and saved.
+    - Confirm you have not blocked or deleted the bot in Telegram.
+    - Perform an action in Arca that matches an enabled event type to trigger a test notification.
+
+    If notifications still do not arrive, try disconnecting and reconnecting the integration.
+  </Accordion>
+  <Accordion title="My chat does not appear in the dropdown after verifying the token">
+    The bot can only see chats where it has received a message. Open Telegram, find your bot, and send it a message. Then go back to **Settings → Integrations → Telegram** and click **Verify** again to refresh the chat list.
+  </Accordion>
+  <Accordion title="I want to receive notifications in a group chat">
+    Add your bot to the group in Telegram, then send any message in the group (for example, `/start`). Once the bot has received a message in the group, it will appear in the chat dropdown when you verify your token in Arca.
+  </Accordion>
+</AccordionGroup>
