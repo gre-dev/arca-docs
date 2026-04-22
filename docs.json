@@ -109,6 +109,7 @@
               "integrations/discord",
               "integrations/telegram",
               "integrations/n8n",
+              "integrations/zapier",
               "integrations/more"
             ]
           }

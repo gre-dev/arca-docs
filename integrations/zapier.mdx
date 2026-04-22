@@ -1,0 +1,132 @@
+---
+title: "Zapier"
+description: "Automate Arca with thousands of apps using the official Zapier integration."
+icon: "bolt"
+---
+
+The Arca Zapier integration lets you build automated workflows (Zaps) that connect Arca to over 9,000 other apps without writing any code. You can create tasks when events happen in other tools; post comments automatically; add labels based on external triggers; and much more. The integration is available on the [Zapier platform](https://zapier.com/apps/arca-1/integrations).
+
+## Requirements
+
+You need a Zapier account (free tier is available) and an Arca API key. Any workspace member can generate an API key regardless of their role.
+
+---
+
+## Get your API key
+
+<Steps>
+  <Step title="Open API Keys settings">
+    In Arca, click your workspace in the top-left sidebar, select **Settings**, then go to the **API Keys** section.
+  </Step>
+  <Step title="Create a new key">
+    Click **Add new key**. Enter a label (for example, "Zapier"), then select the scopes you want to grant. At minimum, enable write access for the resources you plan to use (Tasks, Comments, and so on). Optionally set an expiry date.
+  </Step>
+  <Step title="Copy the key">
+    Click **Create key**. Arca displays the key once, copy it immediately and store it somewhere safe. It cannot be retrieved again after you close the dialog.
+  </Step>
+</Steps>
+
+---
+
+## Connect Arca to Zapier
+
+<Steps>
+  <Step title="Open the Arca integration page">
+    Go to [zapier.com/apps/arca-1/integrations](https://zapier.com/apps/arca-1/integrations) and click **Connect Arca**, or start building a new Zap and select Arca as one of the apps.
+  </Step>
+  <Step title="Authenticate with your API key">
+    When Zapier prompts for credentials, select **API Key** as the authentication method and paste the key you copied from Arca settings. Zapier verifies the key before saving.
+  </Step>
+  <Step title="Build your Zap">
+    Choose a trigger from another app (or use a Zapier built-in trigger like Schedule), then add an Arca action. Map the fields and publish the Zap.
+  </Step>
+</Steps>
+
+---
+
+## Supported actions
+
+The Arca Zapier integration supports both read and write actions across all core resources.
+
+### Workspaces
+
+| Action | What it does |
+|---|---|
+| List Workspaces | Returns all workspaces the API key owner belongs to |
+| Get Workspace | Returns a single workspace by its ID |
+| List Workspace Members | Returns all members of a workspace |
+
+### Folders
+
+| Action | What it does |
+|---|---|
+| List Folders | Returns all folders in a workspace |
+| Create Folder | Creates a new folder in a workspace |
+| Update Folder | Updates one or more properties of a folder |
+| Delete Folder | Permanently deletes a folder and all lists and tasks inside it |
+
+### Lists
+
+| Action | What it does |
+|---|---|
+| List Lists | Returns all lists in a workspace |
+| Create List | Creates a new list inside a folder |
+| Update List | Updates one or more properties of a list |
+| Delete List | Permanently deletes a list and all tasks inside it |
+
+### Tasks
+
+| Action | What it does |
+|---|---|
+| List Tasks | Returns a paginated list of tasks in a workspace |
+| Get Task | Returns a single task with full details |
+| Create Task | Creates a new task in a workspace |
+| Update Task | Updates one or more fields of a task |
+| Delete Task | Permanently deletes a task |
+
+### Statuses
+
+| Action | What it does |
+|---|---|
+| List Statuses | Returns all statuses defined in a workspace |
+| Create Status | Creates a new status in a workspace |
+| Update Status | Updates one or more properties of a status |
+| Delete Status | Permanently deletes a status from a workspace |
+
+### Labels
+
+| Action | What it does |
+|---|---|
+| List Labels | Returns all labels defined in a workspace |
+| Create Label | Creates a new label in a workspace |
+| Update Label | Updates one or more properties of a label |
+| Delete Label | Permanently deletes a label from a workspace |
+
+### Comments
+
+| Action | What it does |
+|---|---|
+| List Task Comments | Returns all comments on a task |
+| Create Comment | Posts a new top-level comment on a task |
+
+<Note>
+  The full and up-to-date list of supported actions is always available on the [Arca integration page on Zapier](https://zapier.com/apps/arca-1/integrations).
+</Note>
+
+---
+
+## Example Zaps
+
+Here are a few common automation patterns you can build with Arca on Zapier:
+
+- **Form submission → Arca task**: When a new response is submitted in Typeform or Google Forms, automatically create a task in Arca with the submission details.
+- **Email → Arca task**: When a starred or labeled email arrives in Gmail, create a task in Arca so nothing falls through the cracks.
+- **CRM deal → Arca task**: When a deal moves to a new stage in HubSpot or Pipedrive, automatically create a follow-up task in Arca for your team.
+- **Support ticket → Arca task**: When a new ticket is opened in Intercom or Zendesk, create a corresponding task in Arca to track the resolution.
+- **Sentry error → Arca task**: When a new error or exception is captured in Sentry, automatically create a task in Arca so your team can track and prioritize the fix alongside other work.
+
+---
+
+## Limitations
+
+Zapier automation is one-directional: Arca does not send trigger events to Zapier. If you need webhook-based triggers from Arca, use the [n8n integration](/integrations/n8n) or [Arca webhooks](/administration/webhooks) directly.
