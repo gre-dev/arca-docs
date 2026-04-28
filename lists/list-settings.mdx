@@ -17,29 +17,56 @@ Switch between two layouts:
 
 Grouping organizes tasks into sections based on a shared field:
 
-| Option | What it does |
-|---|---|
-| **None** | No grouping; tasks appear in a flat list |
-| **Assignee** | Tasks are grouped under each assignee |
-| **Status** | Tasks are grouped by their workflow stage |
-| **Priority** | Tasks are grouped by priority level |
+| Option       | What it does                              |
+| ------------ | ----------------------------------------- |
+| **None**     | No grouping; tasks appear in a flat list  |
+| **Assignee** | Tasks are grouped under each assignee     |
+| **Status**   | Tasks are grouped by their workflow stage |
+| **Priority** | Tasks are grouped by priority level       |
 
-<Tip>In board view, **Group by Status** gives you a classic kanban board where columns represent each stage of your workflow.</Tip>
+<Tip>
+  In board view, **Group by Status** gives you a classic kanban board where
+  columns represent each stage of your workflow.
+</Tip>
 
 ## Sort by
 
 Sorting controls the order tasks appear within each group (or within the full list when no grouping is applied):
 
-| Option | Best for |
-|---|---|
-| **Name** | Finding a specific task alphabetically |
-| **Create date** | Reviewing the newest tasks first |
-| **Start date** | Seeing what should be starting soon |
-| **Due date** | Prioritizing by deadline |
-| **Priority** | Working through the most critical tasks first |
+| Option          | Best for                                      |
+| --------------- | --------------------------------------------- |
+| **Name**        | Finding a specific task alphabetically        |
+| **Create date** | Reviewing the newest tasks first              |
+| **Start date**  | Seeing what should be starting soon           |
+| **Due date**    | Prioritizing by deadline                      |
+| **Priority**    | Working through the most critical tasks first |
 
 Choose **ascending** or **descending** direction alongside any sort option.
 
 ## Show completed tasks
 
 Toggle **Show completed** on or off to include or hide tasks that have reached a completed status. Turn it off to keep your focus on work still in progress, and turn it on when you need to review what's been done.
+
+## Properties
+
+The **Properties** section at the bottom of the settings menu controls which property badges are shown on task cards in the list.
+
+The following properties can be toggled on or off:
+
+| Property       | What it shows on each task card               |
+| -------------- | --------------------------------------------- |
+| **Assignee**   | The avatar of the member assigned to the task |
+| **Labels**     | Any labels attached to the task               |
+| **Start date** | The task start date                           |
+| **Due date**   | The task due date                             |
+
+Any [custom fields](/administration/custom-fields) defined in the workspace also appear here and can be toggled individually.
+
+### Workspace default vs. list override
+
+Property visibility works at two levels:
+
+- **Workspace default**: set in **Settings > Preferences**, under the Properties section. Applies to every list that has not been customized individually.
+- **List override**: set from the list's own settings menu. When you toggle any property in a list, that list gets its own independent configuration and no longer follows the workspace default.
+
+To go back to following the workspace default, click **Reset to workspace default** at the bottom of the Properties section. The list then inherits whatever the workspace default is, including any future changes made at the workspace level.

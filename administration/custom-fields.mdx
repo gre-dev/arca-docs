@@ -1,0 +1,79 @@
+---
+title: "Custom fields"
+description: "Add your own fields to tasks to track any data your workflow needs."
+icon: "input-text"
+---
+
+Custom fields let you attach structured data to every task in a workspace beyond the built-in properties. Use them to track anything your workflow requires, effort scores, budget figures, customer tiers, review stages, or any other property your team cares about.
+
+## Create a custom field
+
+<Steps>
+  <Step title="Open Settings">
+    Go to **Settings > Custom fields**.
+  </Step>
+  <Step title="Add a field">
+    Click **Add field**.
+  </Step>
+  <Step title="Name it and choose a type">
+    Give the field a clear name and select the field type that matches the data you want to capture.
+  </Step>
+  <Step title="Configure the field">
+    Depending on the type, set additional options such as icon, color, currency, decimal places, or dropdown options.
+  </Step>
+  <Step title="Save">
+    Click **Create** to add the field to every task in the workspace.
+  </Step>
+</Steps>
+
+## Field types
+
+| Type         | What it stores                     | Example use                                  |
+| ------------ | ---------------------------------- | -------------------------------------------- |
+| **Text**     | A short free-text string           | Customer name, branch name, ticket reference |
+| **Number**   | A numeric value                    | Story points, word count, page count         |
+| **Rating**   | A 1–5 star (or custom icon) rating | Effort estimate, customer satisfaction score |
+| **Checkbox** | A true/false toggle                | Approved, reviewed, needs follow-up          |
+| **Date**     | A calendar date                    | Review date, publish date                    |
+| **Dropdown** | One choice from a fixed list       | Tier (Free / Starter / Pro), Region          |
+| **Money**    | A monetary value with currency     | Budget, cost, revenue impact                 |
+| **People**   | One or more workspace members      | Reviewer, stakeholder, account owner         |
+
+### Rating field options
+
+When you choose **Rating**, you can pick the icon shape (star, heart, flag, and others) and the color used to render filled icons. The field stores a value from 1 to 5.
+
+### Dropdown field options
+
+When you choose **Dropdown**, define the list of options in the field settings. Options can be reordered and each choice is stored as a plain text label.
+
+### Money field options
+
+When you choose **Money**, select the ISO 4217 currency code (for example `USD`, `EUR`, `GBP`) and the number of decimal places (0 or 2).
+
+## Set a field value on a task
+
+Open any task and scroll to the **Custom Fields** section in the right-hand sidebar. Click the field to enter or change its value. Changes save immediately.
+
+## Restrict field access
+
+By default, a custom field is visible to all workspace members. You can restrict a field to specific members by setting an **Allowed users** list in the field settings. Members not on the list cannot see the field at all, it is completely hidden from their task view and does not appear in any task sidebar or card. Only members explicitly included in the list can see and edit the field.
+
+Owners and admins can always see and edit every field regardless of the allowed users list.
+
+## Reorder fields
+
+Drag the handle next to a field name in **Settings > Custom fields** to change the order in which fields appear on task cards and in the sidebar.
+
+## Edit or delete a field
+
+Click the pencil icon next to a field to edit its name, configuration, or access settings. Click the trash icon to delete it.
+
+<Warning>
+  Deleting a custom field permanently removes the field and all values stored
+  against it across every task in the workspace. This cannot be undone.
+</Warning>
+
+## Show or hide custom fields on task cards
+
+Custom fields appear as property badges on task cards in list and board view. You can control which fields are visible using the **Properties** panel in the list settings menu. See [List settings](/lists/list-settings) for details.

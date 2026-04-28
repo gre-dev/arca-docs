@@ -74,6 +74,7 @@
               "administration/workspaces",
               "administration/labels",
               "administration/statuses",
+              "administration/custom-fields",
               "administration/folders",
               "administration/automations",
               "administration/billing",
