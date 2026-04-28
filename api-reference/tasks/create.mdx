@@ -51,6 +51,18 @@ description: "Creates a new task in a workspace."
   before calling this endpoint.
 </ParamField>
 
+<ParamField body="custom_fields" type="array">
+  Optional array of custom field values to set on the new task. Each entry must contain a numeric `id` and a string `value` (or `null` to clear). Only custom fields visible to the API key user are applied;
+  fields outside the user's access are silently ignored.
+
+  ```json
+  "custom_fields": [
+    { "id": 1, "value": "Pro" },
+    { "id": 2, "value": "8" }
+  ]
+  ```
+</ParamField>
+
 ## Response
 
 Returns the created task. The `identifier` is a workspace-scoped sequential number auto-incremented from the last task in the workspace.
@@ -107,13 +119,40 @@ Returns the created task. The `identifier` is a workspace-scoped sequential numb
     <ResponseField name="name" type="string" required>Status label.</ResponseField>
     <ResponseField name="icon" type="string | null">Icon.</ResponseField>
     <ResponseField name="color" type="string | null">Color.</ResponseField>
-    <ResponseField name="category" type="string" required>One of `pending`, `active`, `done`, or `cancelled`.</ResponseField>
+    <ResponseField name="category" type="string" required>One of `pending`, `in_progress`, `completed`, or `cancelled`.</ResponseField>
   </Expandable>
 </ResponseField>
 
 <ResponseField name="assignees" type="array" required>
   Array of assigned users. Each entry contains `id`, `name`, and `avatar_url`.
   Empty array if no `assignee_ids` were provided.
+</ResponseField>
+
+<ResponseField name="custom_fields" type="array" required>
+  All custom fields visible to the API key user in this workspace, each with its current value for the new task.
+  Fields the user does not have access to are not returned.
+
+  <Expandable title="Custom field entry">
+    <ResponseField name="id" type="number" required>Custom field identifier.</ResponseField>
+    <ResponseField name="name" type="string" required>Custom field name (e.g., `"Customer Tier"`).</ResponseField>
+    <ResponseField name="type" type="string" required>
+      Field type. One of `text`, `number`, `date`, `checkbox`, `rating`, `dropdown`, `money`, or `people`.
+    </ResponseField>
+    <ResponseField name="config" type="object | null">
+      Type-specific configuration.
+
+      For example:
+      - `rating` fields include `icon` and `color`;
+      - `dropdown` fields include an `options` array of strings;
+      - `money` fields include `currency` and `decimals`.
+
+      It's `null` for field types with no configuration (which are `text`, `number`, `date`, `checkbox` and `people`).
+    </ResponseField>
+    <ResponseField name="position" type="number" required>Sort position of the field within the workspace.</ResponseField>
+    <ResponseField name="value" type="string | null">
+      The task's value for this field. `null` when no value has been set.
+    </ResponseField>
+  </Expandable>
 </ResponseField>
 
 <ResponseExample>
@@ -139,6 +178,16 @@ Returns the created task. The `identifier` is a workspace-scoped sequential numb
   },
   "assignees": [
     { "id": 7, "name": "Jane Smith", "avatar_url": null }
+  ],
+  "custom_fields": [
+    {
+      "id": 1,
+      "name": "Customer Tier",
+      "type": "dropdown",
+      "config": { "options": ["Free", "Starter", "Pro"] },
+      "position": 1,
+      "value": "Pro"
+    }
   ]
 }
 ```

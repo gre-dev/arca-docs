@@ -137,7 +137,8 @@
             "pages": [
               "api-reference/workspaces/list",
               "api-reference/workspaces/get",
-              "api-reference/workspaces/members"
+              "api-reference/workspaces/members",
+              "api-reference/workspaces/custom-fields"
             ]
           },
           {

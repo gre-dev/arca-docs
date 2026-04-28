@@ -57,6 +57,18 @@ All fields are optional. Send only the fields you want to update.
   same workspace; non-member IDs are silently ignored.
 </ParamField>
 
+<ParamField body="custom_fields" type="array">
+  Optional array of custom field values to update. Each entry must contain a numeric `id` and a string `value` (or `null` to clear that field's value). Omitting this field entirely leaves all custom field values
+  unchanged. Only custom fields visible to the API key user are processed; inaccessible fields are silently ignored.
+
+  ```json
+  "custom_fields": [
+    { "id": 1, "value": "Starter" },
+    { "id": 2, "value": null }
+  ]
+  ```
+</ParamField>
+
 ## Response
 
 Returns the full updated task including its current assignees.
@@ -103,7 +115,7 @@ Returns the full updated task including its current assignees.
     <ResponseField name="name" type="string" required>Status label.</ResponseField>
     <ResponseField name="icon" type="string | null">Icon.</ResponseField>
     <ResponseField name="color" type="string | null">Color.</ResponseField>
-    <ResponseField name="category" type="string" required>One of `pending`, `active`, `done`, or `cancelled`.</ResponseField>
+    <ResponseField name="category" type="string" required>One of `pending`, `in_progress`, `completed`, or `cancelled`.</ResponseField>
   </Expandable>
 </ResponseField>
 
@@ -114,6 +126,33 @@ Returns the full updated task including its current assignees.
     <ResponseField name="id" type="number" required>User ID.</ResponseField>
     <ResponseField name="name" type="string" required>Display name.</ResponseField>
     <ResponseField name="avatar_url" type="string | null">Profile picture URL.</ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="custom_fields" type="array" required>
+  All custom fields visible to the API key user, each with its current value after the update.
+  Fields the user does not have access to are not returned.
+
+  <Expandable title="Custom field entry">
+    <ResponseField name="id" type="number" required>Custom field identifier.</ResponseField>
+    <ResponseField name="name" type="string" required>Custom field name (e.g., `"Customer Tier"`).</ResponseField>
+    <ResponseField name="type" type="string" required>
+      Field type. One of `text`, `number`, `date`, `checkbox`, `rating`, `dropdown`, `money`, or `people`.
+    </ResponseField>
+    <ResponseField name="config" type="object | null">
+      Type-specific configuration.
+
+      For example:
+      - `rating` fields include `icon` and `color`;
+      - `dropdown` fields include an `options` array of strings;
+      - `money` fields include `currency` and `decimals`.
+
+      It's `null` for field types with no configuration (which are `text`, `number`, `date`, `checkbox` and `people`).
+    </ResponseField>
+    <ResponseField name="position" type="number" required>Sort position of the field within the workspace.</ResponseField>
+    <ResponseField name="value" type="string | null">
+      The task's value for this field. `null` when no value has been set.
+    </ResponseField>
   </Expandable>
 </ResponseField>
 
@@ -143,6 +182,16 @@ Returns the full updated task including its current assignees.
       "id": 7,
       "name": "Alice",
       "avatar_url": null
+    }
+  ],
+  "custom_fields": [
+    {
+      "id": 1,
+      "name": "Customer Tier",
+      "type": "dropdown",
+      "config": { "options": ["Free", "Starter", "Pro"] },
+      "position": 1,
+      "value": "Starter"
     }
   ]
 }
