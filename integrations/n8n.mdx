@@ -1,10 +1,10 @@
 ---
 title: "n8n"
-description: "Automate your Arca workflows using the official n8n community node."
+description: "Automate your Arca workflows using the official Arca node in n8n."
 icon: "robot"
 ---
 
-The Arca n8n integration lets you build automated workflows that read from and write to your Arca workspaces. You can create tasks when events happen in other tools, update task statuses based on external triggers, post comments automatically, and much more. The integration ships as two nodes: an action node for performing operations and a trigger node for listening to events.
+The Arca n8n integration lets you build automated workflows that read from and write to your Arca workspaces. You can create tasks when events happen in other tools, update task statuses based on external triggers, post comments automatically, and much more. The integration ships as two nodes: an action node for performing operations and a trigger node for listening to events. Arca is a verified node on n8n and is available directly in the node search, no manual installation required.
 
 ## Requirements
 
@@ -16,29 +16,32 @@ You need a self-hosted or cloud n8n instance and an Arca API key. Any workspace 
 
 <Steps>
   <Step title="Open Settings">
-    In Arca, click your avatar in the bottom-left sidebar and select **Settings**.
+    In Arca, click your avatar in the bottom-left sidebar and select
+    **Settings**.
   </Step>
   <Step title="Go to API Keys">
     Select the **API Keys** section from the settings menu.
   </Step>
   <Step title="Generate a key">
-    Click **Add new key**. Copy the key and store it somewhere safe. Arca only shows it once.
+    Click **Add new key**. Copy the key and store it somewhere safe. Arca only
+    shows it once.
   </Step>
 </Steps>
 
 ---
 
-## Install the node
+## Add the node
 
 <Steps>
-  <Step title="Open n8n Settings">
-    In your n8n instance, go to **Settings → Community Nodes**.
-  </Step>
-  <Step title="Install the package">
-    Click **Install**, enter `n8n-nodes-arca`, and confirm. n8n downloads and registers the node automatically.
+  <Step title="Search for Arca in n8n">
+    In your n8n workflow, click **+** to add a node and search for **Arca**. The
+    node is verified by n8n and appears directly in the search results, no
+    manual installation needed.
   </Step>
   <Step title="Add credentials">
-    In any workflow, add a new **Arca** node. When prompted for credentials, select **Arca API** input field, paste your API key, and save. n8n verifies the key against your account before saving.
+    When prompted for credentials, select the **Arca API** credential, paste
+    your API key, and save. n8n verifies the key against your account before
+    saving.
   </Step>
 </Steps>
 
@@ -50,74 +53,74 @@ The **Arca** node lets you perform operations on your workspace from any workflo
 
 ### User
 
-| Operation | What it does |
-|---|---|
+| Operation        | What it does                                             |
+| ---------------- | -------------------------------------------------------- |
 | Get Current User | Returns the profile of the account that owns the API key |
 
 ### Workspace
 
-| Operation | What it does |
-|---|---|
+| Operation       | What it does                                     |
+| --------------- | ------------------------------------------------ |
 | List Workspaces | Returns all workspaces accessible to the API key |
-| Get Workspace | Returns the details of a specific workspace |
-| List Members | Returns all members of a workspace |
+| Get Workspace   | Returns the details of a specific workspace      |
+| List Members    | Returns all members of a workspace               |
 
 ### Folder
 
-| Operation | What it does |
-|---|---|
-| List Folders | Returns all folders in a workspace |
-| Create Folder | Creates a new folder with an optional icon and color |
+| Operation     | What it does                                                |
+| ------------- | ----------------------------------------------------------- |
+| List Folders  | Returns all folders in a workspace                          |
+| Create Folder | Creates a new folder with an optional icon and color        |
 | Update Folder | Renames or changes the icon and color of an existing folder |
-| Delete Folder | Permanently deletes a folder |
+| Delete Folder | Permanently deletes a folder                                |
 
 ### List
 
-| Operation | What it does |
-|---|---|
-| List Lists | Returns all lists in a workspace |
+| Operation   | What it does                                                |
+| ----------- | ----------------------------------------------------------- |
+| List Lists  | Returns all lists in a workspace                            |
 | Create List | Creates a new list with an optional folder, icon, and color |
-| Update List | Renames, moves, or reskins an existing list |
-| Delete List | Permanently deletes a list |
+| Update List | Renames, moves, or reskins an existing list                 |
+| Delete List | Permanently deletes a list                                  |
 
 ### Task
 
-| Operation | What it does |
-|---|---|
-| List Tasks | Returns tasks in a workspace, optionally filtered by list (paginated, 50 per page by default) |
-| Get Task | Returns a single task by its ID |
-| Create Task | Creates a task with title, description, priority, status, due date, and start date |
-| Update Task | Edits any field on an existing task, including moving it to another list |
-| Delete Task | Permanently deletes a task |
+| Operation   | What it does                                                                                  |
+| ----------- | --------------------------------------------------------------------------------------------- |
+| List Tasks  | Returns tasks in a workspace, optionally filtered by list (paginated, 50 per page by default) |
+| Get Task    | Returns a single task by its ID                                                               |
+| Create Task | Creates a task with title, description, priority, status, due date, and start date            |
+| Update Task | Edits any field on an existing task, including moving it to another list                      |
+| Delete Task | Permanently deletes a task                                                                    |
 
 **Priority values:** `urgent` `high` `medium` `low` `none`
 
 ### Status
 
-| Operation | What it does |
-|---|---|
-| List Statuses | Returns all custom statuses in a workspace |
-| Create Status | Creates a new status with a category, icon, and color |
-| Update Status | Edits an existing status |
+| Operation     | What it does                                                               |
+| ------------- | -------------------------------------------------------------------------- |
+| List Statuses | Returns all custom statuses in a workspace                                 |
+| Create Status | Creates a new status with a category, icon, and color                      |
+| Update Status | Edits an existing status                                                   |
 | Delete Status | Deletes a status, with an option to reassign tasks to another status first |
 
 **Category values:** `pending` `in_progress` `completed` `cancelled`
 
 ### Label
 
-| Operation | What it does |
-|---|---|
-| List Labels | Returns all labels in a workspace |
+| Operation    | What it does                               |
+| ------------ | ------------------------------------------ |
+| List Labels  | Returns all labels in a workspace          |
 | Create Label | Creates a new label with an optional color |
-| Update Label | Renames or recolors an existing label |
-| Delete Label | Permanently deletes a label |
+| Update Label | Renames or recolors an existing label      |
+| Delete Label | Permanently deletes a label                |
 
 ### Comment
 
-| Operation | What it does |
-|---|---|
-| List Comments | Returns all comments on a task |
-| Create Comment | Posts a new comment on a task |
+| Operation      | What it does                   |
+| -------------- | ------------------------------ |
+| List Comments  | Returns all comments on a task |
+| Create Comment | Posts a new comment on a task  |
 
 ---
 
@@ -129,16 +132,20 @@ The **Arca Trigger** node starts a workflow whenever Arca sends a webhook event.
 
 <Steps>
   <Step title="Add the trigger node">
-    Create a new workflow in n8n and add the **Arca Trigger** node as the starting node.
+    Create a new workflow in n8n and add the **Arca Trigger** node as the
+    starting node.
   </Step>
   <Step title="Copy the webhook URL">
-    Click the node to open its settings. Copy the webhook URL shown in the panel (the production URL).
+    Click the node to open its settings. Copy the webhook URL shown in the panel
+    (the production URL).
   </Step>
   <Step title="Register the webhook in Arca">
-    In Arca, go to **Settings → Webhooks**, create a new webhook, and paste the n8n URL as the endpoint. Select the events you want to receive.
+    In Arca, go to **Settings → Webhooks**, create a new webhook, and paste the
+    n8n URL as the endpoint. Select the events you want to receive.
   </Step>
   <Step title="Activate the workflow">
-    Back in n8n, publish the workflow. The trigger is now live and will start the workflow whenever a matching Arca event fires.
+    Back in n8n, publish the workflow. The trigger is now live and will start
+    the workflow whenever a matching Arca event fires.
   </Step>
 </Steps>
 
@@ -146,11 +153,11 @@ The **Arca Trigger** node starts a workflow whenever Arca sends a webhook event.
 
 The trigger accepts any event belonging to these resource types:
 
-| Prefix | Covers |
-|---|---|
-| `task.*` | Task created, updated, deleted, status changed, and more |
-| `folder.*` | Folder created, updated, deleted |
-| `list.*` | List created, updated, deleted |
+| Prefix     | Covers                                                   |
+| ---------- | -------------------------------------------------------- |
+| `task.*`   | Task created, updated, deleted, status changed, and more |
+| `folder.*` | Folder created, updated, deleted                         |
+| `list.*`   | List created, updated, deleted                           |
 
 The trigger passes all events through. To react to a specific event type, add an **IF** or **Switch** node after the trigger and check the `{{ $json.event }}` value (for example `task.created`).
 
@@ -158,17 +165,18 @@ The trigger passes all events through. To react to a specific event type, add an
 
 Each trigger execution outputs an object with the following fields:
 
-| Field | Description |
-|---|---|
-| `event` | The event type string, for example `task.created` |
-| `timestamp` | ISO 8601 timestamp of when the event occurred |
-| `workspace` | The workspace where the event happened |
-| `user` | The Arca user who triggered the event |
-| `before` | The resource state before the change (null for create events) |
-| `after` | The resource state after the change (null for delete events) |
+| Field       | Description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| `event`     | The event type string, for example `task.created`             |
+| `timestamp` | ISO 8601 timestamp of when the event occurred                 |
+| `workspace` | The workspace where the event happened                        |
+| `user`      | The Arca user who triggered the event                         |
+| `before`    | The resource state before the change (null for create events) |
+| `after`     | The resource state after the change (null for delete events)  |
 
 <Tip>
-For more information about the event structure and available fields, see the [Webhooks seciton](/administration/webhooks).
+  For more information about the event structure and available fields, see the
+  [Webhooks seciton](/administration/webhooks).
 </Tip>
 
 ### Optional auth token
