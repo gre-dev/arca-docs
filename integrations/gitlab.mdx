@@ -17,22 +17,30 @@ The GitLab integration links a GitLab project to an Arca list so that issues and
 
 <Steps>
   <Step title="Open Integrations settings">
-    In Arca, click your workspace name in the top-left, then go to **Settings → Integrations**.
+    In Arca, click your workspace name in the top-left, then go to **Settings →
+    Integrations**.
   </Step>
   <Step title="Open the GitLab integration">
     Find the **GitLab** card and click it.
   </Step>
   <Step title="Authorize Arca">
-    Click **Connect GitLab**. You are redirected to GitLab where you authorize the Arca OAuth application. Review the requested permissions (`api` and `read_user`) and click **Authorize**.
+    Click **Connect GitLab**. You are redirected to GitLab where you authorize
+    the Arca OAuth application. Review the requested permissions (`api` and
+    `read_user`) and click **Authorize**.
   </Step>
   <Step title="Return to Arca">
-    After authorization, GitLab redirects you back to Arca. The connection is now active and the integration page shows a connected status with your GitLab username.
+    After authorization, GitLab redirects you back to Arca. The connection is
+    now active and the integration page shows a connected status with your
+    GitLab username.
   </Step>
   <Step title="Select a project and list">
-    In the integration settings, choose the **GitLab project** you want to link with the current Arca workspace and the **Arca list** where synced issues should land. These selections are required before any sync features work.
+    In the integration settings, choose the **GitLab project** you want to link
+    with the current Arca workspace and the **Arca list** where synced issues
+    should land. These selections are required before any sync features work.
   </Step>
   <Step title="Enable features and save">
-    Turn on [Issues sync](#issues-sync) and [Magic words](#magic-words) as needed, then click **Save Settings**.
+    Turn on [Issues sync](#issues-sync) and [Magic words](#magic-words) as
+    needed, then click **Save Settings**.
   </Step>
 </Steps>
 
@@ -55,6 +63,7 @@ In the integration settings, turn on **Sync GitLab issues** and select a **Sync 
     - Open GitLab issues are imported into the linked Arca list as tasks.
     - When a GitLab issue is **closed**, its linked Arca task status is automatically moved to the first `completed` status in your workspace.
     - Changes made to Arca tasks are not reflected back in GitLab.
+
   </Tab>
   <Tab title="Two-way">
     Everything the one-way mode does, plus:
@@ -64,6 +73,7 @@ In the integration settings, turn on **Sync GitLab issues** and select a **Sync 
     - **Description sync**: when a GitLab issue description is edited, the linked Arca task description is updated to match. When an Arca task description is edited, the linked GitLab issue description is updated to match.
 
     Two-way sync gives you a single source of truth across both platforms. GitLab issues and Arca tasks are kept in alignment automatically.
+
   </Tab>
 </Tabs>
 
@@ -78,26 +88,29 @@ An initial sync runs automatically (in the background, without blocking your wor
 During initial sync, Arca fetches all open issues from the GitLab project and creates tasks for any that are not already linked. If two-way mode is selected, Arca also exports all unlinked tasks from the configured list to GitLab.
 
 <Note>
-  Issues that already have a mapping in Arca are always skipped to prevent duplicates.
+  Issues that already have a mapping in Arca are always skipped to prevent
+  duplicates.
 </Note>
 
 ### What gets imported
 
 When a GitLab issue is imported, Arca creates a task with the following field mapping:
 
-| Arca task field | Value |
-|---|---|
-| Title | GitLab issue title |
-| Description | GitLab issue description (plain text and Markdown preserved) |
-| Status | First `pending` status in your workspace |
-| Priority | None |
-| Reporter | The workspace owner |
-| List | The configured Arca list |
+| Arca task field | Value                                                        |
+| --------------- | ------------------------------------------------------------ |
+| Title           | GitLab issue title                                           |
+| Description     | GitLab issue description (plain text and Markdown preserved) |
+| Status          | First `pending` status in your workspace                     |
+| Priority        | None                                                         |
+| Reporter        | The workspace owner                                          |
+| List            | The configured Arca list                                     |
 
 GitLab labels, assignees, and milestones are not imported into Arca fields at this time.
 
 <Note>
-  Arca does not modify or close issues on GitLab when you change a task's status in Arca. Changes flow from GitLab to Arca, not the other way around for status updates, except when two-way mode exports initial tasks.
+  Arca does not modify or close issues on GitLab when you change a task's status
+  in Arca. Changes flow from GitLab to Arca, not the other way around for status
+  updates, except when two-way mode exports initial tasks.
 </Note>
 
 ### When a GitLab issue is closed
@@ -123,7 +136,9 @@ In two-way mode, editing the description of a GitLab issue also updates the link
 In two-way mode, editing the description of a linked task in Arca pushes the updated content to the corresponding GitLab issue description. The description is converted from Arca's rich text format to Markdown before being sent to GitLab so that formatting (headings, lists, code blocks, task checklists, bold, italic, and links) is preserved correctly.
 
 <Note>
-  Description sync only works in **two-way** mode. In one-way (From GitLab) mode, descriptions flow from GitLab into Arca during import but subsequent edits on either side are not synced.
+  Description sync only works in **two-way** mode. In one-way (From GitLab)
+  mode, descriptions flow from GitLab into Arca during import but subsequent
+  edits on either side are not synced.
 </Note>
 
 ---
@@ -179,7 +194,8 @@ This does not change the task's status, priority, or any other field. It is inte
 <Info>
   Magic words work on any commit pushed to the linked project, regardless of the branch. Make sure your commit messages follow the `KEYWORD IDENTIFIER` pattern exactly.
 
-  Extra text before or after the pattern is allowed.
+Extra text before or after the pattern is allowed.
+
 </Info>
 
 ---
@@ -188,11 +204,11 @@ This does not change the task's status, priority, or any other field. It is inte
 
 Any workspace member can copy the suggested Git branch name for a task. Open a task and look for the **Copy GitLab branch name** option in the task context menu. The format is controlled by the **Branch naming style** setting in the integration configuration:
 
-| Style | Format | Example |
-|---|---|---|
+| Style                          | Format                              | Example                  |
+| ------------------------------ | ----------------------------------- | ------------------------ |
 | Title and identifier (default) | `{title-slug}-{workspace}-{number}` | `fix-login-bug-myapp-42` |
-| Identifier and title | `{workspace}-{number}-{title-slug}` | `myapp-42-fix-login-bug` |
-| Identifier only | `{workspace}-{number}` | `myapp-42` |
+| Identifier and title           | `{workspace}-{number}-{title-slug}` | `myapp-42-fix-login-bug` |
+| Identifier only                | `{workspace}-{number}`              | `myapp-42`               |
 
 The title is automatically slugified (lowercase; special characters replaced with `-`; limited to 60 characters). You can change the style at any time in the integration settings without affecting existing branches.
 
@@ -209,7 +225,9 @@ To remove the GitLab integration from your workspace:
 Disconnecting removes all configuration including the linked project, the target list, and all feature toggles. Existing Arca tasks that were imported from GitLab remain in your workspace; they are not deleted. The webhook registered on the GitLab project is automatically removed when you disconnect.
 
 <Warning>
-  Only Admins and Owners can disconnect the GitLab integration. Disconnecting affects the entire workspace and stops all sync and magic word processing immediately.
+  Only Admins and Owners can disconnect the GitLab integration. Disconnecting
+  affects the entire workspace and stops all sync and magic word processing
+  immediately.
 </Warning>
 
 ---
@@ -225,6 +243,7 @@ Disconnecting removes all configuration including the linked project, the target
     - Your GitLab account has at least Developer access to the selected project.
 
     If the configuration looks correct, try changing the target list to a different one and saving, then back to the original list and saving again to re-trigger the initial sync.
+
   </Accordion>
   <Accordion title="Magic words in commit messages are not updating tasks">
     Make sure:
@@ -235,11 +254,13 @@ Disconnecting removes all configuration including the linked project, the target
     - The repository being pushed to belongs to the GitLab project selected in the integration settings.
 
     Note: magic words are not retroactive. Only commits pushed after the feature is enabled are processed.
+
   </Accordion>
   <Accordion title="A task was already completed and magic words are not firing again">
     If the task was completed via a closing commit or by closing the linked GitLab issue, reopening the GitLab issue will automatically move the Arca task back to `pending`, which allows the next closing commit to fire correctly; no manual action needed.
 
     If the task was completed without a linked GitLab issue (for example by manual status change in Arca), reopen it by reopening the corresponding GitLab issue or by changing its status manually in Arca.
+
   </Accordion>
   <Accordion title="Two-way sync is on but my Arca tasks are not appearing as GitLab issues">
     The initial export runs in the background after you save the configuration. Wait a moment and then refresh GitLab. If issues still do not appear, confirm that your GitLab account has permission to create issues in the selected project (Developer role or higher).
