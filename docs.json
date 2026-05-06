@@ -105,6 +105,7 @@
             "pages": [
               "integrations/introduction",
               "integrations/github",
+              "integrations/gitlab",
               "integrations/google-calendar",
               "integrations/slack",
               "integrations/discord",
