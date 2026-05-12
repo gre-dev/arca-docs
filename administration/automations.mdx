@@ -39,6 +39,8 @@ Go to **Settings > Automations** to see all automations in your workspace. From 
 
 A trigger is the event that starts the automation.
 
+### Task triggers
+
 | Trigger | Description | Optional filters |
 |---|---|---|
 | **Task created** | Fires when a new task is created in the workspace | — |
@@ -49,6 +51,20 @@ A trigger is the event that starts the automation.
 | **Due date set** | Fires when a due date is added to a task | — |
 | **Moved to list** | Fires when a task is moved to a different list | Filter to a specific destination list |
 
+### GitHub triggers
+
+| Trigger | Description | Optional filters |
+|---|---|---|
+| **GitHub issue opened** | Fires when a new issue is opened in a connected GitHub repository | — |
+| **GitHub issue closed** | Fires when an issue is closed in a connected GitHub repository | — |
+
+### GitLab triggers
+
+| Trigger | Description | Optional filters |
+|---|---|---|
+| **GitLab issue opened** | Fires when a new issue is opened in a connected GitLab project | — |
+| **GitLab issue closed** | Fires when an issue is closed in a connected GitLab project | — |
+
 ## Conditions
 
 Conditions narrow down which tasks the automation applies to. You can add any combination of the following:
@@ -58,7 +74,9 @@ Conditions narrow down which tasks the automation applies to. You can add any co
 - **Assignee**: the task must be assigned to one of the selected members
 - **Priority**: the task must have the selected priority
 - **Status**: the task must have one of the selected statuses
+- **Status category**: the task's status must belong to one of the selected categories (_Pending_, _In Progress_, _Completed_, or _Cancelled_)
 - **Label**: the task must have one of the selected labels
+- **Custom field**: the task must match the selected custom field value
 
 <Note>
   Conditions use **AND between categories** and **OR within a category**:
@@ -73,6 +91,8 @@ Conditions narrow down which tasks the automation applies to. You can add any co
 
 Actions are the changes Arca makes to a task when the automation runs. You can add multiple actions to a single automation (subject to your plan's action limit).
 
+### Task actions
+
 | Action | Description |
 |---|---|
 | **Set status** | Changes the task's status to the selected value |
@@ -82,6 +102,30 @@ Actions are the changes Arca makes to a task when the automation runs. You can a
 | **Add label** | Adds the selected label to the task |
 | **Remove label** | Removes the selected label from the task |
 | **Move to list** | Moves the task to the selected list |
+
+### GitHub actions
+
+| Action | Description |
+|---|---|
+| **Post GitHub comment** | Posts a comment on the linked GitHub issue |
+| **Close GitHub issue** | Closes the linked GitHub issue |
+| **Reopen GitHub issue** | Reopens the linked GitHub issue |
+
+### GitLab actions
+
+| Action | Description |
+|---|---|
+| **Post GitLab comment** | Posts a comment on the linked GitLab issue |
+| **Close GitLab issue** | Closes the linked GitLab issue |
+| **Reopen GitLab issue** | Reopens the linked GitLab issue |
+
+### Notification actions
+
+| Action | Description |
+|---|---|
+| **Send Slack message** | Posts a message to a connected Slack channel |
+| **Send Discord message** | Posts a message to a connected Discord channel |
+| **Send Arca notification** | Sends an in-app Arca notification to the specified workspace member |
 
 ## Managing automations
 
