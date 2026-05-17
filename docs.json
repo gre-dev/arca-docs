@@ -72,6 +72,7 @@
             "group": "Administration",
             "pages": [
               "administration/workspaces",
+              "administration/arca-apps",
               "administration/labels",
               "administration/statuses",
               "administration/custom-fields",
@@ -90,6 +91,7 @@
             "group": "General features",
             "pages": [
               "general-features/search",
+              "general-features/mindmaps",
               "general-features/planned",
               "general-features/sidebar-customization",
               "general-features/keyboard-shortcuts",

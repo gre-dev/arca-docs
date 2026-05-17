@@ -1,0 +1,115 @@
+---
+title: "Mindmaps"
+description: "Build visual mind maps, flowcharts, and diagrams directly inside your workspace."
+icon: "sitemap"
+---
+
+Mindmaps is an optional workspace app that gives you a full visual canvas for building mind maps, flowcharts, and diagrams. You can add shapes, connect them with styled edges, upload images, annotate with sticky notes, and group areas with section containers. Every canvas auto-saves as you work.
+
+## Enable Mindmaps
+
+Mindmaps is not enabled by default. A workspace **Owner** or **Admin** must turn it on first.
+
+Go to **Settings > Arca Apps**, find the Mindmaps app, and click its toggle. Once enabled, a **Mindmaps** entry appears in the left sidebar for all workspace members.
+
+## Create a mindmap
+
+1. Click **Mindmaps** in the sidebar.
+2. Click **New Mindmap** in the top right corner.
+3. The editor opens immediately with a blank canvas and a single starter node.
+
+## The canvas
+
+The canvas is an infinite workspace. You can zoom in and out, pan by dragging, and rearrange nodes freely. Every change is saved automatically with a short debounce; a **Saved** indicator in the toolbar confirms the last save.
+
+### Tool modes
+
+Two tool modes are available in the bottom toolbar:
+
+- **Select** (cursor icon): click and drag to select nodes; drag a selection box to select multiple nodes at once.
+- **Hand** (hand icon): click and drag the canvas to pan without accidentally selecting nodes.
+
+Press **S** to switch to Select or **H** to switch to Hand from anywhere on the canvas.
+
+### Adding nodes
+
+The toolbar along the bottom of the canvas contains all the node types you can insert. Click any button or press its keyboard shortcut to add a node near the center of your current view. Nodes are placed automatically to avoid overlapping existing content.
+
+| Node type   | Shortcut | Description                                                |
+| ----------- | -------- | ---------------------------------------------------------- |
+| Rectangle   | R + R    | A standard rounded box; the default node type.             |
+| Circle      | R + C    | An elliptical node.                                        |
+| Triangle    | R + G    | A triangular node.                                         |
+| Diamond     | R + D    | A diamond or rhombus shape.                                |
+| Hexagon     | R + H    | A six-sided node.                                          |
+| Star        | R + S    | A five-pointed star.                                       |
+| Sticky note | N        | A freeform yellow note. Double-click to edit the text.     |
+| Text        | T        | A plain text label with no border or fill.                 |
+| Section     | S        | A large transparent container for grouping related nodes.  |
+| Image       | I        | Upload a JPEG, PNG, WebP, or GIF directly onto the canvas. |
+
+### Editing node labels
+
+Double-click any node to enter edit mode and type a new label. Press **Enter**, **Escape**, or click outside the node to confirm.
+
+### Deleting nodes and edges
+
+Select one or more nodes or edges and press **Delete** or **Backspace** to remove them.
+
+### Connecting nodes
+
+Hover over a node to reveal the gray connection handles on its edges. Drag from any handle to another node to create a connection. You can create a connection between any two nodes regardless of type.
+
+## Edge styles
+
+The top-left panel provides three options to control how connections are drawn:
+
+- **Smooth**: a smooth curve between the source and target handles.
+- **Curved**: a gentle arc with a single bend.
+- **Straight**: a direct line between handles.
+
+Switching the edge style updates all existing connections on the canvas immediately.
+
+### Floating edges
+
+Enable **Floating edges** in the toolbar to let connections attach to the nearest point on each node rather than to fixed handles. This is useful for complex diagrams where rigid handle positions get in the way.
+
+### Arrowheads
+
+Three arrowhead options are available:
+
+- **None**: plain line with no arrowhead.
+- **Open arrow**: an open arrowhead.
+- **Filled arrow**: a solid filled arrowhead.
+
+## Canvas controls
+
+The controls panel in the lower right corner of the canvas provides:
+
+- **Zoom in** and **Zoom out** buttons.
+- **Fit view**: zooms and pans to show all nodes at once, accounting for the toolbar at the bottom.
+
+## Alignment guides
+
+When you drag a node, alignment guide lines appear automatically when the node's edges or center align with another node on the canvas. This helps you keep layouts tidy without manual adjustment.
+
+## Undo and redo
+
+| Action | Shortcut                                      |
+| ------ | --------------------------------------------- |
+| Undo   | Cmd+Z / Ctrl+Z                                |
+| Redo   | Cmd+Y or Cmd+Shift+Z / Ctrl+Y or Ctrl+Shift+Z |
+
+Up to 50 undo steps are stored per session.
+
+## Canvas limit
+
+Each mindmap supports up to **500 nodes**. This limit is per canvas and prevents performance degradation on very large diagrams.
+
+## Rename a mindmap
+
+Click the title in the toolbar at the top of the editor to edit it inline. Press **Enter** or click outside the title to save. Press **Escape** to cancel.
+
+## Delete a mindmap
+
+From the Mindmaps list page, click the menu on a mindmap card and select **Delete**. You will be asked to confirm before the mindmap and all its nodes are permanently removed.
