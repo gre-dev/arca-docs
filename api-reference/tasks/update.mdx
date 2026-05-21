@@ -42,12 +42,12 @@ All fields are optional. Send only the fields you want to update.
   workspace.
 </ParamField>
 
-<ParamField body="due_date" type="string">
-  Due date in ISO 8601 UTC format (e.g., `"2026-03-30T17:00:00Z"`).
+<ParamField body="due_date" type="string | null">
+  Due date in ISO 8601 UTC format (e.g., `"2026-03-30T17:00:00Z"`). Pass `null` or an empty string to remove the due date.
 </ParamField>
 
-<ParamField body="start_date" type="string">
-  Start date in ISO 8601 UTC format.
+<ParamField body="start_date" type="string | null">
+  Start date in ISO 8601 UTC format. Pass `null` or an empty string to remove the start date.
 </ParamField>
 
 <ParamField body="assignee_ids" type="array">
