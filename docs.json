@@ -97,6 +97,23 @@
               "general-features/keyboard-shortcuts",
               "general-features/member-profiles"
             ]
+          },
+          {
+            "group": "Arca Apps",
+            "pages": [
+              "arca-apps/overview",
+              "arca-apps/custom-fields",
+              "arca-apps/automations",
+              "arca-apps/mindmaps",
+              "arca-apps/documents",
+              "arca-apps/task-templates",
+              "arca-apps/ai-writing-assistant",
+              "arca-apps/copy-task-as-prompt",
+              "arca-apps/task-reminders",
+              "arca-apps/comment-reactions",
+              "arca-apps/whos-online",
+              "arca-apps/giphy"
+            ]
           }
         ]
       },
