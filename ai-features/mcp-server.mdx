@@ -136,6 +136,67 @@ Claude Desktop has native MCP support. To connect it to Arca:
   </Step>
 </Steps>
 
+### Builder.io Fusion
+
+[Builder.io Fusion](https://builder.io/fusion) spawns local MCP servers as child processes by reading an `mcp.json` file from your project root.
+
+<Steps>
+  <Step title="Generate an API key">
+    Follow the [Get your API key](#get-your-api-key) steps above to create a
+    key in Arca Settings → API Keys.
+  </Step>
+
+  <Step title="Create mcp.json in your project root">
+    Add the following file to the root of your repository:
+
+    ```json
+    {
+      "mcpServers": {
+        "arca": {
+          "type": "stdio",
+          "command": "npx",
+          "args": ["-y", "arca-mcp@latest"],
+          "env": {
+            "ARCA_API_KEY": "arca_your_api_key_here"
+          }
+        }
+      }
+    }
+    ```
+
+    Replace `arca_your_api_key_here` with your actual API key.
+
+  </Step>
+
+  <Step title="Open your project in Fusion">
+    Fusion detects `mcp.json` automatically when a project session starts.
+    Tools are registered as `mcp__arca__tool_name` and used by the AI agent
+    when relevant.
+  </Step>
+</Steps>
+
+<Warning>
+  Do not commit `mcp.json` with your real API key to version control. Add it to
+  `.gitignore`, or use the `envFile` field to load the key from a local
+  `.env` file instead:
+
+```json
+{
+  "mcpServers": {
+    "arca": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "arca-mcp@latest"],
+      "envFile": ".env"
+    }
+  }
+}
+```
+
+Then add `ARCA_API_KEY=arca_your_api_key_here` to your `.env` file.
+
+</Warning>
+
 ### Other MCP-compatible clients
 
 Any tool that supports the Model Context Protocol can connect to the Arca MCP server. The general pattern is:
