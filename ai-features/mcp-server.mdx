@@ -38,6 +38,12 @@ npx arca-mcp
   and runs the latest version.
 </Note>
 
+Or, you can use the HTTP server version if your AI assistant requires a URL endpoint:
+
+```
+https://mcp.getarca.app/mcp
+```
+
 ---
 
 ## Get your API key
@@ -87,22 +93,38 @@ Claude Desktop has native MCP support. To connect it to Arca:
   
   <Step title="Add the Arca MCP server">
     Add the following configuration to the `mcpServers` section:
-    
-    ```json
-    {
-      "mcpServers": {
-        "arca": {
-          "command": "npx",
-          "args": ["-y", "arca-mcp"],
-          "env": {
-            "ARCA_API_KEY": "arca_your_api_key_here"
+
+    <CodeGroup>
+      ```json Stdio
+      {
+        "mcpServers": {
+          "arca": {
+            "command": "npx",
+            "args": ["-y", "arca-mcp"],
+            "env": {
+              "ARCA_API_KEY": "arca_your_api_key_here"
+            }
           }
         }
       }
-    }
-    ```
-    
+      ```
+
+      ```json HTTP
+      {
+        "mcpServers": {
+          "arca": {
+            "url": "https://mcp.getarca.app/mcp",
+            "headers": {
+              "X-Arca-Api-Key": "arca_your_api_key_here"
+            }
+          }
+        }
+      }
+      ```
+    </CodeGroup>
+
     Replace `arca_your_api_key_here` with your actual API key from the previous step.
+
   </Step>
   
   <Step title="Restart Claude Desktop">
@@ -149,20 +171,36 @@ Claude Desktop has native MCP support. To connect it to Arca:
   <Step title="Create mcp.json in your project root">
     Add the following file to the root of your repository:
 
-    ```json
-    {
-      "mcpServers": {
-        "arca": {
-          "type": "stdio",
-          "command": "npx",
-          "args": ["-y", "arca-mcp@latest"],
-          "env": {
-            "ARCA_API_KEY": "arca_your_api_key_here"
+    <CodeGroup>
+      ```json Stdio
+      {
+        "mcpServers": {
+          "arca": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["-y", "arca-mcp@latest"],
+            "env": {
+              "ARCA_API_KEY": "arca_your_api_key_here"
+            }
           }
         }
       }
-    }
-    ```
+      ```
+
+      ```json HTTP
+      {
+        "mcpServers": {
+          "arca": {
+            "type": "http",
+            "url": "https://mcp.getarca.app/mcp",
+            "headers": {
+              "X-Arca-Api-Key": "arca_your_api_key_here"
+            }
+          }
+        }
+      }
+      ```
+    </CodeGroup>
 
     Replace `arca_your_api_key_here` with your actual API key.
 
@@ -172,38 +210,62 @@ Claude Desktop has native MCP support. To connect it to Arca:
     Fusion detects `mcp.json` automatically when a project session starts.
     Tools are registered as `mcp__arca__tool_name` and used by the AI agent
     when relevant.
+
+    <Warning>
+
+Do not commit `mcp.json` with your real API key to version control. Add it to
+`.gitignore`, or use the approach below to keep the key out of the file:
+
+  <CodeGroup>
+    ```json Stdio
+    {
+      "mcpServers": {
+        "arca": {
+          "type": "stdio",
+          "command": "npx",
+          "args": ["-y", "arca-mcp@latest"],
+          "envFile": ".env"
+        }
+      }
+    }
+    ```
+
+    ```json HTTP
+    {
+      "mcpServers": {
+        "arca": {
+          "type": "http",
+          "url": "https://mcp.getarca.app/mcp",
+          "headers": {
+            "X-Arca-Api-Key": "arca_your_api_key_here"
+          }
+        }
+      }
+    }
+    ```
+
+  </CodeGroup>
+
+For **Stdio**, add `ARCA_API_KEY=arca_your_api_key_here` to your `.env` file and add `.env` to `.gitignore`. For **HTTP**, add `mcp.json` to `.gitignore` to keep the key out of version control.
+
+</Warning>
   </Step>
 </Steps>
 
-<Warning>
-  Do not commit `mcp.json` with your real API key to version control. Add it to
-  `.gitignore`, or use the `envFile` field to load the key from a local
-  `.env` file instead:
-
-```json
-{
-  "mcpServers": {
-    "arca": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "arca-mcp@latest"],
-      "envFile": ".env"
-    }
-  }
-}
-```
-
-Then add `ARCA_API_KEY=arca_your_api_key_here` to your `.env` file.
-
-</Warning>
-
 ### Other MCP-compatible clients
 
-Any tool that supports the Model Context Protocol can connect to the Arca MCP server. The general pattern is:
+Any tool that supports the Model Context Protocol can connect to Arca. Use whichever transport your client supports:
+
+**1. Stdio:** spawn a local process:
 
 1. **Command**: `npx`
 2. **Arguments**: `["-y", "arca-mcp"]`
 3. **Environment variable**: `ARCA_API_KEY` with your API key
+
+**2. HTTP:** point directly to the hosted endpoint:
+
+1. **URL**: `https://mcp.getarca.app/mcp`
+2. **Header**: `X-Arca-Api-Key: arca_your_api_key_here`
 
 Refer to your AI assistant's documentation for specific MCP configuration instructions.
 
