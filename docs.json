@@ -124,6 +124,7 @@
             "group": "Integrations",
             "pages": [
               "integrations/introduction",
+              "integrations/email",
               "integrations/github",
               "integrations/gitlab",
               "integrations/google-calendar",

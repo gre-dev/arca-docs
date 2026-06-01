@@ -1,0 +1,126 @@
+---
+title: "Email"
+description: "Create tasks by forwarding emails to your workspace's unique email address."
+icon: "envelope"
+---
+
+The Email integration gives your workspace a unique inbound email address. Forward any email to that address and Arca automatically creates a task from it. The subject becomes the title, the body becomes the description, and attachments are added to the task.
+
+## Requirements
+
+You must be an **Admin** or **Owner** of the Arca workspace to enable and configure the Email integration.
+
+---
+
+## Enable the integration
+
+<Steps>
+  <Step title="Open Integrations settings">
+    In Arca, click your workspace name in the top-left, then go to **Settings →
+    Integrations**.
+  </Step>
+  <Step title="Open the Email integration">
+    Find the **Email** card and click it.
+  </Step>
+  <Step title="Select a default list">
+    Use the **Default list** dropdown to choose the list where email-created
+    tasks will be placed. A list is required before the integration can be
+    enabled.
+  </Step>
+  <Step title="Set a default priority (optional)">
+    Use the **Default priority** dropdown to assign a priority to every task
+    created via email. If you leave this blank, tasks are created with no
+    priority.
+  </Step>
+  <Step title="Enable">
+    Click **Enable Email Integration**. Arca generates a unique email address
+    for your workspace and displays it on the settings page.
+  </Step>
+</Steps>
+
+---
+
+## Your workspace email address
+
+After enabling the integration, a unique address in the format `arca+<token>@intake.getarca.app` is shown on the settings page. Copy it with the copy button next to the field.
+
+Any email sent to this address creates a task in the configured list:
+
+| Email field               | Mapped to                                      |
+| ------------------------- | ---------------------------------------------- |
+| Subject                   | Task title                                     |
+| Body (plain text or HTML) | Task description                               |
+| Attachments               | Task attachments (up to 25 MB total per email) |
+
+<Note>
+  The email address is unique to your workspace and secret, anyone who has it
+  can create tasks. Keep it private or reset it if it is ever shared
+  accidentally.
+</Note>
+
+---
+
+## Update settings
+
+You can change the default list and default priority at any time without resetting your email address:
+
+1. Go to **Settings → Integrations → Email**.
+2. Update the **Default list** or **Default priority** fields.
+3. Click **Save Settings**.
+
+---
+
+## Reset the email address
+
+Resetting generates a new email address and immediately invalidates the old one. Any forwarding rules or contacts using the old address will stop working.
+
+1. Go to **Settings → Integrations → Email**.
+2. Scroll to the **Reset Email Address** section and click **Reset**.
+3. Confirm the action.
+
+Arca generates a new address and displays it on the settings page.
+
+<Warning>
+  The old address stops working immediately after a reset. Update any email
+  clients or forwarding rules that use the previous address.
+</Warning>
+
+---
+
+## Disconnect the integration
+
+Disconnecting removes the email address permanently. Any emails sent to the old address will no longer create tasks.
+
+1. Go to **Settings → Integrations → Email**.
+2. Click **Disconnect** in the actions bar.
+3. Confirm the action.
+
+You can re-enable the integration at any time to get a new address, but the previous address cannot be restored.
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I forwarded an email but no task was created">
+    Check that the integration is still enabled by going to **Settings →
+    Integrations → Email**. If it shows as connected, verify that you forwarded
+    the email to the exact address shown on the settings page, including the
+    `arca+` prefix. Addresses are case-insensitive; extra spaces or characters
+    in the address will cause delivery to fail.
+  </Accordion>
+  <Accordion title="Attachments are missing from the task">
+    The Email integration supports attachments up to 25 MB total per email. If
+    the combined size of all attachments exceeds this limit, attachments may be
+    skipped. Try resending with smaller or fewer files.
+  </Accordion>
+  <Accordion title="I want to send emails from a different email address">
+    The integration accepts email from any sender, there is no allowlist. As
+    long as the email is delivered to the correct workspace address, a task will
+    be created regardless of who sent it.
+  </Accordion>
+  <Accordion title="My email address was shared accidentally">
+    Reset the email address immediately from **Settings → Integrations → Email →
+    Reset**. The old address becomes invalid at once and a new one is generated.
+  </Accordion>
+</AccordionGroup>
