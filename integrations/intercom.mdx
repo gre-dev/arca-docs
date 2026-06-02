@@ -1,0 +1,141 @@
+---
+title: "Intercom"
+description: "Link Intercom conversations to Arca tasks, send internal notes from Arca, and automate conversation reopening based on task activity."
+icon: "intercom"
+---
+
+The Intercom integration connects your Arca workspace to your Intercom account so your support and product teams can work from a shared context. You can link any Intercom conversation to an Arca task, view conversation details without leaving Arca, send internal notes to Intercom from a task, and automatically reopen conversations when task activity demands a follow-up.
+
+## Requirements
+
+- You must be an **Admin** or **Owner** of the Arca workspace to connect and configure the integration.
+- You must have access to the target Intercom workspace and the ability to authorize third-party apps in it.
+
+---
+
+## Connect Intercom
+
+<Steps>
+  <Step title="Open Integrations settings">
+    In Arca, click your workspace name in the top-left, then go to **Settings →
+    Integrations**.
+  </Step>
+  <Step title="Open the Intercom integration">
+    Find the **Intercom** card and click it.
+  </Step>
+  <Step title="Choose a default list">
+    Before connecting, select the **default list** where tasks created from
+    Intercom conversations will be added. This is required to proceed.
+  </Step>
+  <Step title="Authorize the app">
+    Click **Connect Intercom**. You are redirected to Intercom to authorize the
+    connection. Grant the requested permissions and confirm.
+  </Step>
+  <Step title="Return to Arca">
+    After authorization, Intercom redirects you back to Arca. The integration
+    page shows a connected badge with the name of the linked Intercom workspace.
+  </Step>
+</Steps>
+
+---
+
+## Link conversations to tasks
+
+Once connected, any workspace member can link one or more Intercom conversations to an Arca task.
+
+1. Open a task in Arca.
+2. In the task detail panel, find the **Intercom** section.
+3. Search for a conversation by its ID or by subject text.
+4. Select the conversation to link it.
+
+The linked conversation appears as a card in the task, under the task attachments section. Click the card to view conversation details in a side drawer without leaving Arca.
+
+You can link multiple conversations to the same task and unlink them at any time.
+
+<Note>
+  Numeric searches match by exact conversation ID. Text searches match against
+  the conversation subject. Messenger and chat conversations that have no
+  subject are matched by checking their message body (the first message of the
+  conversation).
+</Note>
+
+---
+
+## Send internal notes from Arca
+
+From a linked conversation card inside any task, any workspace member can post an internal note directly to the Intercom conversation without opening Intercom.
+
+Internal notes are visible only to agents in Intercom and are not shown to customers.
+
+---
+
+## Create tasks from Intercom conversations
+
+You can create a new Arca task from an Intercom conversation. The task is placed in the default list you configured during setup. After creation the conversation is automatically linked to the new task.
+
+---
+
+## Automate conversation reopening
+
+Arca can automatically reopen linked Intercom conversations when specific task events occur. When a conversation is reopened, Arca also posts an internal note explaining the reason so your agents have context.
+
+You configure this behavior per workspace in **Settings → Integrations → Intercom → Automate conversation reopening**.
+
+| Trigger                     | Default |
+| --------------------------- | ------- |
+| A task is completed         | On      |
+| A task is canceled          | Off     |
+| A comment is made in a task | Off     |
+
+Each toggle is independent. You can turn them on or off in any combination. Changes take effect immediately after you save.
+
+<Note>
+  Only conversations that are directly linked to the task at the time of the
+  event are affected. Conversations linked after the event are not retroactively
+  reopened.
+</Note>
+
+---
+
+## Disconnect Intercom
+
+To remove the Intercom integration from your workspace:
+
+1. Go to **Settings → Integrations → Intercom**.
+2. Click **Disconnect Intercom**.
+3. Confirm the action.
+
+Disconnecting removes the stored access token and stops all automatic conversation reopening. Existing conversation links stored on tasks are also removed and cannot be recovered. You can reconnect at any time, but all previous links will need to be re-created.
+
+<Warning>
+  Only Admins and Owners can disconnect the Intercom integration. Disconnecting
+  affects the entire workspace for all members.
+</Warning>
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="I clicked Connect but nothing happened or the page showed an error">
+    Make sure you selected a default list before clicking Connect. If the OAuth
+    page showed a denial message, you may have clicked Cancel on the Intercom
+    authorization screen. Try again and confirm the permissions.
+  </Accordion>
+  <Accordion title="A linked conversation is not being reopened automatically">
+    Check that the relevant toggle in **Automate conversation reopening** is
+    turned on and that you clicked **Save** after enabling it. Also confirm that
+    the conversation was linked to the task before the triggering event
+    occurred.
+  </Accordion>
+  <Accordion title="I cannot find a conversation in the search">
+    Conversations with an email subject are searchable by subject text.
+    Messenger and chat conversations that have no subject can be found by
+    searching for their numeric conversation ID (visible in the Intercom
+    conversation URL) or by typing part of the message body text.
+  </Accordion>
+  <Accordion title="The connected Intercom workspace name is wrong after reconnecting">
+    The workspace name shown in Arca is fetched during the OAuth flow and
+    cached. Disconnect the integration and reconnect to refresh it.
+  </Accordion>
+</AccordionGroup>
