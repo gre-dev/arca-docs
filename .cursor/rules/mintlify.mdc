@@ -1,0 +1,18 @@
+---
+description: "Mintlify MDX and docs.json conventions"
+globs: **/*.mdx, docs.json
+alwaysApply: false
+---
+
+# Mintlify Conventions
+
+- Pages are MDX files with YAML frontmatter
+- Configuration and navigation live in `docs.json`
+- Run `mint dev` to preview; `mint broken-links` to validate links
+- Use sentence case for headings
+- Bold for UI elements: Click **Settings**
+- Code formatting for file names, commands, paths, and code references
+
+Topic folders: `getting-started/`, `api-reference/`, `integrations/`, `ai-features/`, etc.
+
+For Mintlify component knowledge, use the Mintlify skill: `npx skills add https://mintlify.com/docs`

@@ -1,0 +1,13 @@
+---
+description: "Documentation writing style"
+globs: **/*.mdx
+alwaysApply: false
+---
+
+# Writing Style
+
+- Use active voice and second person ("you")
+- Keep sentences concise — one idea per sentence
+- Use sentence case for headings
+- Do NOT use hyphens in paragraphs (use commas instead)
+- Use semicolons for list items in prose

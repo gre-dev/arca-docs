@@ -1,0 +1,15 @@
+---
+description: "Keep API reference in sync with arca-server v1 API"
+globs: api-reference/**
+alwaysApply: false
+---
+
+# API Docs Sync
+
+ALWAYS update `arca-docs/` when making any change to the v1 API:
+
+- New endpoints
+- Modified responses
+- New or removed fields
+
+The docs must reflect the current API state. Cross-reference `arca-server/src/routes/v1.ts` and related route files.

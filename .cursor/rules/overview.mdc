@@ -1,0 +1,14 @@
+---
+description: "Arca documentation site — Mintlify"
+alwaysApply: true
+---
+
+# Arca Docs
+
+Mintlify documentation site. Pages are MDX with YAML frontmatter; navigation in `docs.json`.
+
+- Run `mint dev` to preview locally
+- Run `mint broken-links` to check links
+- Update docs whenever the v1 API changes (new endpoints, modified responses, fields)
+
+Use "workspace" not "project"; use active voice and second person.
