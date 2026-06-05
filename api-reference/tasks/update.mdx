@@ -58,8 +58,7 @@ All fields are optional. Send only the fields you want to update.
 </ParamField>
 
 <ParamField body="custom_fields" type="array">
-  Optional array of custom field values to update. Each entry must contain a numeric `id` and a string `value` (or `null` to clear that field's value). Omitting this field entirely leaves all custom field values
-  unchanged. Only custom fields visible to the API key user are processed; inaccessible fields are silently ignored.
+  Optional array of custom field values to update. Each entry must contain a numeric `id` and a string `value` (or `null` to clear that field's value). Omitting this field entirely leaves all custom field values unchanged. Only fields that apply to the task's list and are visible to the API key user are processed; other fields are silently ignored.
 
   ```json
   "custom_fields": [
@@ -130,7 +129,7 @@ Returns the full updated task including its current assignees.
 </ResponseField>
 
 <ResponseField name="custom_fields" type="array" required>
-  All custom fields visible to the API key user, each with its current value after the update.
+  Custom fields that apply to the task's list, each with its current value after the update.
   Fields the user does not have access to are not returned.
 
   <Expandable title="Custom field entry">

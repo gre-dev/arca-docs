@@ -131,8 +131,7 @@ description: "Returns a single task with full details including its status, assi
 </ResponseField>
 
 <ResponseField name="custom_fields" type="array" required>
-  All custom fields visible to the API key user in this workspace, each with its current value for this task.
-  Fields the user does not have access to are not returned.
+  Custom fields that apply to this task's list, each with its current value. Fields restricted to other lists or folders are not returned. Fields the user does not have access to are also omitted.
 
   <Expandable title="Custom field entry">
     <ResponseField name="id" type="number" required>Custom field identifier.</ResponseField>

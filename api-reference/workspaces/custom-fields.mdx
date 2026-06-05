@@ -50,6 +50,28 @@ Returns an array of custom field objects ordered by `position` ascending.
   Sort position within the workspace (ascending).
 </ResponseField>
 
+<ResponseField name="is_scope_restricted" type="boolean" required>
+  When `false`, the field is available on all lists in the workspace. When `true`, the field is only available on lists covered by `granted_folder_ids` and `list_overrides`.
+</ResponseField>
+
+<ResponseField name="granted_folder_ids" type="number[]" required>
+  Folder IDs where this field applies when `is_scope_restricted` is `true`. All lists inside a granted folder inherit the field unless overridden.
+</ResponseField>
+
+<ResponseField name="list_overrides" type="array" required>
+  Explicit list-level overrides when `is_scope_restricted` is `true`. Each entry has `list_id` (number) and `access` (`granted` or `denied`). A `denied` entry hides the field on that list even if its folder is granted.
+
+  <Expandable title="Override object">
+    **`list_id`** — numeric list ID
+
+    **`access`** — `granted` makes the field available on that list; `denied` hides it
+  </Expandable>
+</ResponseField>
+
+<Note>
+  Task responses (`GET /tasks/:id`, list tasks, etc.) only include custom fields that apply to the task's list. Values for inapplicable fields are not returned, and writes to those fields are ignored.
+</Note>
+
 <ResponseExample>
 ```json 200
 [
@@ -58,21 +80,30 @@ Returns an array of custom field objects ordered by `position` ascending.
     "name": "Customer Tier",
     "type": "dropdown",
     "config": { "options": ["Free", "Starter", "Pro"] },
-    "position": 1
+    "position": 1,
+    "is_scope_restricted": false,
+    "granted_folder_ids": [],
+    "list_overrides": []
   },
   {
     "id": 2,
     "name": "Story Points",
     "type": "number",
     "config": null,
-    "position": 2
+    "position": 2,
+    "is_scope_restricted": true,
+    "granted_folder_ids": [4],
+    "list_overrides": []
   },
   {
     "id": 3,
     "name": "Satisfaction",
     "type": "rating",
     "config": { "iconName": "star-filled", "color": "yellow" },
-    "position": 3
+    "position": 3,
+    "is_scope_restricted": true,
+    "granted_folder_ids": [],
+    "list_overrides": [{ "list_id": 12, "access": "granted" }]
   }
 ]
 ```
