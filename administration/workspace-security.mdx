@@ -1,0 +1,85 @@
+---
+title: "Workspace security"
+description: "Control invite links, authentication, file uploads, and AI access for your workspace."
+icon: "shield"
+---
+
+Workspace security settings let the workspace **owner** control how people join, authenticate, upload files, and use AI. Open **Settings > Workspace security** in the sidebar to manage these options.
+
+<Note>
+  Only the workspace owner can view or change workspace security settings.
+</Note>
+
+## Invite links
+
+Share a workspace invite link so people can join after signing in, without sending individual email invitations.
+
+<Steps>
+  <Step title="Enable invite links">
+    Turn on **Enable invite links** on the Workspace security page. Arca
+    generates a unique link for your workspace.
+  </Step>
+  <Step title="Copy and share the link">
+    Copy the link and share it with teammates. Invite links point to the Arca
+    web app (`web.getarca.app`).
+  </Step>
+  <Step title="Reset if needed">
+    Use the reset button next to the link if it was shared too broadly. The old
+    link stops working immediately.
+  </Step>
+</Steps>
+
+### Allowed email domains
+
+When someone opens your invite link, Arca checks their signed-in email domain:
+
+- **Whitelisted domain:** they join the workspace immediately as a member.
+- **Other domains:** they submit a join request. Workspace owners and admins approve or decline requests from **Settings > Members**. The requester receives an email when their request is reviewed.
+
+Add domains (for example `yourcompany.com`) under **Allowed email domains**. Leave the list empty to require approval for everyone who uses the link.
+
+<Tip>
+  Email invitations from **Settings > Members** work independently of invite links. See [Invite members](/administration/invite-members) for that flow.
+</Tip>
+
+## Enforce 2FA
+
+Require every member (except the owner) to enable two-factor authentication before using the workspace.
+
+When **Enforce 2FA for all members** is on, members without 2FA see a prompt to set it up the next time they open the workspace. They cannot dismiss the prompt until 2FA is enabled.
+
+## Restrict file uploads
+
+Limit which members can upload files in task descriptions, attachments, and comments.
+
+1. Under **Restrict file uploads**, add members who are allowed to upload.
+2. Leave the list empty to allow all members.
+
+This applies to file attachments, inline images in the task editor, and comment attachments.
+
+## Restrict file extensions
+
+Allow only specific file types for task uploads (for example `pdf`, `png`, `docx`).
+
+1. Under **Restrict file extensions**, add the extensions you want to allow.
+2. Leave the list empty to allow all file types.
+
+Members who try to upload a blocked type see an error message.
+
+## Restrict AI usage
+
+Control which members can use AI writing actions in task, document, and project editors.
+
+1. Under **Restrict AI usage**, add members who may use AI.
+2. Leave the list empty to allow all members (except viewers, who cannot use editors).
+
+Restricted members do not see the AI sparkles button in the editor toolbar. See [AI editor actions](/ai-features/editor-actions) for what AI features do when enabled.
+
+## Join requests
+
+When invite-link join requests are pending, owners and admins see them at the top of the member list on **Settings > Members**. Each request shows the requester's name, email, and avatar.
+
+- **Approve:** adds the person as a workspace member and sends a confirmation email.
+- **Decline:** rejects the request and notifies the requester by email.
+
+Owners and admins also receive an email when someone submits a new join request.

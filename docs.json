@@ -82,6 +82,7 @@
               "administration/billing",
               "administration/members-and-roles",
               "administration/invite-members",
+              "administration/workspace-security",
               "administration/import",
               "administration/export",
               "administration/webhooks"
