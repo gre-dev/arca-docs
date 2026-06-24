@@ -6,8 +6,8 @@ description: "Returns all custom fields in a workspace that are visible to the A
 
 <Info>
   Requires the `tasks:read` scope. You must be a member of the workspace.
-  Fields with restricted access are automatically filtered; owners and admins
-  always receive all fields.
+  Fields with a restricted **allowed users** list are filtered to the API key
+  user only when their user ID is included in that list.
 </Info>
 
 ## Path parameters
